@@ -1,4 +1,5 @@
 import 'tailwindcss/tailwind.css'
+import 'antd/dist/antd.css'
 /* This example requires Tailwind CSS v2.0+ */
 import { useState } from 'react'
 import Image from 'next/image'
@@ -15,11 +16,11 @@ export default function Navigasi() {
     const [navbar, setNavbar] = useState(false);
     return (
         <div>
-            <nav className="w-full bg-[#C78342] shadow" style={{ position: "fixed", zIndex: "1" }}>
+            <nav className="w-full bg-[#C78342] shadow fixed-top" >
                 <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
                     <div>
                         <div className="flex items-center justify-between md:block">
-                            <Link href="/">
+                            <Link href="/dashboard/">
                                 <a>
                                     <Image src={logo} width={110} height={55} />
                                 </a>
@@ -27,13 +28,13 @@ export default function Navigasi() {
 
                             <div className="sm:hidden">
                                 <button
-                                    className="p-2 text-[#C78342]-500 rounded-md outline-none focus:border-[#C78342]-500 focus:border"
+                                    className="p-2 text-white rounded-md outline-none focus:border-[#C78342]-500 focus:border"
                                     onClick={() => setNavbar(!navbar)}
                                 >
                                     {navbar ? (
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
-                                            className="w-6 h-6 text-[#C78342]-500"
+                                            className="w-6 h-6 text-white"
                                             viewBox="0 0 20 20"
                                             fill="currentColor"
                                         >
@@ -46,7 +47,7 @@ export default function Navigasi() {
                                     ) : (
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
-                                            className="w-6 h-6 text-[#C78342]-500"
+                                            className="w-6 h-6 text-white"
                                             fill="none"
                                             viewBox="0 0 24 24"
                                             stroke="currentColor"
@@ -76,7 +77,7 @@ export default function Navigasi() {
                                 <Link href="javascript:void(0)"><a className='text-black hover:text-white hover:bg-[#805336] pt-5 pb-5 px-5'>Promo</a></Link>
                             </li>
                             <li className="text-[#C78342] ">
-                                <Link href="javascript:void(0)"><a className='text-black hover:text-white hover:bg-[#805336] pt-5 pb-5 px-5'>About</a></Link>
+                                <Link href="/about/"><a className='text-black hover:text-white hover:bg-[#805336] pt-5 pb-5 px-5'>About</a></Link>
                             </li>
                             <li>
                                 <ShoppingCartOutlined href="javascript:void(0)"

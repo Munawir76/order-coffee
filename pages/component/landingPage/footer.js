@@ -1,9 +1,9 @@
-
+import 'antd/dist/antd.css'
+import 'tailwindcss/tailwind.css'
 function Footer() {
-
     return (
-        <>
-            <footer className="text-center lg:text-left bg-[#805336] text-white mt-10">
+        <div>
+            <footer className="text-start lg:text-left bg-[#805336] text-white">
                 <div className="flex justify-center items-center lg:justify-between p-6 border-b border-[#805336]-300">
                     <div className="flex justify-center pl-20">
                     </div>
@@ -153,7 +153,7 @@ function Footer() {
 
                 </div>
             </footer>
-        </>
+        </div>
     )
 }
 

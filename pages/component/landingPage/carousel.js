@@ -2,7 +2,9 @@ import React from 'react'
 import "antd/dist/antd.css";
 import { Carousel } from 'antd';
 import Image from 'next/image';
-import Bg1 from '../images/slideshow1.jpg'
+import SlideSatu from '../images/slideshow1.jpg'
+import SlideDua from '../images/slide1.jpg'
+import SlideTiga from '../images/slide2.jpg'
 import LoginLd from './loginLandingPage'
 
 export default function Slide() {
@@ -16,13 +18,13 @@ export default function Slide() {
         <div>
             <Carousel autoplay>
                 <div style={styleCarousel}>
-                    <Image src={Bg1} />
+                    <Image src={SlideSatu} />
                 </div>
                 <div style={styleCarousel}>
-                    <Image src={Bg1} />
+                    <Image src={SlideDua} />
                 </div>
                 <div style={styleCarousel}>
-                    <Image src={Bg1} />
+                    <Image src={SlideTiga} />
                 </div>
             </Carousel>
             <LoginLd />

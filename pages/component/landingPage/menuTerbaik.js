@@ -2,7 +2,12 @@ import { Card, Col, Row, Carousel } from 'antd';
 import React from 'react';
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image'
-import MenuSatu from "../images/v60.jpg"
+import MenuSatu from "../images/latteart.jpg"
+import MenuDua from '../images/kopisusu.jpg'
+import MenuTiga from '../images/machiatto.jpg'
+import MenuEmpat from '../images/v60.jpg'
+import MenuLima from '../images/taro.jpg'
+import MenuEnam from '../images/redvalvet.jpg'
 
 const styleCarousel = {
     height: '500px',
@@ -35,10 +40,10 @@ export default function MenuList() {
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    V60
+                                                    Coffee Latte
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 50,000,000
+                                                        Rp. 20.000
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -66,15 +71,15 @@ export default function MenuList() {
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuSatu} alt="" />
+                                            <Image className="rounded-t-lg" src={MenuDua} alt="" />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    V60
+                                                    Kopi Susu
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 50,000,000
+                                                        Rp. 30.000
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -102,15 +107,15 @@ export default function MenuList() {
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuSatu} alt="" />
+                                            <Image className="rounded-t-lg" src={MenuTiga} alt="" />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    V60
+                                                    Machiatto
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 50,000,000
+                                                        Rp. 27.000
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -144,7 +149,7 @@ export default function MenuList() {
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuSatu} alt="" />
+                                            <Image className="rounded-t-lg" src={MenuEmpat} alt="" />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
@@ -152,7 +157,7 @@ export default function MenuList() {
                                                     V60
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 50,000,000
+                                                        Rp. 20.000
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -180,15 +185,15 @@ export default function MenuList() {
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuSatu} alt="" />
+                                            <Image className="rounded-t-lg" src={MenuLima} alt="" />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    V60
+                                                    Taro Iced
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 50,000,000
+                                                        Rp. 20.000
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -216,15 +221,15 @@ export default function MenuList() {
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuSatu} alt="" />
+                                            <Image className="rounded-t-lg" src={MenuEnam} alt="" />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    V60
+                                                    Redvalvet Iced
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 50,000,000
+                                                        Rp. 20.000
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
