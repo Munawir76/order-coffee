@@ -8,7 +8,6 @@ import Promo3 from '../images/promo3.jpg'
 
 export default function Promo() {
     const styleCarousel = {
-        height: '500px',
         color: '#fff',
         lineHeight: '30px',
         textAlign: 'start',
@@ -20,26 +19,26 @@ export default function Promo() {
                 <Carousel autoplaySpeed={0}>
                     <div>
                         <div style={styleCarousel}>
-                            <Row justify="center space-x-8" className="bg-[#fff]">
+                            <Row justify="center space-x-8" className="bg-[#fff] mb-10">
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
-                                    className="pt-5">
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
+                                    className=" rounded-lg shadow-lg">
                                     <Image src={Promo1} />
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
-                                    className="pt-5">
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
+                                    className=" rounded-lg shadow-lg">
                                     <Image src={Promo2} />
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
-                                    className="pt-5">
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
+                                    className=" rounded-lg shadow-lg">
                                     <Image src={Promo3} />
                                 </Col>
                             </Row>
@@ -47,26 +46,26 @@ export default function Promo() {
                     </div>
                     <div>
                         <div style={styleCarousel}>
-                            <Row justify="center space-x-8" className="bg-[#fff]">
+                            <Row justify="center space-x-8" className="bg-[#fff] mb-10">
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
-                                    className="pt-5">
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
+                                    className="rounded-lg shadow-lg">
                                     <Image src={Promo1} />
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
-                                    className="pt-5">
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
+                                    className="rounded-lg shadow-lg">
                                     <Image src={Promo2} />
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
-                                    className="pt-5">
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
+                                    className="rounded-lg shadow-lg">
                                     <Image src={Promo3} />
                                 </Col>
                             </Row>

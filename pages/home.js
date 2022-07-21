@@ -4,7 +4,7 @@ import Navigasi from './component/landingPage/navigasi'
 import Slide from './component/landingPage/carousel'
 import Footer from './component/landingPage/footer'
 
-export default function Dashboard() {
+export default function Beranda() {
     return (
         <div>
             <Head>

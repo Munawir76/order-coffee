@@ -9,7 +9,7 @@ import LoginLd from './loginLandingPage'
 
 export default function Slide() {
     const styleCarousel = {
-        height: '160px',
+
         color: '#fff',
         lineHeight: '160px',
         textAlign: 'center',

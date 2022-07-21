@@ -22,11 +22,7 @@ export default function FormLogin() {
                                 <div className="block p-6 rounded-lg bg-white max-w-sm">
                                     <form>
                                         <div className="form-group mb-2">
-                                            {/* <Row justify='center'>
-                                                <Col span={7}>
-                                                    <Image src={Logo} layout="responsive" />
-                                                </Col>
-                                            </Row> */}
+
                                             <div className="">
                                                 <h2 className='text-start text-lg font-bold mb-5'
                                                 >Register</h2>
@@ -106,7 +102,7 @@ export default function FormLogin() {
                                                     text-base
                                                     font-normal
                                                     text-gray-700
-                                                    bg-white bg-clip-padding
+                                                    bg-white bg-clip-paddings
                                                     border border-solid border-[#C78342]
                                                     rounded
                                                     transition

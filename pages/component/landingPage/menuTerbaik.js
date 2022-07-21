@@ -10,7 +10,7 @@ import MenuLima from '../images/taro.jpg'
 import MenuEnam from '../images/redvalvet.jpg'
 
 const styleCarousel = {
-    height: '500px',
+
     color: '#fff',
     lineHeight: '30px',
     textAlign: 'start',
@@ -23,11 +23,11 @@ export default function MenuList() {
                 <Carousel autoplaySpeed={0}>
                     <div>
                         <div style={styleCarousel}>
-                            <Row justify="center space-x-5" className="bg-[#fff]">
+                            <Row justify="center space-x-5" className="bg-[#fff] mb-10">
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a
@@ -62,8 +62,8 @@ export default function MenuList() {
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a
@@ -98,8 +98,8 @@ export default function MenuList() {
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a
@@ -137,11 +137,11 @@ export default function MenuList() {
                     </div>
                     <div>
                         <div style={styleCarousel}>
-                            <Row justify="center space-x-5" className="bg-[#fff]">
+                            <Row justify="center space-x-5" className="bg-[#fff] mb-10">
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a
@@ -176,8 +176,8 @@ export default function MenuList() {
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a
@@ -212,8 +212,8 @@ export default function MenuList() {
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
-                                    sm={{ span: 10 }}
-                                    xs={{ span: 10 }}
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a

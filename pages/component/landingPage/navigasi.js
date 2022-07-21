@@ -5,6 +5,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import logo from "../images/logo.png"
 import Link from 'next/link'
+import { useRouter } from "next/router";
 import '@ant-design/icons'
 import { UserOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 
@@ -14,13 +15,14 @@ import { UserOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 
 export default function Navigasi() {
     const [navbar, setNavbar] = useState(false);
+    const router = useRouter();
     return (
         <div>
             <nav className="w-full bg-[#C78342] shadow fixed-top" >
                 <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
                     <div>
                         <div className="flex items-center justify-between md:block">
-                            <Link href="/dashboard/">
+                            <Link href="/home/">
                                 <a>
                                     <Image src={logo} width={110} height={55} />
                                 </a>
@@ -71,13 +73,16 @@ export default function Navigasi() {
 
                         <ul className="items-center justify-end space-y-4 md:flex md:space-x-0 md:space-y-0">
                             <li className="text-[#C78342] ">
-                                <Link href="javascript:void(0)"><a className='text-black hover:text-white hover:bg-[#805336] pt-5 pb-5 px-5'>Menu</a></Link>
+                                <Link href="/home/"><a className='text-black hover:text-white hover:bg-[#805336] active:bg-[#805336] pt-5 pb-5 px-5'>Home</a></Link>
                             </li>
                             <li className="text-[#C78342] ">
-                                <Link href="javascript:void(0)"><a className='text-black hover:text-white hover:bg-[#805336] pt-5 pb-5 px-5'>Promo</a></Link>
+                                <Link href="/menu/"><a className='text-black hover:text-white hover:bg-[#805336] active:bg-[#805336] pt-5 pb-5 px-5'>Menu</a></Link>
                             </li>
                             <li className="text-[#C78342] ">
-                                <Link href="/about/"><a className='text-black hover:text-white hover:bg-[#805336] pt-5 pb-5 px-5'>About</a></Link>
+                                <Link href="/promo/"><a className='text-black hover:text-white hover:bg-[#805336] pt-5 pb-5 px-5'>Promo</a></Link>
+                            </li>
+                            <li className="text-[#C78342] ">
+                                <Link href="/about/"><a className='text-black hover:text-white hover:bg-[#805336] active:bg-[#805336] pt-5 pb-5 px-5'>About</a></Link>
                             </li>
                             <li>
                                 <ShoppingCartOutlined href="javascript:void(0)"
