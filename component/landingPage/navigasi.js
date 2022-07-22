@@ -3,7 +3,7 @@ import 'antd/dist/antd.css'
 /* This example requires Tailwind CSS v2.0+ */
 import { useState } from 'react'
 import Image from 'next/image'
-import logo from "../images/logo.png"
+import logo from "../../public/images/logo.png"
 import Link from 'next/link'
 import { useRouter } from "next/router";
 import '@ant-design/icons'

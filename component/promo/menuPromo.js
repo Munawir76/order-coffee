@@ -1,11 +1,11 @@
 import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
-import backgroundimg from '../images/background.jpg'
-import promo1 from '../images/promo1.jpg'
-import promo2 from '../images/promo2.jpg'
-import promo3 from '../images/promo3.jpg'
-import promo4 from '../images/promo4.jpg'
+import backgroundimg from '../../public/images/background.jpg'
+import promo1 from '../../public/images/promo1.jpg'
+import promo2 from '../../public/images/promo2.jpg'
+import promo3 from '../../public/images/promo3.jpg'
+import promo4 from '../../public/images/promo4.jpg'
 import { Col, Card, Row } from 'antd';
 
 

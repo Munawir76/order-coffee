@@ -2,9 +2,9 @@ import React from 'react'
 import "antd/dist/antd.css";
 import { Carousel, Row, Col } from 'antd';
 import Image from 'next/image';
-import Promo1 from '../images/promo1.jpg'
-import Promo2 from '../images/promo2.jpg'
-import Promo3 from '../images/promo3.jpg'
+import Promo1 from '../../public/images/promo1.jpg'
+import Promo2 from '../../public/images/promo2.jpg'
+import Promo3 from '../../public/images/promo3.jpg'
 
 export default function Promo() {
     const styleCarousel = {
@@ -24,21 +24,21 @@ export default function Promo() {
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className=" rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg">
                                     <Image src={Promo1} />
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className=" rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg">
                                     <Image src={Promo2} />
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className=" rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg">
                                     <Image src={Promo3} />
                                 </Col>
                             </Row>
@@ -46,26 +46,26 @@ export default function Promo() {
                     </div>
                     <div>
                         <div style={styleCarousel}>
-                            <Row justify="center space-x-8" className="bg-[#fff] mb-10">
+                            <Row justify="center space-x-5" className="bg-[#fff] mb-10">
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className="rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg">
                                     <Image src={Promo1} />
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className="rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg">
                                     <Image src={Promo2} />
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className="rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg">
                                     <Image src={Promo3} />
                                 </Col>
                             </Row>

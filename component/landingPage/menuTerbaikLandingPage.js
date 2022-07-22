@@ -2,23 +2,22 @@ import { Card, Col, Row, Carousel } from 'antd';
 import React from 'react';
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image'
-import MenuSatu from "../images/redvalvet.jpg"
-import MenuDua from '../images/v60.jpg'
-import MenuTiga from '../images/taro.jpg'
-import MenuEmpat from '../images/vietnamdrip.jpg'
-import MenuLima from '../images/machiatto.jpg'
-import MenuEnam from '../images/tubruk.jpg'
+import MenuSatu from "../../public/images/latteart.jpg"
+import MenuDua from '../../public/images/kopisusu.jpg'
+import MenuTiga from '../../public/images/machiatto.jpg'
+import MenuEmpat from '../../public/images/v60.jpg'
+import MenuLima from '../../public/images/taro.jpg'
+import MenuEnam from '../../public/images/redvalvet.jpg'
 
 const styleCarousel = {
-
     color: '#fff',
     lineHeight: '30px',
     textAlign: 'start',
 }
-export default function MenuFavorit() {
+export default function MenuList() {
     return (
         <div>
-            <h3 className="text-center font-medium text-black text-xl">Paling Banyak Dicari</h3>
+            <h3 className="text-center font-medium text-black text-xl">Menu Terbaik Kami</h3>
             <div>
                 <Carousel autoplaySpeed={0}>
                     <div>
@@ -40,7 +39,7 @@ export default function MenuFavorit() {
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Redvalvet Iced
+                                                    Coffee Latte
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 20.000
@@ -76,10 +75,10 @@ export default function MenuFavorit() {
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Single Origin
+                                                    Kopi Susu
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 20.000
+                                                        Rp. 30.000
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -112,10 +111,10 @@ export default function MenuFavorit() {
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Taro Iced
+                                                    Machiatto
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 20.000
+                                                        Rp. 27.000
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -154,7 +153,7 @@ export default function MenuFavorit() {
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Vietnam Drip
+                                                    V60
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 20.000
@@ -190,10 +189,10 @@ export default function MenuFavorit() {
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Machiatto
+                                                    Taro Iced
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 27.000
+                                                        Rp. 20.000
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -226,10 +225,10 @@ export default function MenuFavorit() {
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Tubruk
+                                                    Redvalvet Iced
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 18.000
+                                                        Rp. 20.000
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>

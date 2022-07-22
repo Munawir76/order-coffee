@@ -2,9 +2,9 @@ import React from 'react'
 import "antd/dist/antd.css";
 import { Carousel } from 'antd';
 import Image from 'next/image';
-import SlideSatu from '../images/slideshow1.jpg'
-import SlideDua from '../images/slide1.jpg'
-import SlideTiga from '../images/slide2.jpg'
+import SlideSatu from "../../public/images/slideshow1.jpg"
+import SlideDua from '../../public/images/slide1.jpg'
+import SlideTiga from '../../public/images/slide2.jpg'
 import LoginLd from './loginLandingPage'
 
 export default function Slide() {

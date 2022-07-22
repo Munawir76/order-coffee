@@ -1,4 +1,4 @@
-import FormRegist from './component/login/formRegist'
+import FormRegist from '../component/login/formRegist'
 
 export default function Login() {
     return (

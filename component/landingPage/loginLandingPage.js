@@ -1,9 +1,9 @@
 import React from "react";
 import 'tailwindcss/tailwind.css'
 import { Row, Col } from 'antd'
-import MenuList from './menuTerbaik'
-import MenuFavorit from "./menuFavorit";
-import Promo from "./promo";
+import MenuList from './menuTerbaikLandingPage'
+import MenuFavorit from "./menuFavoritLandingPage";
+import Promo from "./promoLandingPage";
 import Link from "next/link";
 
 

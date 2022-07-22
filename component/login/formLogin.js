@@ -1,8 +1,8 @@
 import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
 import React from 'react';
 import Image from 'next/image'
-import Back from '../images/foster1.jpg'
-import Logo from '../images/logo.png'
+import Back from '../../public/images/foster1.jpg'
+import Logo from '../../public/images/logo.png'
 import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import '@ant-design/icons'
