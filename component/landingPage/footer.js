@@ -25,8 +25,10 @@ function Footer() {
                                 <p className="ml-2">Order Coffee</p>
                             </h6>
                             <p>
-                                Here you can use rows and columns to organize your footer content.
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                <h3 className="text-white">Order Coffe berdiri sejak Tahun 2022.</h3>
+                                Bermula dari kegemaran kami menikmati kopi.
+                                Namun seiring berjalannya waktu kami tidak hanya sebatas menikmatinya.
+                                Tapi kami mencoba membuat dan menyampaikan rasa yang Kami nikmati pada pelanggan.
                             </p>
                         </div>
                         <div className="mx-auto">
