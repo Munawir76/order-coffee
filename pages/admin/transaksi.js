@@ -1,14 +1,14 @@
-import KontenUsers from "../../component/admin/konten/kontenUser"
+import KontenTransaksi from "../../component/admin/konten/kontenTransaksi";
 import MainLayout from "../../component/admin/layout/mainLayout";
 
 
 
-export default function DasboardUsers() {
+export default function DasboardTransaksi() {
 
     return (
         <div>
             <MainLayout>
-                <KontenUsers />
+                <KontenTransaksi />
             </MainLayout>
         </div>
     )

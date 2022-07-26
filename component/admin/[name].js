@@ -30,8 +30,8 @@ export default function DetailUser() {
     const dataSelected = data.find((data) => data.name == name);
 
     return (
-        <>
+        <div>
             <p>Nama : {dataSelected?.name}</p>
-        </>
+        </div>
     )
 }

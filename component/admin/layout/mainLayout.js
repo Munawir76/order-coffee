@@ -4,7 +4,7 @@ import NavbarAdmin from "./layoutHeader";
 import Sidebar from "./layoutSider";
 import 'antd/dist/antd.variable.css'
 import 'tailwindcss/tailwind.css'
-import Link from "next/link";
+
 const { Footer } = Layout
 ConfigProvider.config({
     theme: {

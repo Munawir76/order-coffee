@@ -1,14 +1,14 @@
-import KontenUsers from "../../component/admin/konten/kontenUser"
+import KontenPromo from "../../component/admin/konten/kontenPromo"
 import MainLayout from "../../component/admin/layout/mainLayout";
 
 
 
-export default function DasboardUsers() {
+export default function DasboardPromo() {
 
     return (
         <div>
             <MainLayout>
-                <KontenUsers />
+                <KontenPromo />
             </MainLayout>
         </div>
     )

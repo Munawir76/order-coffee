@@ -1,15 +1,10 @@
-import { Breadcrumb, Layout, Col, Row, Card } from "antd";
+import { Layout, Col, Row, Card } from "antd";
 import {
-    CreditCardOutlined,
+    SwapOutlined,
     UserOutlined,
-    VideoCameraOutlined,
-    DesktopOutlined,
-    FileOutlined,
-    TeamOutlined,
-    StockOutlined,
-    SwapOutlined
+    ShoppingOutlined
 } from '@ant-design/icons';
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 
 
 export default function ContentDashBoard() {
@@ -21,8 +16,7 @@ export default function ContentDashBoard() {
             NomorPemesanan: 19072022,
             tanggalBeli: "09-07-2022",
             jumlah: 120000,
-            alamat:
-                "jln. mars kelurahan merkurius kecamatan uranus kota neptunus provinsi jupiter",
+
         },
         {
             key: 1,
@@ -30,8 +24,7 @@ export default function ContentDashBoard() {
             NomorPemesanan: 11072022,
             tanggalBeli: "11-07-2022",
             jumlah: 180000,
-            alamat:
-                "jln. mars kelurahan merkurius kecamatan uranus kota neptunus provinsi jupiter",
+
         },
         {
             key: 3,
@@ -39,8 +32,7 @@ export default function ContentDashBoard() {
             NomorPemesanan: 15072022,
             tanggalBeli: "15-07-2022",
             jumlah: 200000,
-            alamat:
-                "jln. mars kelurahan merkurius kecamatan uranus kota neptunus provinsi jupiter",
+
         },
         {
             key: 4,
@@ -48,8 +40,7 @@ export default function ContentDashBoard() {
             email: "budi_wicaksono@gaguna.com",
             jumlah: 0,
             status: ["Non-Aktif"],
-            alamat:
-                "jln. mars kelurahan merkurius kecamatan uranus kota neptunus provinsi jupiter",
+
         },
         {
             key: 5,
@@ -57,42 +48,24 @@ export default function ContentDashBoard() {
             email: "Munawir@hot.com",
             jumlah: 0,
             status: ["Aktif"],
-            alamat:
-                "jln. mars kelurahan merkurius kecamatan uranus kota neptunus provinsi jupiter",
+
         }
     ];
-    const totalTransaksi = data.length - 2;
+    const totalProduct = 2;
     const totalPendapatan = data.reduce((i, obj) => {
         return i + obj.jumlah;
     }, 0);
-    const totalCustomer = data.length;
+    const totalUser = data.length;
 
-    const cardStyle = {
-        width: 300,
-        textAlign: "center",
 
-    }
-    const cardHead = {
-        color: "white", textAlign: "center",
-        backgroundColor: "#1FC8B9",
-
-    }
-    const cardHead2 = {
-        color: "white",
-        backgroundColor: "#517BEA",
-    }
-    const cardHead3 = {
-        color: "white", textAlign: "center",
-        backgroundColor: "#FDD74F",
-    }
     return (
-        <>
+        <div>
             <Content
                 className="bg-white"
                 style={{
                     padding: 24,
                     margin: 0,
-                    minHeight: 280,
+                    minHeight: 300,
 
                 }}
             >
@@ -101,12 +74,11 @@ export default function ContentDashBoard() {
                         className="shadow-lg  hover:translate-x-2 hover: transition-all delay-300 duration-300 ease-in-out hover:scale-110">
                         <Card
                             title="Total Product"
-                            headStyle={cardHead2}
                             bordered={false}
                         >
-                            <Row justify="space-evenly" align="middle" style={{ fontSize: '32pt' }} className="text-slate-500">
-                                <Col >{totalTransaksi}</Col>
-                                <Col ><FileOutlined /></Col>
+                            <Row justify="space-evenly" align="middle" style={{ fontSize: '25pt' }} className="text-slate-500">
+                                <Col >{totalProduct}</Col>
+                                <Col ><ShoppingOutlined /></Col>
                             </Row>
                         </Card>
                     </Col>
@@ -115,30 +87,28 @@ export default function ContentDashBoard() {
                         <Card
                             title="Total User"
                             bordered={false}
-                            headStyle={cardHead}
 
                         >
-                            <Row justify="space-evenly" align="middle" style={{ fontSize: '32pt' }} className="text-slate-500">
-                                <Col >{totalPendapatan}</Col>
-                                <Col ><CreditCardOutlined /></Col>
+                            <Row justify="space-evenly" align="middle" style={{ fontSize: '25pt' }} className="text-slate-500">
+                                <Col >{totalUser}</Col>
+                                <Col ><UserOutlined /></Col>
                             </Row>
                         </Card>
                     </Col>
                     <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 20 }}
                         className="shadow-lg  hover:translate-x-2 hover: transition-all delay-300 duration-300 ease-in-out hover:scale-110">
                         <Card
-                            title="Total Transaksi"
-                            headStyle={cardHead3}
+                            title="Total Pendapatan"
                             bordered={false}
                         >
-                            <Row justify="space-evenly" align="middle" style={{ fontSize: '32pt' }} className="text-slate-500">
-                                <Col >{totalCustomer}</Col>
-                                <Col ><UserOutlined /></Col>
+                            <Row justify="space-evenly" align="middle" style={{ fontSize: '25pt' }} className="text-slate-500">
+                                <Col >{totalPendapatan}</Col>
+                                <Col ><SwapOutlined /></Col>
                             </Row>
                         </Card>
                     </Col>
                 </Row>
             </Content >
-        </>
+        </div>
     )
 }

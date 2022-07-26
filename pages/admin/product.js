@@ -1,14 +1,14 @@
-import KontenUsers from "../../component/admin/konten/kontenUser"
+import KontenProduct from "../../component/admin/konten/kontenProduct";
 import MainLayout from "../../component/admin/layout/mainLayout";
 
 
 
-export default function DasboardUsers() {
+export default function DasboardProduct() {
 
     return (
         <div>
             <MainLayout>
-                <KontenUsers />
+                <KontenProduct />
             </MainLayout>
         </div>
     )

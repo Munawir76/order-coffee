@@ -1,7 +1,6 @@
 import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
-import { useRouter } from 'next/router'
-import { Button, Layout, Menu, Divider } from 'antd';
+import { Layout, Menu } from 'antd';
 import { useState } from 'react';
 import {
     ShoppingOutlined,
@@ -9,20 +8,21 @@ import {
     CopyOutlined,
     DesktopOutlined,
     TeamOutlined,
+    ImportOutlined,
     SwapOutlined
 } from '@ant-design/icons';
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from "../../../public/images/logo.png"
 
-const { Header, Sider, Content } = Layout;
+const { Sider } = Layout;
 
 
 export default function Sidebar() {
     const [collapsed, setCollapsed] = useState(false);
     const items = [
         {
-            label: <Link href="/admin/dashboard" ><a className='w-full text-lg text-blue-500' > Dashboard</a></Link>, key: "dashboard", icon: <DesktopOutlined />,
+            label: <Link href="/admin/dashboard" ><a className='w-full text-lg' > Dashboard</a></Link>, key: "dashboard", icon: <DesktopOutlined />,
             get: function getItem(label, key, icon, children) {
                 return {
                     key,
@@ -55,7 +55,7 @@ export default function Sidebar() {
             }
         },
         {
-            label: <Link href="/admin/transaksi"><a className='w-full text-lg '>Promo</a></Link>, key: "promo", icon: <NotificationOutlined />,
+            label: <Link href="/admin/promo"><a className='w-full text-lg '>Promo</a></Link>, key: "promo", icon: <NotificationOutlined />,
             get: function getItem(label, key, icon, children) {
                 return {
                     key,
@@ -77,7 +77,18 @@ export default function Sidebar() {
             }
         },
         {
-            label: <Link href="/admin/transaksi"><a className='w-full text-lg '>Laporan</a></Link>, key: "laporan", icon: <CopyOutlined />,
+            label: <Link href="/admin/laporan"><a className='w-full text-lg '>Laporan</a></Link>, key: "laporan", icon: <CopyOutlined />,
+            get: function getItem(label, key, icon, children) {
+                return {
+                    key,
+                    icon,
+                    children,
+                    label,
+                };
+            }
+        },
+        {
+            label: <Link href=""><a className='w-full text-lg '>Logout</a></Link>, key: "logout", icon: <ImportOutlined />,
             get: function getItem(label, key, icon, children) {
                 return {
                     key,
@@ -104,7 +115,6 @@ export default function Sidebar() {
                     mode="inline"
                     defaultSelectedKeys={['1']}
                     items={items}
-
                 />
             </Sider>
 
