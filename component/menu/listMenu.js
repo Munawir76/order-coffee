@@ -1,6 +1,7 @@
 import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
+import Link from 'next/link';
 import MenuSatu from "../../public/images/redvalvet.jpg"
 import MenuDua from '../../public/images/v60.jpg'
 import MenuTiga from '../../public/images/taro.jpg'
@@ -26,7 +27,7 @@ export default function MenuPromo() {
                     className="pt-5">
                     <div className="rounded-lg shadow-lg bg-white ">
                         <a
-                            href="#!"
+                            href=""
                             data-mdb-ripple="true"
                             data-mdb-ripple-color="light"
                         >
@@ -42,12 +43,14 @@ export default function MenuPromo() {
                                     </p>
                                 </Col>
                                 <Col span={10} offset={1}>
-                                    <button
-                                        type="button"
-                                        className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg focus:outline-none focus:ring-0  active:shadow-lg transition duration-150 ease-in-out"
-                                    >
-                                        Detail
-                                    </button>
+                                    <Link href='/detailMenu/'>
+                                        <button
+                                            type="button"
+                                            className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                                        >
+                                            Detail
+                                        </button>
+                                    </Link>
                                 </Col>
                             </Row>
                             <div>

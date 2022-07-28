@@ -3,7 +3,7 @@ import 'antd/dist/antd.css'
 /* This example requires Tailwind CSS v2.0+ */
 import { useState } from 'react'
 import Image from 'next/image'
-import logo from "../../public/images/logo.png"
+import logo from "../public/images/logo.png"
 import Link from 'next/link'
 import { useRouter } from "next/router";
 import '@ant-design/icons'
@@ -30,7 +30,7 @@ export default function Navigasi() {
 
                             <div className="sm:hidden">
                                 <button
-                                    className="p-2 text-white rounded-md outline-none focus:border-[#C78342]-500 focus:border"
+                                    className="p-2 text-white rounded-md outline-none focus:border-[#C78342] focus:border"
                                     onClick={() => setNavbar(!navbar)}
                                 >
                                     {navbar ? (

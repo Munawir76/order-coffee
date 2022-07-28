@@ -1,7 +1,7 @@
 import 'antd/dist/antd.css'
-import Navigasi from '../component/landingPage/navigasi'
+import Navigasi from '../component/navigasi'
 import MenuPromo from '../component/promo/menuPromo'
-import Footer from '../component/landingPage/footer'
+import Footer from '../component/footer'
 
 export default function Promo() {
     return (

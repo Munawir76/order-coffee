@@ -2,8 +2,8 @@ import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
 import { Col, Card, Row } from 'antd';
-import Navigasi from "../component/landingPage/navigasi"
-import Footer from '../component/landingPage/footer'
+import Navigasi from "../component/navigasi"
+import Footer from '../component/footer'
 import FosterSatu from '../public/images/pouring.jpg'
 import FosterDua from '../public/images/pouring2.jpg'
 import backgroundimg from "../public/images/background.jpg"

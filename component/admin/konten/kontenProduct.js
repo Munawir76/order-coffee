@@ -3,6 +3,7 @@ import { EyeOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import Link from "next/link";
 import React, { useRef, useState } from 'react';
 import Image from 'next/image'
+import ModalAdd from "./addProduct"
 import Foto1 from "../../../public/images/redvalvet.jpg"
 import Foto2 from "../../../public/images/vietnamdrip.jpg"
 import Foto3 from "../../../public/images/taro.jpg"
@@ -125,7 +126,7 @@ export default function KontenProduct() {
             tags: ['Tersedia'],
         },
     ];
-
+    const [isVisibleModalAdd, setIsVisibleModalAdd] = useState(false)
     const onSearch = (value) => console.log(value);
     return (
         <div>
@@ -141,7 +142,7 @@ export default function KontenProduct() {
                         />
                     </Col>
                     <Col>
-
+                        <ModalAdd isModalVisible={isVisibleModalAdd} handleCancel={() => setIsVisibleModalAdd(false)} />
                     </Col>
                 </Row>
                 <Row justify="center" align="middle" className='h-96 mt-6'>

@@ -1,7 +1,7 @@
 import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image'
-import Logo1 from '../../public/images/logo1.png'
+import Logo1 from '../public/images/logo1.png'
 
 function Footer() {
     return (

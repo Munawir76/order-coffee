@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import 'antd/dist/antd.css'
-import Navigasi from '../component/landingPage/navigasi'
+import Navigasi from '../component/navigasi'
 import Slide from '../component/landingPage/carousel'
-import Footer from '../component/landingPage/footer'
+import Footer from '../component/footer'
 
 export default function Beranda() {
     return (

@@ -1,5 +1,5 @@
 import { Card, Col, Row, Carousel } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image'
 import MenuSatu from "../../public/images/redvalvet.jpg"
@@ -8,6 +8,7 @@ import MenuTiga from '../../public/images/taro.jpg'
 import MenuEmpat from '../../public/images/vietnamdrip.jpg'
 import MenuLima from '../../public/images/machiatto.jpg'
 import MenuEnam from '../../public/images/tubruk.jpg'
+import axios from 'axios';
 
 const styleCarousel = {
 
@@ -15,7 +16,9 @@ const styleCarousel = {
     lineHeight: '30px',
     textAlign: 'start',
 }
+
 export default function MenuFavorit() {
+
     return (
         <div>
             <h3 className="text-center font-medium text-black text-xl">Paling Banyak Dicari</h3>
@@ -35,12 +38,12 @@ export default function MenuFavorit() {
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuSatu} alt="" />
+                                            <Image className="rounded-t-lg" src={MenuSatu} layout="responsive" />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Redvalvet Iced
+                                                    Red Valvet
                                                 </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 20.000
@@ -255,3 +258,30 @@ export default function MenuFavorit() {
     )
 }
 
+
+
+// const [product, setProduct] = useState([])
+
+// async function getData() {
+
+//     try {
+//         await axios.get('https://dummyjson.com/products').then((response) => {
+
+//             const apiData = response.data
+//             setProduct(apiData)
+//         })
+
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
+
+// useEffect(() => {
+//     getData()
+// }, [])
+
+// console.log(product);
+
+// {product.products.map((ele) => (
+// ))
+// }

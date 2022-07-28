@@ -9,11 +9,10 @@ import {
     DesktopOutlined,
     TeamOutlined,
     ImportOutlined,
-    SwapOutlined
+    SwapOutlined,
+    BgColorsOutlined
 } from '@ant-design/icons';
 import Link from 'next/link';
-import Image from 'next/image';
-import logo from "../../../public/images/logo.png"
 
 const { Sider } = Layout;
 
@@ -22,7 +21,7 @@ export default function Sidebar() {
     const [collapsed, setCollapsed] = useState(false);
     const items = [
         {
-            label: <Link href="/admin/dashboard" ><a className='w-full text-lg' > Dashboard</a></Link>, key: "dashboard", icon: <DesktopOutlined />,
+            label: <Link href="/admin/dashboard" ><a className='w-full text-lg ' > Dashboard</a></Link>, key: "dashboard", icon: <DesktopOutlined />,
             get: function getItem(label, key, icon, children) {
                 return {
                     key,
@@ -104,12 +103,13 @@ export default function Sidebar() {
         <div>
             <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
                 style={{
-                    overflow: 'auto',
+                    overflow: "auto",
 
                 }}
+
                 theme="light"
-                className='drop-shadow-md h-screen'>
-                <Image src={logo} layout="responsive" className="logo" priority={true} />
+                className='drop-shadow-md h-full'>
+
                 <Menu
                     theme="light"
                     mode="inline"
@@ -117,7 +117,6 @@ export default function Sidebar() {
                     items={items}
                 />
             </Sider>
-
         </div>
     )
 }

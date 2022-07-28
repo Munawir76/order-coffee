@@ -1,14 +1,10 @@
 import { Layout, Col, Row, Card } from "antd";
-import {
-    SwapOutlined,
-    UserOutlined,
-    ShoppingOutlined
-} from '@ant-design/icons';
+import { SwapOutlined, UserOutlined, ShoppingOutlined } from '@ant-design/icons';
 const { Content } = Layout;
 
 
 export default function ContentDashBoard() {
-    // data bohongan
+
     const data = [
         {
             key: 2,
@@ -65,48 +61,48 @@ export default function ContentDashBoard() {
                 style={{
                     padding: 24,
                     margin: 0,
-                    minHeight: 300,
+                    minHeight: 500,
 
                 }}
             >
-                <Row justify="space-evenly" align="center">
-                    <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 20 }}
-                        className="shadow-lg  hover:translate-x-2 hover: transition-all delay-300 duration-300 ease-in-out hover:scale-110">
-                        <Card
-                            title="Total Product"
-                            bordered={false}
-                        >
-                            <Row justify="space-evenly" align="middle" style={{ fontSize: '25pt' }} className="text-slate-500">
-                                <Col >{totalProduct}</Col>
-                                <Col ><ShoppingOutlined /></Col>
+                <Row justify="center">
+                    <div className="flex justify-between space-x-7">
+                        <div className="block p-2 rounded-lg shadow-lg bg-[#1FC8B9] w-72 h-24">
+                            <Row className="justify-between m-3">
+                                <Col style={{ fontSize: '15pt' }}>
+                                    <h5 className="text-gray-900 text-base leading-tight font-semibold ">
+                                        Total Product
+                                    </h5>
+                                    <Col >{totalProduct}</Col>
+                                </Col>
+                                <Col style={{ fontSize: '25pt' }} className="text-white"><SwapOutlined /></Col>
                             </Row>
-                        </Card>
-                    </Col>
-                    <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 20 }}
-                        className="shadow-lg  hover:translate-x-2 hover: transition-all delay-300 duration-300 ease-in-out hover:scale-110">
-                        <Card
-                            title="Total User"
-                            bordered={false}
+                        </div>
+                        <div className="block p-2 rounded-lg shadow-lg bg-[#4C6FFF] w-72 h-24">
+                            <Row className="justify-between m-3">
+                                <Col style={{ fontSize: '15pt' }}>
+                                    <h5 className="text-gray-900 text-base leading-tight font-semibold ">
+                                        Total User
+                                    </h5>
+                                    <Col >{totalUser}</Col>
 
-                        >
-                            <Row justify="space-evenly" align="middle" style={{ fontSize: '25pt' }} className="text-slate-500">
-                                <Col >{totalUser}</Col>
-                                <Col ><UserOutlined /></Col>
+                                </Col>
+                                <Col style={{ fontSize: '25pt' }} className="text-white"><UserOutlined /></Col>
                             </Row>
-                        </Card>
-                    </Col>
-                    <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 20 }}
-                        className="shadow-lg  hover:translate-x-2 hover: transition-all delay-300 duration-300 ease-in-out hover:scale-110">
-                        <Card
-                            title="Total Pendapatan"
-                            bordered={false}
-                        >
-                            <Row justify="space-evenly" align="middle" style={{ fontSize: '25pt' }} className="text-slate-500">
-                                <Col >{totalPendapatan}</Col>
-                                <Col ><SwapOutlined /></Col>
+                        </div>
+                        <div className="block p-2 rounded-lg shadow-lg bg-[#FDD74F] w-72 h-24">
+                            <Row className="justify-between m-3">
+                                <Col style={{ fontSize: '15pt' }}>
+                                    <h5 className="text-gray-900 text-base leading-tight font-semibold ">
+                                        Total Transaksi
+                                    </h5>
+                                    <Col >{totalPendapatan}</Col>
+
+                                </Col>
+                                <Col style={{ fontSize: '25pt' }} className="text-white"><ShoppingOutlined /></Col>
                             </Row>
-                        </Card>
-                    </Col>
+                        </div>
+                    </div>
                 </Row>
             </Content >
         </div>

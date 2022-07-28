@@ -6,30 +6,23 @@ import 'antd/dist/antd.variable.css'
 import 'tailwindcss/tailwind.css'
 
 const { Footer } = Layout
-ConfigProvider.config({
-    theme: {
-        primaryColor: 'blue-500',
-    },
-});
+
 function MainLayout({ children }) {
     return (
-        <Layout
-            hasSider
-        >
-            <Sidebar />
+        <Layout>
+            <NavbarAdmin />
             <Layout>
-                <NavbarAdmin />
+                <Sidebar />
                 <Layout>{children}
 
                     <Footer
                         className="text-center"
                         style={{
                             backgroundColor: "white",
-
                             width: "100%"
                         }}
                     >
-                        Ant Design ©2018 Created by Ant UED
+                        © 2022 Order Coffe. All right reserved
                     </Footer>
                 </Layout>
 
