@@ -19,7 +19,7 @@ export default function LoginLanding() {
                     <Col className="space-x-7 md:inline-block mt-4 ml-20">
                         <Link href='/regist'>
                             <button
-                                className="ml-5 transition ease-in-out hover:-translate-x-2 hover:scale-110 delay-150 px-5 py-2 text-white  bg-[#C78342]  rounded-md shadow hover:bg-brown-500 hover:text-white ..."
+                                className="ml-5 transition ease-in-out hover:-translate-x-2 hover:scale-110 delay-150 px-5 py-2 text-white  bg-[#C78342]  rounded-md shadow hover:text-white ..."
                             >
                                 Regist
                             </button>

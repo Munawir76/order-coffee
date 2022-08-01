@@ -2,9 +2,11 @@ import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
 import Link from 'next/link';
-import { Row, Col, Steps, Table, } from 'antd'
+import { Row, Col, Steps, Table, Button, Space, Input } from 'antd'
 import React, { useState } from 'react';
 import Product1 from '../../public/images/kopisusu.jpg'
+import Product2 from '../../public/images/redvalvet.jpg'
+import Product3 from '../../public/images/v60.jpg'
 
 
 const { Step } = Steps;
@@ -34,24 +36,24 @@ const columns = [
 const data = [
     {
         key: '1',
-        product: <Image src={Product1} height={50} width={60} />,
-        price: "Rp. 30.000",
-        quantity: 'New York No. 1 Lake Park',
-        total: ['nice', 'developer'],
+        product: <div className="flex justify-start"><Image src={Product1} height={50} width={60} /><h3 className="ml-8">Kopi susu gula aren</h3></div>,
+        price: 30000,
+        quantity: 1,
+        total: 30000,
     },
     {
         key: '2',
-        name: 'Jim Green',
-        price: 42,
-        quantity: 'London No. 1 Lake Park',
-        total: ['loser'],
+        product: <div className="flex justify-start"><Image src={Product2} height={50} width={60} /><h3 className="ml-8">Redvalvet</h3></div>,
+        price: 20000,
+        quantity: 2,
+        total: 40000,
     },
     {
         key: '3',
-        name: 'Joe Black',
-        price: 32,
-        quantity: 'Sidney No. 1 Lake Park',
-        total: ['cool', 'teacher'],
+        product: <div className="flex justify-start"><Image src={Product3} height={50} width={60} /><h3 className="ml-8">Single Origin</h3></div>,
+        price: 25000,
+        quantity: 1,
+        total: 35000,
     },
 ];
 
@@ -64,25 +66,23 @@ export default function ListCart() {
 
     return (
         <div className='min-h-screen pt-14 ml-40 mt-5' style={{ position: "relative" }}>
-            <Row className="mb-2">
-                <Col>
-                    <Steps
-                        type="navigation"
-                        current={current}
-                        onChange={onChange}
-                        className="site-navigation-steps hover:text-slate-700"
-                    >
-                        <Step status="none" title="Process" icon="none" />
-                        <Step status="none" title="Done" icon="none" />
-
-                    </Steps>
-                </Col>
-            </Row>
             <Row justify="start" align="middle" className="h-80">
                 <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }}>
-                    <Table columns={columns} dataSource={data} size="large" />
+                    <Table columns={columns} dataSource={data} size="large" pagination={false} />
                 </Col>
             </Row>
-        </div>
+            <Row className="flex justify-end mr-48 mt-4">
+                <Col >
+                    <h3>Sub-total<Space>Rp. 23.000</Space></h3>
+                </Col>
+            </Row>
+            <Row className="flex justify-end">
+                <Col className="mr-48 mt-10 ">
+                    <Button type="primary" shape="round" style={{ backgroundColor: '#C78342', border: "none", hover: 'none' }}>
+                        Checkout
+                    </Button>
+                </Col>
+            </Row>
+        </div >
     )
 }
