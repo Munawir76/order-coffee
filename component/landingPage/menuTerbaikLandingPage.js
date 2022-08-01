@@ -38,9 +38,10 @@ export default function MenuList() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Coffee Latte
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        Coffee Latte
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 20.000
                                                     </p>
@@ -74,9 +75,10 @@ export default function MenuList() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Kopi Susu
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        Kopi Susu
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 30.000
                                                     </p>
@@ -110,9 +112,10 @@ export default function MenuList() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Machiatto
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        Machiatto
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 27.000
                                                     </p>
@@ -152,9 +155,10 @@ export default function MenuList() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    V60
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        V60
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 20.000
                                                     </p>
@@ -188,9 +192,10 @@ export default function MenuList() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Taro Iced
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        Taro Iced
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 20.000
                                                     </p>
@@ -224,9 +229,10 @@ export default function MenuList() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Redvalvet Iced
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        Redvalvet Iced
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 20.000
                                                     </p>

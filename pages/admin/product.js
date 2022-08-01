@@ -1,5 +1,5 @@
-import KontenProduct from "../../component/admin/konten/kontenProduct";
-import MainLayout from "../../component/admin/layout/mainLayout";
+import KontenProduct from "../../component/admin/konten/product";
+import MainLayout from "../../component/admin/layout/index";
 
 
 

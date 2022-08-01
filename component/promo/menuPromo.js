@@ -19,7 +19,9 @@ export default function MenuPromo() {
                 <Image src={backgroundimg} layout="fill" priority={true} />
                 <div >
                     <Row align='middle' justify='center' style={{ height: "35vh" }}>
-                        <Col> <h3 className=" text-end font-medium text-black text-xl">Promo</h3></Col>
+                        <Col>
+                            <h3 className=" text-end font-medium text-black text-xl">Promo</h3>
+                        </Col>
                     </Row>
                 </div>
                 <Row justify="center space-x-8" align='middle' >

@@ -10,7 +10,6 @@ import '@ant-design/icons'
 
 export default function FormLogin() {
 
-
     return (
         <div>
             <Row justify='center' align='middle' className="h-screen bg-[#C78342]">
@@ -28,8 +27,7 @@ export default function FormLogin() {
                                                 </Col>
                                             </Row>
                                             <div>
-                                                <h2 className='text-center text-lg font-bold p-5'
-                                                >WELCOME</h2>
+                                                <h2 className='text-center text-lg font-bold p-5'>WELCOME</h2>
                                             </div>
                                             <input
                                                 type="email"
@@ -99,10 +97,10 @@ export default function FormLogin() {
                                             </button>
                                         </div>
                                         <p className="text-gray-800 mt-6 text-center">
-                                            Create Account ?{" "}
+                                            Create Account ? {" "}
                                             <a
                                                 href="/regist/"
-                                                className="text-[#C78342] hover:text-[#C78342] focus:text-[#C78342] transition duration-200 ease-in-out"
+                                                className="text-[#C78342] focus:text-[#C78342] hover:text-[#C78342] transition duration-200 ease-in-out"
                                             >
                                                 Register
                                             </a>

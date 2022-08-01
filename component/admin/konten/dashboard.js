@@ -85,7 +85,6 @@ export default function ContentDashBoard() {
                                         Total User
                                     </h5>
                                     <Col >{totalUser}</Col>
-
                                 </Col>
                                 <Col style={{ fontSize: '25pt' }} className="text-white"><UserOutlined /></Col>
                             </Row>
@@ -97,7 +96,6 @@ export default function ContentDashBoard() {
                                         Total Transaksi
                                     </h5>
                                     <Col >{totalPendapatan}</Col>
-
                                 </Col>
                                 <Col style={{ fontSize: '25pt' }} className="text-white"><ShoppingOutlined /></Col>
                             </Row>

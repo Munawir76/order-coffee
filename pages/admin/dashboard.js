@@ -1,5 +1,5 @@
-import ContentDashBoard from "../../component/admin/konten/kontendashboard"
-import MainLayout from "../../component/admin/layout/mainLayout"
+import KontenDashBoard from "../../component/admin/konten/dashboard"
+import MainLayout from "../../component/admin/layout/index"
 
 
 function Dashboard() {
@@ -7,7 +7,7 @@ function Dashboard() {
     return (
         <div>
             <MainLayout>
-                <ContentDashBoard />
+                <KontenDashBoard />
             </MainLayout>
         </div>
     )

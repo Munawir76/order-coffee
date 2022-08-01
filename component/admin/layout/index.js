@@ -1,7 +1,7 @@
 import React from "react";
-import { Layout, ConfigProvider } from "antd";
-import NavbarAdmin from "./layoutHeader";
-import Sidebar from "./layoutSider";
+import { Layout } from "antd";
+import NavbarAdmin from "./header";
+import Sidebar from "./sidebar";
 import 'antd/dist/antd.variable.css'
 import 'tailwindcss/tailwind.css'
 

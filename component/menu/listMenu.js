@@ -2,13 +2,14 @@ import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
 import Link from 'next/link';
+import { Col, Card, Row } from 'antd';
 import MenuSatu from "../../public/images/redvalvet.jpg"
 import MenuDua from '../../public/images/v60.jpg'
 import MenuTiga from '../../public/images/taro.jpg'
 import MenuEmpat from '../../public/images/vietnamdrip.jpg'
 import MenuLima from '../../public/images/machiatto.jpg'
 import MenuEnam from '../../public/images/tubruk.jpg'
-import { Col, Card, Row } from 'antd';
+
 
 
 export default function MenuPromo() {
@@ -16,7 +17,7 @@ export default function MenuPromo() {
         <div >
             <Row align='middle' justify='center' style={{ height: "30vh" }}>
                 <Col>
-                    <h3 className=" text-end font-medium text-black text-xl">Menu</h3>
+                    <h3 className=" text-end font-medium text-black text-xl mt-24">Menu</h3>
                 </Col>
             </Row>
             <Row justify="center space-x-8" className="bg-[#fff] mb-4">
@@ -35,9 +36,10 @@ export default function MenuPromo() {
                         </a>
                         <div className="p-6">
                             <Row justify='center'>
-                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                    Redvalvet Iced
-                                </h5>
+                                <Col span={12} offset={1}>
+                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        Redvalvet Iced
+                                    </h5>
                                     <p className="text-gray-700 text-base mb-4">
                                         Rp. 20.000
                                     </p>
@@ -73,9 +75,10 @@ export default function MenuPromo() {
                         </a>
                         <div className="p-6">
                             <Row justify='center'>
-                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                    Single Origin
-                                </h5>
+                                <Col span={12} offset={1}>
+                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        Single Origin
+                                    </h5>
                                     <p className="text-gray-700 text-base mb-4">
                                         Rp. 20.000
                                     </p>
@@ -109,9 +112,10 @@ export default function MenuPromo() {
                         </a>
                         <div className="p-6">
                             <Row justify='center'>
-                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                    Taro Iced
-                                </h5>
+                                <Col span={12} offset={1}>
+                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        Taro Iced
+                                    </h5>
                                     <p className="text-gray-700 text-base mb-4">
                                         Rp. 20.000
                                     </p>
@@ -145,9 +149,10 @@ export default function MenuPromo() {
                         </a>
                         <div className="p-6">
                             <Row justify='center'>
-                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                    Vietnam Drip
-                                </h5>
+                                <Col span={12} offset={1}>
+                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        Vietnam Drip
+                                    </h5>
                                     <p className="text-gray-700 text-base mb-4">
                                         Rp. 20.000
                                     </p>
@@ -166,7 +171,6 @@ export default function MenuPromo() {
                         </div>
                     </div>
                 </Col>
-
             </Row>
             <Row justify="center space-x-8" className="bg-[#fff] mb-14">
 
@@ -185,9 +189,10 @@ export default function MenuPromo() {
                         </a>
                         <div className="p-6">
                             <Row justify='center'>
-                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                    Machiatto
-                                </h5>
+                                <Col span={12} offset={1}>
+                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        Machiatto
+                                    </h5>
                                     <p className="text-gray-700 text-base mb-4">
                                         Rp. 27.000
                                     </p>
@@ -221,9 +226,10 @@ export default function MenuPromo() {
                         </a>
                         <div className="p-6">
                             <Row justify='center'>
-                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                    Tubruk
-                                </h5>
+                                <Col span={12} offset={1}>
+                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        Tubruk
+                                    </h5>
                                     <p className="text-gray-700 text-base mb-4">
                                         Rp. 18.000
                                     </p>
@@ -257,9 +263,10 @@ export default function MenuPromo() {
                         </a>
                         <div className="p-6">
                             <Row justify='center'>
-                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                    Machiatto
-                                </h5>
+                                <Col span={12} offset={1}>
+                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        Machiatto
+                                    </h5>
                                     <p className="text-gray-700 text-base mb-4">
                                         Rp. 27.000
                                     </p>
@@ -293,9 +300,10 @@ export default function MenuPromo() {
                         </a>
                         <div className="p-6">
                             <Row justify='center'>
-                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                    Tubruk
-                                </h5>
+                                <Col span={12} offset={1}>
+                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        Tubruk
+                                    </h5>
                                     <p className="text-gray-700 text-base mb-4">
                                         Rp. 18.000
                                     </p>
@@ -314,9 +322,7 @@ export default function MenuPromo() {
                         </div>
                     </div>
                 </Col>
-
             </Row>
         </div >
-        // </div >
     )
 }

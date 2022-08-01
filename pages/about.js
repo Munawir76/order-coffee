@@ -32,10 +32,8 @@ export default function About() {
                             <Image src={FosterSatu} height={300} width={450} />
                             <Image src={FosterDua} height={250} width={450} />
                         </Col>
-
                     </Row>
                 </div>
-
             </div >
             <Footer />
         </div>

@@ -42,9 +42,10 @@ export default function MenuFavorit() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Red Valvet
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        Red Valvet
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 20.000
                                                     </p>
@@ -78,9 +79,10 @@ export default function MenuFavorit() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Single Origin
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        Single Origin
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 20.000
                                                     </p>
@@ -114,9 +116,10 @@ export default function MenuFavorit() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Taro Iced
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        Taro Iced
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 20.000
                                                     </p>
@@ -156,9 +159,10 @@ export default function MenuFavorit() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Vietnam Drip
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        Vietnam Drip
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 20.000
                                                     </p>
@@ -192,9 +196,10 @@ export default function MenuFavorit() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Machiatto
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        Machiatto
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 27.000
                                                     </p>
@@ -228,9 +233,10 @@ export default function MenuFavorit() {
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
-                                                <Col span={12} offset={1}> <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    Tubruk
-                                                </h5>
+                                                <Col span={12} offset={1}>
+                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                                        Tubruk
+                                                    </h5>
                                                     <p className="text-gray-700 text-base mb-4">
                                                         Rp. 18.000
                                                     </p>

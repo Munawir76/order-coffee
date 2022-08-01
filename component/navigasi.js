@@ -18,7 +18,7 @@ export default function Navigasi() {
     const router = useRouter();
     return (
         <div>
-            <nav className="w-full bg-[#C78342] shadow fixed-top" >
+            <nav className="w-full bg-[#C78342] shadow fixed-top h-16" >
                 <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
                     <div>
                         <div className="flex items-center justify-between md:block">
@@ -30,7 +30,7 @@ export default function Navigasi() {
 
                             <div className="sm:hidden">
                                 <button
-                                    className="p-2 text-white rounded-md outline-none focus:border-[#C78342] focus:border"
+                                    className="p-2 text-white rounded-md outline-none focus:border-[#C78342]-500 focus:border"
                                     onClick={() => setNavbar(!navbar)}
                                 >
                                     {navbar ? (
@@ -79,20 +79,16 @@ export default function Navigasi() {
                                 <Link href="/menu/"><a className='text-black hover:text-white hover:bg-[#805336] active:bg-[#805336] pt-5 pb-5 px-5'>Menu</a></Link>
                             </li>
                             <li className="text-[#C78342] ">
-                                <Link href="/promo/"><a className='text-black hover:text-white hover:bg-[#805336] pt-5 pb-5 px-5'>Promo</a></Link>
+                                <Link href="/promo/"><a className='text-black hover:text-white hover:bg-[#805336] active:bg-[#805336] pt-5 pb-5 px-5'>Promo</a></Link>
                             </li>
                             <li className="text-[#C78342] ">
                                 <Link href="/about/"><a className='text-black hover:text-white hover:bg-[#805336] active:bg-[#805336] pt-5 pb-5 px-5'>About</a></Link>
                             </li>
                             <li>
-                                <ShoppingCartOutlined href="javascript:void(0)"
-                                    className="text-black hover:text-white hover:bg-[#805336] pt-6 pb-6 px-6 ..."
-                                />
+                                <Link href="/cart/"><ShoppingCartOutlined className="text-black hover:text-white hover:bg-[#805336] pt-6 pb-6 px-6 ..." /></Link>
                             </li>
                             <li>
-                                <UserOutlined href="javascript:void(0)"
-                                    className="text-black hover:text-white hover:bg-[#805336] pt-6 pb-6 px-6 ..."
-                                />
+                                <Link href=""><UserOutlined className="text-black hover:text-white hover:bg-[#805336] pt-6 pb-6 px-6 ..." /></Link>
                             </li>
                         </ul>
                     </div>

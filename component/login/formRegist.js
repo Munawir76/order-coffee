@@ -22,10 +22,8 @@ export default function FormLogin() {
                                 <div className="block p-6 rounded-lg bg-white max-w-sm">
                                     <form>
                                         <div className="form-group mb-2">
-
                                             <div className="">
-                                                <h2 className='text-start text-lg font-bold mb-5'
-                                                >Register</h2>
+                                                <h2 className='text-start text-lg font-bold mb-5'>Register</h2>
                                             </div>
                                             <div className="form-group mb-4">
                                                 <label
@@ -168,10 +166,10 @@ export default function FormLogin() {
                                             </button>
                                         </div>
                                         <p className="text-gray-800 mt-6 text-center">
-                                            Create Account ?{" "}
+                                            Have an Account ? {" "}
                                             <a
                                                 href="/login/"
-                                                className="text-[#C78342] hover:text-[#C78342] focus:text-[#C78342] transition duration-200 ease-in-out"
+                                                className="text-[#C78342] focus:text-[#C78342] hover:text-[#C78342] transition duration-200 ease-in-out"
                                             >
                                                 Login
                                             </a>

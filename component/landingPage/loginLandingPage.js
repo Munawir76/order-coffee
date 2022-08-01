@@ -12,11 +12,9 @@ export default function LoginLanding() {
         <div>
             <Row className=" flex justify-start">
                 <Col className="block pl-10 rounded-lg bg-white mb-10">
-
                     <div className="text-center">
                         <h3 className="text-gray-700 text-right mb-2 text-lg">Nikmati kelebihan lainnya dengan Berlangganan</h3>
                         <h3 className="text-gray-900 text-xl font-medium">Daftarkan Segera !</h3>
-
                     </div>
                     <Col className="space-x-7 md:inline-block mt-4 ml-20">
                         <Link href='/regist'>
@@ -33,7 +31,6 @@ export default function LoginLanding() {
                                 Login
                             </button>
                         </Link>
-
                     </Col>
                 </Col>
             </Row>
@@ -41,8 +38,6 @@ export default function LoginLanding() {
                 <Col >
                     <div className="mt-10">
                         <MenuList />
-
-
                         <div className="mt-10">
                             <MenuFavorit />
                         </div>
@@ -53,6 +48,5 @@ export default function LoginLanding() {
                 </Col>
             </Row>
         </div >
-
     )
 }

@@ -1,12 +1,16 @@
 import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, AutoComplete, Input } from 'antd';
-import { EyeOutlined, FormOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
+import { EyeOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import Link from "next/link";
 import React, { useRef, useState } from 'react';
+import Image from 'next/image'
+import Foto1 from "../../../public/images/redvalvet.jpg"
+import Foto2 from "../../../public/images/vietnamdrip.jpg"
+import Foto3 from "../../../public/images/taro.jpg"
 
 const { Header, Content, Sider } = Layout;
 
 const { Search } = Input;
-export default function KontenTransaksi() {
+export default function KontenProduct() {
 
     const columns = [
         {
@@ -15,36 +19,24 @@ export default function KontenTransaksi() {
             key: 'key',
         },
         {
-            title: 'Customer',
-            dataIndex: 'customer',
-            key: 'customer',
-        },
-        {
             title: 'Product',
             dataIndex: 'product',
             key: 'product',
         },
         {
-            title: 'Tanggal Transaksi',
-            dataIndex: 'tgltransaksi',
-            key: 'tgltransaksi',
+            title: 'Varian',
+            dataIndex: 'varian',
+            key: 'varian',
         },
         {
-            title: 'Cek Pembayaran',
-            key: 'cek',
-            render: (_, record) => (
-                <Space size="middle">
-                    <Link href={`/${record.deleteUser}`}>
-                        <Tooltip placement="right" title="Cek Pembayaran">
-                            <Button
-                                style={{ color: "blue", borderColor: "blue" }}
-                                icon={<FormOutlined />}
-                            >
-                            </Button>
-                        </Tooltip>
-                    </Link>
-                </Space>
-            ),
+            title: 'Harga',
+            dataIndex: 'harga',
+            key: 'harga',
+        },
+        {
+            title: 'Foto',
+            dataIndex: 'foto',
+            key: 'foto',
         },
         {
             title: 'Status',
@@ -54,13 +46,10 @@ export default function KontenTransaksi() {
                 <div>
                     {tags.map((tag) => {
                         let color = ''
-                        if (tag === 'Selesai') {
+                        if (tag === 'Tersedia') {
                             color = 'green';
                         }
-                        else if (tag === 'Menunggu') {
-                            color = 'blue';
-                        }
-                        else if (tag === 'Belum') {
+                        else if (tag === 'Tidak Tersedia') {
                             color = 'red';
                         }
 
@@ -78,11 +67,20 @@ export default function KontenTransaksi() {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link href={`/${record.deleteUser}`}>
-                        <Tooltip placement="right" title="Selesai">
+                    <Link href={`/admin/${record.name}`}>
+                        <Tooltip placement="left" title="Detail">
                             <Button
                                 style={{ color: "blue", borderColor: "blue" }}
-                                icon={<CheckOutlined />}
+                                icon={<FormOutlined />}
+                            >
+                            </Button>
+                        </Tooltip>
+                    </Link>
+                    <Link href={`/admin/${record.name}`}>
+                        <Tooltip placement="left" title="Detail">
+                            <Button
+                                style={{ color: "#4ade80", borderColor: "#4ade80" }}
+                                icon={<EyeOutlined />}
                             >
                             </Button>
                         </Tooltip>
@@ -104,45 +102,43 @@ export default function KontenTransaksi() {
     const data = [
         {
             key: '1',
-            customer: 'Dwi GN',
-            product: 'Kopi Susu',
-            tgltransaksi: '20 juli 2022',
-            tags: ['Selesai'],
+            product: 'Redvalvet',
+            varian: 'Non Coffee',
+            harga: 'Rp. 25.000',
+            foto: <Image src={Foto1} width={60} height={50} />,
+            tags: ['Tersedia'],
         },
         {
             key: '2',
-            customer: 'Nabil',
-            product: 'Kopi Susu',
-            tgltransaksi: '20 juli 2022',
-            tags: ['Menunggu'],
+            product: 'Vietnam Drip',
+            varian: 'Coffee',
+            harga: 'Rp. 20.000',
+            foto: <Image src={Foto2} width={60} height={50} />,
+            tags: ['Tidak Tersedia'],
         },
         {
             key: '3',
-            customer: 'Bram',
-            product: 'Kopi Susu',
-            tgltransaksi: '20 juli 2022',
-            tags: ['Belum'],
+            product: 'Taro iced',
+            varian: 'Non Coffee',
+            harga: 'Rp. 25.000',
+            foto: <Image src={Foto3} width={60} height={50} />,
+            tags: ['Tersedia'],
         },
     ];
-
-    const onSearch = (value) => console.log(value);
     return (
         <div>
             <Content>
-
                 <Row className='mt-6 max-w-sm ml-24'>
-                    <h3 className="text-lg">Data Transaksi/All</h3>
+                    <h3 className="text-lg">Data Product/All</h3>
                     <Col lg={{ span: 20 }} md={{ span: 20 }} sm={{ span: 22 }} xs={{ span: 24 }}>
                         <Search
-                            placeholder="Search Promo"
+                            placeholder="Search Product"
                             allowClear
                             size="large"
-                            onSearch={onSearch}
-
                         />
                     </Col>
                 </Row>
-                <Row justify="center" align="middle" className='h-96 '>
+                <Row justify="center" align="middle" className='h-96 mt-6'>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                         <Table columns={columns} dataSource={data} />
                     </Col>

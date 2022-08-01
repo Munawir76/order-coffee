@@ -10,7 +10,7 @@ function Footer() {
                 <div className="mx-6 py-10 text-center md:text-left">
                     <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-2 gap-15">
                         <div className="mx-auto mb-4">
-                            <h6
+                            <div
                                 className="
                                     uppercase
                                     font-semibold
@@ -22,14 +22,16 @@ function Footer() {
                                 "
                             >
                                 <Image src={Logo1} width={25} height={25} className=" mr-3" />
-                                <p className="ml-2">Order Coffee</p>
-                            </h6>
-                            <p>
+                                <h3 className="ml-2">Order Coffee</h3>
+                            </div>
+                            <div>
                                 <h3 className="text-white">Order Coffe berdiri sejak Tahun 2022.</h3>
-                                Bermula dari kegemaran kami menikmati kopi.
-                                Namun seiring berjalannya waktu kami tidak hanya sebatas menikmatinya.
-                                Tapi kami mencoba membuat dan menyampaikan rasa yang Kami nikmati pada pelanggan.
-                            </p>
+                                <p>
+                                    Bermula dari kegemaran kami menikmati kopi.
+                                    Namun seiring berjalannya waktu kami tidak hanya sebatas menikmatinya.
+                                    Tapi kami mencoba membuat dan menyampaikan rasa yang Kami nikmati pada pelanggan.
+                                </p>
+                            </div>
                         </div>
                         <div className="mx-auto">
                             <h6 className="uppercase font-bold mb-4 flex justify-center md:justify-start">
@@ -112,7 +114,6 @@ function Footer() {
                 </div>
                 <div className="text-center p-6 bg-[#805336] border-y-2">
                     <p className="text-black">© 2022 Order Coffe. All right reserved</p>
-
                 </div>
             </footer>
         </div>

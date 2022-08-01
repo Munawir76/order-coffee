@@ -1,5 +1,5 @@
-import KontenTransaksi from "../../component/admin/konten/kontenTransaksi";
-import MainLayout from "../../component/admin/layout/mainLayout";
+import KontenTransaksi from "../../component/admin/konten/transaksi";
+import MainLayout from "../../component/admin/layout/index";
 
 
 

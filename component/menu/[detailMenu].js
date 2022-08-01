@@ -38,7 +38,6 @@ export default function DetailMenu() {
                         <p className="font-normal text-base mt-5">Kopi susu gula aren, terbuat dari bahan-bahan yang fresh.
                             Perpaduan antara Robusta dan Arabica membuat kopi ini
                             sangat nikmat untuk dijadikan teman ngobrol.</p>
-
                     </Col>
                     <Col span='8'>
                         <InputNumber className='mt-10 ml-40 border-[#805336] border-2 hover:text-black hover:border-[#805336]' min={1} max={10} defaultValue={3} onChange={onChange} />
@@ -50,7 +49,6 @@ export default function DetailMenu() {
                     </Col>
                     <Col className="-mt-10 ml-32" span='8'>
                         <Button type="primary" className='border-[#805336] border-2 hover:text-black hover:border-[#805336] hover:bg-[#C78342] text-white bg-[#805336]'>{<ShoppingCartOutlined className='mr-2 mb-2' />}<Space>+ Add to cart</Space>
-
                         </Button>
                     </Col>
                 </Row>

@@ -110,7 +110,6 @@ export default function KontenUsers() {
     return (
         <div>
             <Content>
-
                 <Row className='mt-6 max-w-sm ml-24'>
                     <h3 className="text-lg">Data Users/All</h3>
                     <Col lg={{ span: 20 }} md={{ span: 20 }} sm={{ span: 22 }} xs={{ span: 24 }}>
@@ -119,7 +118,6 @@ export default function KontenUsers() {
                             allowClear
                             size="large"
                             onSearch={onSearch}
-
                         />
                     </Col>
                 </Row>
@@ -128,8 +126,6 @@ export default function KontenUsers() {
                         <Table columns={columns} dataSource={data} />
                     </Col>
                 </Row>
-
-
             </Content>
         </div>
     )

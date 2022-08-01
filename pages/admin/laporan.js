@@ -1,5 +1,5 @@
-import KontenLaporan from "../../component/admin/konten/kontenLaporan";
-import MainLayout from "../../component/admin/layout/mainLayout";
+import KontenLaporan from "../../component/admin/konten/laporan";
+import MainLayout from "../../component/admin/layout/index";
 
 
 

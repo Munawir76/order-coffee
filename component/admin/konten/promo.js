@@ -1,16 +1,12 @@
-import { Space, Table, Tag, Button, Layout, Row, Col, DatePicker, Input } from 'antd';
-import { EyeOutlined, FormOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
+import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 import Link from "next/link";
 import React, { useRef, useState } from 'react';
 
 const { Header, Content, Sider } = Layout;
 
-const onChange = (date, dateString) => {
-    console.log(date, dateString);
-};
 const { Search } = Input;
-export default function KontenLaporan() {
-
+export default function KontenPromo() {
 
     const columns = [
         {
@@ -19,19 +15,14 @@ export default function KontenLaporan() {
             key: 'key',
         },
         {
-            title: 'Customer',
-            dataIndex: 'customer',
-            key: 'customer',
+            title: 'Promo',
+            dataIndex: 'promo',
+            key: 'promo',
         },
         {
-            title: 'Product',
-            dataIndex: 'product',
-            key: 'product',
-        },
-        {
-            title: 'Tanggal Transaksi',
-            dataIndex: 'tgltransaksi',
-            key: 'tgltransaksi',
+            title: 'Diskon',
+            dataIndex: 'diskon',
+            key: 'diskon',
         },
         {
             title: 'Status',
@@ -41,13 +32,10 @@ export default function KontenLaporan() {
                 <div>
                     {tags.map((tag) => {
                         let color = ''
-                        if (tag === 'Selesai') {
+                        if (tag === 'Tersedia') {
                             color = 'green';
                         }
-                        else if (tag === 'Menunggu') {
-                            color = 'blue';
-                        }
-                        else if (tag === 'Belum') {
+                        else if (tag === 'Tidak Tersedia') {
                             color = 'red';
                         }
 
@@ -60,39 +48,52 @@ export default function KontenLaporan() {
                 </div>
             ),
         },
+        {
+            title: 'Delete',
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle">
+                    <Link href={`/${record.deleteUser}`}>
+                        <Tooltip placement="right" title="Delete">
+                            <Button
+                                type="danger"
+                                icon={<DeleteOutlined />}
+                                danger={true}
+                            >
+                            </Button>
+                        </Tooltip>
+                    </Link>
+                </Space>
+            ),
+        },
     ];
     const data = [
         {
             key: '1',
-            customer: 'Dwi GN',
-            product: 'Kopi Susu',
-            tgltransaksi: '20 juli 2022',
-            tags: ['Selesai'],
+            promo: 'Kopi Susu Gula Aren',
+            diskon: '20%',
+            tags: ['Tersedia'],
         },
         {
             key: '2',
-            customer: 'Nabil',
-            product: 'Kopi Susu',
-            tgltransaksi: '20 juli 2022',
-            tags: ['Menunggu'],
+            promo: 'Single Origin',
+            diskon: '25%',
+            tags: ['Tersedia'],
         },
         {
             key: '3',
-            customer: 'Bram',
-            product: 'Kopi Susu',
-            tgltransaksi: '20 juli 2022',
-            tags: ['Belum'],
+            promo: 'Capucino',
+            diskon: '20%',
+            tags: ['Tidak Tersedia'],
         },
     ];
 
     const onSearch = (value) => console.log(value);
     return (
         <div>
-
             <Content>
-
                 <Row className='mt-6 max-w-sm ml-24'>
-                    <h3 className="text-lg">Data Laporan/All</h3>
+                    <h3 className="text-lg">Data Promo/All</h3>
                     <Col lg={{ span: 20 }} md={{ span: 20 }} sm={{ span: 22 }} xs={{ span: 24 }}>
                         <Search
                             placeholder="Search Promo"
@@ -101,18 +102,8 @@ export default function KontenLaporan() {
                             onSearch={onSearch}
                         />
                     </Col>
-                    <Row className='mt-6 w-full'>
-                        <Col span={12}>
-                            <h3 className="text-sm mt-5">Dari tanggal</h3>
-                            <DatePicker onChange={onChange} />
-                        </Col>
-                        <Col span={12}>
-                            <h3 className="text-sm mt-5">Sampai tanggal</h3>
-                            <DatePicker onChange={onChange} />
-                        </Col>
-                    </Row>
                 </Row>
-                <Row justify="center" align="middle" className="h-80">
+                <Row justify="center" align="middle" className='h-96 '>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                         <Table columns={columns} dataSource={data} />
                     </Col>
