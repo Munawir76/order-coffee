@@ -3,15 +3,37 @@ import 'antd/dist/antd.css'
 /* This example requires Tailwind CSS v2.0+ */
 import { useState } from 'react'
 import Image from 'next/image'
+import React from 'react';
 import logo from "../public/images/logo.png"
 import Link from 'next/link'
 import { useRouter } from "next/router";
+import { Dropdown, Menu, message, Space, } from 'antd';
 import '@ant-design/icons'
-import { UserOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { UserOutlined, ShoppingCartOutlined, LogoutOutlined } from '@ant-design/icons'
 
 // #C78342 Muda
 // #805336 tua
+const handleButtonClick = (e) => {
+    message.info('Click on left button.');
+    console.log('click left button', e);
+};
 
+const handleMenuClick = (e) => {
+    message.info('Click on menu item.');
+    console.log('click', e);
+};
+
+const menu = (
+    <Menu
+        onClick={handleMenuClick}
+        items={[
+            {
+                label: 'Logout',
+                icon: <LogoutOutlined />,
+            },
+        ]}
+    />
+);
 
 export default function Navigasi() {
     const [navbar, setNavbar] = useState(false);
@@ -88,8 +110,17 @@ export default function Navigasi() {
                                 <Link href="/cart/"><ShoppingCartOutlined className="text-black hover:text-white hover:bg-[#805336] pt-6 pb-6 px-6 ..." /></Link>
                             </li>
                             <li>
-                                <Link href=""><UserOutlined className="text-black hover:text-white hover:bg-[#805336] pt-6 pb-6 px-6 ..." /></Link>
+                                <Space wrap>
+                                    <Dropdown overlay={menu}>
+
+                                        <Space>
+                                            <UserOutlined className="text-black hover:text-white hover:bg-[#805336] pt-6 pb-6 px-6 ..." />
+                                        </Space>
+
+                                    </Dropdown>
+                                </Space>
                             </li>
+
                         </ul>
                     </div>
                 </div>
