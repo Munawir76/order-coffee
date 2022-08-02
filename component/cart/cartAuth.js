@@ -1,13 +1,19 @@
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.variable.min.css'
 import 'tailwindcss/tailwind.css'
 import Navigasi from '../../component/navigasi'
 import Footer from '../../component/footer'
-import { Row, Col, Card, Input, } from 'antd'
+import { Row, Col, Card, Input, ConfigProvider } from 'antd'
 import Image from 'next/image'
 import Product1 from '../../public/images/kopisusu.jpg'
 
 
 const { TextArea } = Input
+
+ConfigProvider.config({
+    theme: {
+        primaryColor: '#C78342',
+    },
+});
 
 export default function CartAuth() {
 
@@ -24,7 +30,7 @@ export default function CartAuth() {
                         </Row>
                         <Row >
                             <Col >
-                                <TextArea rows={1} cols={48} placeholder="Input your name" className='mt-2 border-[#C78342] hover:border-[#805336] hover:focus:border-[#C78342] hover:shadow-slate-900' />
+                                <TextArea rows={1} cols={48} placeholder="Input your name" className='mt-2' />
                             </Col>
                         </Row>
                         <Row className="mt-6">
@@ -45,12 +51,8 @@ export default function CartAuth() {
                         </Row>
                     </Col>
                     <Col span={12}>
-                        <Card
-                            style={{
-                                width: 500, height: 520,
-                            }}
-                            className="bg-gray-400 bg-opacity-20 ml-16 p-6">
-                            <Row>
+                        <Card style={{ width: 500, height: 520, backgroundColor: 'rgba(238, 238, 238, 0.8)', }}>
+                            <Row >
                                 <Col span={12}>
                                     <Image src={Product1} height={150} width={150} />
                                 </Col>

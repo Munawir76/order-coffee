@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./component/**/*.{js,ts,jsx,tsx}",
+    // "./component/**/**/*.{js,ts,jsx,tsx}",
     './node_modules/tw-elements/dist/js/**/*.js',
 
   ],

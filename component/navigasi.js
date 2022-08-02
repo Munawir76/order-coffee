@@ -1,5 +1,5 @@
 import 'tailwindcss/tailwind.css'
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.variable.min.css'
 /* This example requires Tailwind CSS v2.0+ */
 import { useState } from 'react'
 import Image from 'next/image'
@@ -7,12 +7,18 @@ import React from 'react';
 import logo from "../public/images/logo.png"
 import Link from 'next/link'
 import { useRouter } from "next/router";
-import { Dropdown, Menu, message, Space, } from 'antd';
+import { Dropdown, Menu, message, Space, ConfigProvider } from 'antd';
 import '@ant-design/icons'
 import { UserOutlined, ShoppingCartOutlined, LogoutOutlined } from '@ant-design/icons'
 
 // #C78342 Muda
 // #805336 tua
+ConfigProvider.config({
+    theme: {
+        primaryColor: '#C78342',
+    },
+});
+
 const handleButtonClick = (e) => {
     message.info('Click on left button.');
     console.log('click left button', e);
@@ -112,11 +118,9 @@ export default function Navigasi() {
                             <li>
                                 <Space wrap>
                                     <Dropdown overlay={menu}>
-
                                         <Space>
                                             <UserOutlined className="text-black hover:text-white hover:bg-[#805336] pt-6 pb-6 px-6 ..." />
                                         </Space>
-
                                     </Dropdown>
                                 </Space>
                             </li>
