@@ -1,5 +1,6 @@
 import 'antd/dist/antd.variable.min.css'
 import 'tailwindcss/tailwind.css'
+import Link from 'next/link'
 import Navigasi from '../../component/navigasi'
 import Footer from '../../component/footer'
 import { Row, Col, Card, Input, ConfigProvider } from 'antd'
@@ -40,13 +41,15 @@ export default function CartAuth() {
                         </Row>
                         <Row className="pt-64">
                             <Col>
-                                <a href="/menu/" className="hover:text-[#805336] text-decoration: underline text-[#805336] text-base font-semibold" > Back to Cart</a>
-                                <button
-                                    type="button"
-                                    className=" bg-[#C78342] text-white font-medium rounded shadow-md hover:bg-[#805336] hover:shadow-l focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#C78342] active:shadow-lg transition duration-150 ease-in-out w-32 h-10 ml-36"
-                                >
-                                    PAY
-                                </button>
+                                <a href="/cart/" className="hover:text-[#805336] text-decoration: underline text-[#805336] text-base font-semibold" > Back to Cart</a>
+                                <Link href='/payment/'>
+                                    <button
+                                        type="button"
+                                        className=" bg-[#C78342] text-white font-medium rounded shadow-md hover:bg-[#805336] hover:shadow-l focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#C78342] active:shadow-lg transition duration-150 ease-in-out w-32 h-10 ml-36"
+                                    >
+                                        PAY
+                                    </button>
+                                </Link>
                             </Col>
                         </Row>
                     </Col>

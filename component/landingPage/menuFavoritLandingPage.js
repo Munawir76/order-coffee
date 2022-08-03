@@ -8,6 +8,7 @@ import MenuTiga from '../../public/images/taro.jpg'
 import MenuEmpat from '../../public/images/vietnamdrip.jpg'
 import MenuLima from '../../public/images/machiatto.jpg'
 import MenuEnam from '../../public/images/tubruk.jpg'
+import Link from 'next/link'
 import axios from 'axios';
 
 const styleCarousel = {
@@ -51,12 +52,14 @@ export default function MenuFavorit() {
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <button
-                                                        type="button"
-                                                        className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg focus:outline-none focus:ring-0  active:shadow-lg transition duration-150 ease-in-out"
-                                                    >
-                                                        Detail
-                                                    </button>
+                                                    <Link href='/menuDetail/'>
+                                                        <button
+                                                            type="button"
+                                                            className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                                                        >
+                                                            Detail
+                                                        </button>
+                                                    </Link>
                                                 </Col>
                                             </Row>
                                             <div>
@@ -88,12 +91,14 @@ export default function MenuFavorit() {
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <button
-                                                        type="button"
-                                                        className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg focus:outline-none focus:ring-0  active:shadow-lg transition duration-150 ease-in-out"
-                                                    >
-                                                        Detail
-                                                    </button>
+                                                    <Link href='/menuDetail/'>
+                                                        <button
+                                                            type="button"
+                                                            className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                                                        >
+                                                            Detail
+                                                        </button>
+                                                    </Link>
                                                 </Col>
                                             </Row>
                                             <div>
@@ -125,12 +130,14 @@ export default function MenuFavorit() {
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <button
-                                                        type="button"
-                                                        className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg focus:outline-none focus:ring-0  active:shadow-lg transition duration-150 ease-in-out"
-                                                    >
-                                                        Detail
-                                                    </button>
+                                                    <Link href='/menuDetail/'>
+                                                        <button
+                                                            type="button"
+                                                            className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                                                        >
+                                                            Detail
+                                                        </button>
+                                                    </Link>
                                                 </Col>
                                             </Row>
                                             <div>
@@ -168,12 +175,14 @@ export default function MenuFavorit() {
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <button
-                                                        type="button"
-                                                        className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg focus:outline-none focus:ring-0  active:shadow-lg transition duration-150 ease-in-out"
-                                                    >
-                                                        Detail
-                                                    </button>
+                                                    <Link href='/menuDetail/'>
+                                                        <button
+                                                            type="button"
+                                                            className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                                                        >
+                                                            Detail
+                                                        </button>
+                                                    </Link>
                                                 </Col>
                                             </Row>
                                             <div>
@@ -205,12 +214,14 @@ export default function MenuFavorit() {
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <button
-                                                        type="button"
-                                                        className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg focus:outline-none focus:ring-0  active:shadow-lg transition duration-150 ease-in-out"
-                                                    >
-                                                        Detail
-                                                    </button>
+                                                    <Link href='/menuDetail/'>
+                                                        <button
+                                                            type="button"
+                                                            className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                                                        >
+                                                            Detail
+                                                        </button>
+                                                    </Link>
                                                 </Col>
                                             </Row>
                                             <div>
@@ -242,12 +253,14 @@ export default function MenuFavorit() {
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <button
-                                                        type="button"
-                                                        className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg focus:outline-none focus:ring-0  active:shadow-lg transition duration-150 ease-in-out"
-                                                    >
-                                                        Detail
-                                                    </button>
+                                                    <Link href='/menuDetail/'>
+                                                        <button
+                                                            type="button"
+                                                            className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                                                        >
+                                                            Detail
+                                                        </button>
+                                                    </Link>
                                                 </Col>
                                             </Row>
                                             <div>

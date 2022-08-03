@@ -1,8 +1,7 @@
 import 'antd/dist/antd.variable.min.css'
 import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
-import { Row, Col, Card, Table, ConfigProvider, Input, Upload, Button, Space } from 'antd'
-import { UploadOutlined } from '@ant-design/icons';
+import { Row, Col, Card, ConfigProvider, Input, Upload, } from 'antd'
 import React, { useState } from 'react'
 
 
@@ -42,40 +41,6 @@ ConfigProvider.config({
     },
 });
 
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-    },
-];
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-    },
-];
 
 
 export default function AuthPayment() {
@@ -84,8 +49,63 @@ export default function AuthPayment() {
         <div className='min-h-screen pt-14 ml-32 mt-10' style={{ position: "relative" }}>
             <Row>
                 <Col span={12}>
-                    <Card style={{ width: 350, height: 500, marginTop: 10, border: 'none' }}>
-                        <Table columns={columns} dataSource={data} size="small" pagination={false} showSorterTooltip={false} tableLayout='horizontal' />
+                    <Card style={{ width: 500, height: 500, marginTop: 10, border: 'none' }}>
+                        <div className="flex flex-col">
+                            <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                                    <div className="overflow-hidden">
+                                        <table className="min-w-full">
+                                            <thead className="">
+                                                <tr>
+                                                    <th
+                                                        scope="col"
+                                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                                    >
+                                                        Nama
+                                                    </th>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        Rizky
+                                                    </td>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        <a href='/cartDetail' className="hover:text-[#805336] text-decoration: underline text-[#805336] text-sm font-semibold">Edit</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th
+                                                        scope="col"
+                                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left h-6"
+                                                    >
+                                                        Deskripsi
+                                                    </th>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        jangan pakai kopi
+                                                    </td>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        <a href='/cartDetail' className="hover:text-[#805336] text-decoration: underline text-[#805336] text-sm font-semibold">Edit</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th
+                                                        scope="col"
+                                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                                    >
+                                                        Jumlah
+                                                    </th>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        4
+                                                    </td>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        <a href='/menuDetail' className="hover:text-[#805336] text-decoration: underline text-[#805336] text-sm font-semibold">Edit</a>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="text-center mt-24">
                             <h3 className="text-center text-[#C78342] font-bold">Upload Bukti Pembayaran</h3>
                             <div style={{ marginTop: 26 }}>

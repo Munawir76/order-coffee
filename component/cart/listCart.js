@@ -10,56 +10,8 @@ import Product2 from '../../public/images/redvalvet.jpg'
 import Product3 from '../../public/images/v60.jpg'
 
 
-
-
 const { Step } = Steps;
 
-const columns = [
-    {
-        title: 'Product',
-        dataIndex: 'product',
-        key: 'product'
-    },
-    {
-        title: 'Price',
-        dataIndex: 'price',
-        key: 'price',
-    },
-    {
-        title: 'Quantity',
-        dataIndex: 'quantity',
-        key: 'quantity',
-    },
-    {
-        title: 'Total',
-        key: 'total',
-        dataIndex: 'total',
-    },
-
-];
-const data = [
-    {
-        key: '1',
-        product: <div className="flex justify-start"><Image src={Product1} height={50} width={60} /><h3 className="ml-8">Kopi susu gula aren</h3></div>,
-        price: 30000,
-        quantity: 1,
-        total: 30000,
-    },
-    {
-        key: '2',
-        product: <div className="flex justify-start"><Image src={Product2} height={50} width={60} /><h3 className="ml-8">Redvalvet</h3></div>,
-        price: 20000,
-        quantity: 2,
-        total: 40000,
-    },
-    {
-        key: '3',
-        product: <div className="flex justify-start"><Image src={Product3} height={50} width={60} /><h3 className="ml-8">Single Origin</h3></div>,
-        price: 25000,
-        quantity: 1,
-        total: 35000,
-    },
-];
 
 export default function ListCart() {
 
@@ -82,6 +34,7 @@ export default function ListCart() {
                 <Col>
                     <Steps
                         type="navigation"
+
                         current={current}
                         onChange={onChange}
                         className="space-x-8"
@@ -94,19 +47,105 @@ export default function ListCart() {
             </Row>
             <Row justify="start" align="middle" className="h-80">
                 <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }}>
-                    <Table columns={columns} dataSource={data} size="large" pagination={false} />
+                    <div className="flex flex-col">
+                        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                                <div className="overflow-hidden">
+                                    <table className="min-w-full">
+                                        <thead >
+                                            <tr className="border-t border-[#C78342]">
+                                                <th
+                                                    scope="col"
+                                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                                >
+                                                    Product
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                                >
+                                                    Price
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                                >
+                                                    Quantity
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                                >
+                                                    Total
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="border-b">
+                                            <tr className="bg-white">
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <div className="flex justify-start"><Image src={Product1} height={50} width={60} /><h3 className="ml-8 mt-4">Kopi susu gula aren</h3></div>
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    20000
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    1
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    20000
+                                                </td>
+                                            </tr>
+                                            <tr className="bg-white ">
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <div className="flex justify-start"><Image src={Product2} height={50} width={60} /><h3 className="ml-8 mt-4">Redvalvet</h3></div>
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    20000
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    2
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    40000
+                                                </td>
+                                            </tr>
+                                            <tr className="bg-white ">
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <div className="flex justify-start"><Image src={Product3} height={50} width={60} /><h3 className="ml-8 mt-4">Single Origin</h3></div>
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    25000
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    1
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    25000
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </Col>
             </Row>
             <Row className="flex justify-end mr-48 mt-4">
                 <Col >
-                    <h3>Sub-total<Space>Rp. 23.000</Space></h3>
+                    <h3>Sub-total<Space>Rp. 85.000</Space></h3>
                 </Col>
             </Row>
             <Row className="flex justify-end">
                 <Col className="mr-48 mt-10 ">
-                    <Button type="primary" shape="round" style={{ backgroundColor: '#C78342', border: "none", hover: 'none' }}>
-                        Checkout
-                    </Button>
+                    <Link href='/authCart/'>
+                        <button
+                            type="button"
+                            className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                        >
+                            Checkout
+                        </button>
+                    </Link>
                 </Col>
             </Row>
         </div >
