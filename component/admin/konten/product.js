@@ -1,13 +1,12 @@
-import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, AutoComplete, Input } from 'antd';
+import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input } from 'antd';
 import { EyeOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import Link from "next/link";
-import React, { useRef, useState } from 'react';
 import Image from 'next/image'
 import Foto1 from "../../../public/images/redvalvet.jpg"
 import Foto2 from "../../../public/images/vietnamdrip.jpg"
 import Foto3 from "../../../public/images/taro.jpg"
 
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 
 const { Search } = Input;
 export default function KontenProduct() {
@@ -68,7 +67,7 @@ export default function KontenProduct() {
             render: (_, record) => (
                 <Space size="middle">
                     <Link href={`/admin/${record.name}`}>
-                        <Tooltip placement="left" title="Detail">
+                        <Tooltip placement="left" title="Edit">
                             <Button
                                 style={{ color: "blue", borderColor: "blue" }}
                                 icon={<FormOutlined />}
@@ -130,12 +129,19 @@ export default function KontenProduct() {
             <Content>
                 <Row className='mt-6 max-w-sm ml-24'>
                     <h3 className="text-lg">Data Product/All</h3>
-                    <Col lg={{ span: 20 }} md={{ span: 20 }} sm={{ span: 22 }} xs={{ span: 24 }}>
+                    <Col span={12} lg={{ span: 20 }} md={{ span: 20 }} sm={{ span: 22 }} xs={{ span: 24 }}>
                         <Search
                             placeholder="Search Product"
                             allowClear
                             size="large"
                         />
+                    </Col>
+                </Row>
+                <Row justify='end' style={{ marginRight: 100 }}>
+                    <Col>
+                        <Button type='primary'>
+                            + Add Product
+                        </Button>
                     </Col>
                 </Row>
                 <Row justify="center" align="middle" className='h-96 mt-6'>

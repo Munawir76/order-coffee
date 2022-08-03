@@ -1,15 +1,19 @@
 import 'antd/dist/antd.css'
+import 'antd/dist/antd.variable.min.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
 import Link from 'next/link';
-import { Row, Col, Steps, Table, Button, Space, Input } from 'antd'
+import { Row, Col, Steps, Table, Button, Space, ConfigProvider } from 'antd'
 import React, { useState } from 'react';
 import Product1 from '../../public/images/kopisusu.jpg'
 import Product2 from '../../public/images/redvalvet.jpg'
 import Product3 from '../../public/images/v60.jpg'
 
 
+
+
 const { Step } = Steps;
+
 const columns = [
     {
         title: 'Product',
@@ -58,7 +62,15 @@ const data = [
 ];
 
 export default function ListCart() {
+
+    ConfigProvider.config({
+        theme: {
+            primaryColor: '#C78342',
+        },
+    });
+
     const [current, setCurrent] = useState(0);
+
     const onChange = (value) => {
         console.log('onChange:', value);
         setCurrent(value);
@@ -66,6 +78,20 @@ export default function ListCart() {
 
     return (
         <div className='min-h-screen pt-14 ml-40 mt-5' style={{ position: "relative" }}>
+            <Row>
+                <Col>
+                    <Steps
+                        type="navigation"
+                        current={current}
+                        onChange={onChange}
+                        className="space-x-8"
+                    >
+                        <Step status="none" title="Cart" />
+                        <Step status="none" title="Detail" />
+                        <Step status="none" title="Payment" />
+                    </Steps>
+                </Col>
+            </Row>
             <Row justify="start" align="middle" className="h-80">
                 <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }}>
                     <Table columns={columns} dataSource={data} size="large" pagination={false} />

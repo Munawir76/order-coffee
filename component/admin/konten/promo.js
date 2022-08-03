@@ -103,6 +103,13 @@ export default function KontenPromo() {
                         />
                     </Col>
                 </Row>
+                <Row justify='end' style={{ marginRight: 100 }}>
+                    <Col>
+                        <Button type='primary'>
+                            + Add Promo
+                        </Button>
+                    </Col>
+                </Row>
                 <Row justify="center" align="middle" className='h-96 '>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                         <Table columns={columns} dataSource={data} />

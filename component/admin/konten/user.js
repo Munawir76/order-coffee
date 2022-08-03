@@ -1,11 +1,11 @@
-import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, AutoComplete, Input } from 'antd';
+import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input } from 'antd';
 import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import Link from "next/link";
-import React, { useRef, useState } from 'react';
 
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 
 const { Search } = Input;
+
 export default function KontenUsers() {
 
     const columns = [
@@ -59,7 +59,7 @@ export default function KontenUsers() {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link href={`/admin/${record.name}`}>
+                    <Link href={`/detailUser/${record.detailUser}`}>
                         <Tooltip placement="left" title="Detail">
                             <Button
                                 style={{ color: "#4ade80", borderColor: "#4ade80" }}

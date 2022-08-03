@@ -32,7 +32,6 @@ export default function FormLogin() {
                     window.alert("Login Berhasil")
                     // tinggal routing mau kemana arahnya
                     router.push("/home")
-
                 }
             })
 
