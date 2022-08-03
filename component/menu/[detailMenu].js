@@ -1,10 +1,11 @@
 import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
+import Link from 'next/link'
 import Image from 'next/image';
 import Navigasi from "../navigasi"
 import Footer from '../footer';
 import MenuSatu from "../../public/images/redvalvet.jpg"
-import { Row, Col, Space, InputNumber, Button, } from 'antd';
+import { Row, Col, Space } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 
 
@@ -84,8 +85,14 @@ export default function DetailMenu() {
                         <a href='/menu' className='text-[#805336] text-base font-semibold font text-decoration: underline hover:text-black'> Back to menu</a>
                     </Col>
                     <Col className="-mt-20 ml-32" span='8'>
-                        <Button type="primary" className='border-[#805336] border-2 hover:text-black hover:border-[#805336] hover:bg-[#C78342] text-white bg-[#805336]'>{<ShoppingCartOutlined className='mr-2 mb-2' />}<Space>+ Add to cart</Space>
-                        </Button>
+                        <Link href='/menuDetail/'>
+                            <button
+                                type="button"
+                                className=" space-x-2 justify-end inline-block px-6 py-2 bg-[#C78342] text-white font-medium text-xs leading-tight shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                            >
+                                {<ShoppingCartOutlined className='mr-2 mb-2' />}<Space className="font-medium">+ Add to cart</Space>
+                            </button>
+                        </Link>
                     </Col>
                 </Row>
             </div>
