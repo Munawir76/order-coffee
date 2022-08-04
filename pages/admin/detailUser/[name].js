@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import MainLayout from "../../component/admin/layout/index";
-import ButtonBack from "../../component/reusable/buttonBack"
-import { Space, Table, Tag, Button, Layout, Row, Col, Card, Input } from 'antd';
+import MainLayout from "../../../component/admin/layout";
+import ButtonBack from "../../../component/reusable/buttonBack"
+import { Layout, Row, Col, Card } from 'antd';
 
 const { Content, } = Layout;
 

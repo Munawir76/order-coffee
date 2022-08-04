@@ -59,7 +59,7 @@ export default function KontenUsers() {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link href={`/admin/${record.name}`}>
+                    <Link href={`/admin/detailUser/${record.name}`}>
                         <Tooltip placement="left" title="Detail">
                             <Button
                                 style={{ color: "#4ade80", borderColor: "#4ade80" }}

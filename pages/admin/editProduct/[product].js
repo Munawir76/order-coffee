@@ -1,5 +1,10 @@
-import MainLayout from "../admin/layout/index"
-import ButtonBack from "../reusable/buttonBack"
+import { useRouter } from "next/router";
+import MainLayout from "../../../component/admin/layout";
+import ButtonBack from "../../../component/reusable/buttonBack"
+import Foto1 from '../../../public/images/redvalvet.jpg'
+import Image from 'next/image'
+import Foto2 from '../../../public/images/vietnamdrip.jpg'
+import Foto3 from '../../../public/images/taro.jpg'
 import React from "react";
 import 'antd/dist/antd.css'
 import { Layout, Row, Col, Card, Input, Upload, Button, Dropdown, Menu, message, Space } from 'antd';
@@ -34,7 +39,6 @@ const handleMenuClick = (e) => {
     console.log('click', e);
 };
 
-
 const varian = (
     <Menu
         onClick={handleMenuClick}
@@ -51,7 +55,6 @@ const varian = (
         ]}
     />
 );
-
 const status = (
     <Menu
         onClick={handleMenuClick}
@@ -69,14 +72,47 @@ const status = (
     />
 );
 
+
+
 export default function AddProduct() {
+    const data = [
+        {
+            key: '1',
+            product: 'Redvalvet',
+            varian: 'Non Coffee',
+            harga: 'Rp. 25.000',
+            foto: <Image src={Foto1} width={250} height={220} style={{ borderRadius: "5%" }} />,
+            tags: ['Tersedia'],
+            desk: 'Redvalvet terbuat dari djsao slfjn sjh sjhao sjbhfioau skfha aksf b shf aoshf '
+        },
+        {
+            key: '2',
+            product: 'Vietnam Drip',
+            varian: 'Coffee',
+            harga: 'Rp. 20.000',
+            foto: <Image src={Foto2} width={250} height={220} />,
+            tags: ['Tidak Tersedia'],
+        },
+        {
+            key: '3',
+            product: 'Taro iced',
+            varian: 'Non Coffee',
+            harga: 'Rp. 25.000',
+            foto: <Image src={Foto3} width={250} height={220} />,
+            tags: ['Tersedia'],
+        },
+    ];
+
+    const router = useRouter();
+    const { product } = router.query;
+    const dataSelected = data.find((data) => data.product == product);
     return (
         <div>
             <MainLayout>
                 <Content>
                     <Row className='mt-6 max-w-sm ml-24'>
                         <Col lg={{ span: 20 }} md={{ span: 20 }} sm={{ span: 22 }} xs={{ span: 24 }}>
-                            <h3 className="text-lg">Tambah Product</h3>
+                            <h3 className="text-lg">Edit Product</h3>
                         </Col>
                     </Row>
                     <Row justify="center" className="h-screen">
@@ -86,13 +122,13 @@ export default function AddProduct() {
                                     <Row>
                                         <Col span={22}>
                                             <h3 className="text-base">Nama Product</h3>
-                                            <Input placeholder="Nama Product" />
+                                            <Input placeholder={dataSelected?.product} />
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col span={10}>
                                             <h3 className="text-base">Deskripsi Product</h3>
-                                            <TextArea rows={5} placeholder="Deskripsi" />
+                                            <TextArea rows={5} placeholder={dataSelected?.desk} />
                                         </Col>
                                         <Col span={12}>
                                             <Upload {...props} >
@@ -124,7 +160,7 @@ export default function AddProduct() {
                                     <Row>
                                         <Col span={10}>
                                             <h3 className="text-base">Harga</h3>
-                                            <Input maxLength={10} placeholder="Rp." />
+                                            <Input maxLength={10} placeholder={dataSelected?.harga} />
                                         </Col>
                                     </Row>
                                     <Row className="justify-start ml-8" >

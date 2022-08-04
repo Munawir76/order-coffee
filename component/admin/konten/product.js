@@ -22,11 +22,11 @@ export default function KontenProduct() {
             dataIndex: 'product',
             key: 'product',
         },
-        {
-            title: 'Varian',
-            dataIndex: 'varian',
-            key: 'varian',
-        },
+        // {
+        //     title: 'Varian',
+        //     dataIndex: 'varian',
+        //     key: 'varian',
+        // },
         {
             title: 'Harga',
             dataIndex: 'harga',
@@ -66,8 +66,8 @@ export default function KontenProduct() {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link href={`/admin/${record.name}`}>
-                        <Tooltip placement="left" title="Edit">
+                    <Link href={`/admin/editProduct/${record.product}`}>
+                        <Tooltip placement="left" title="Edit Product">
                             <Button
                                 style={{ color: "blue", borderColor: "blue" }}
                                 icon={<FormOutlined />}
@@ -75,8 +75,8 @@ export default function KontenProduct() {
                             </Button>
                         </Tooltip>
                     </Link>
-                    <Link href={`/admin/${record.name}`}>
-                        <Tooltip placement="left" title="Detail">
+                    <Link href={`/admin/detailProduct/${record.product}`}>
+                        <Tooltip placement="left" title="Detail Product">
                             <Button
                                 style={{ color: "#4ade80", borderColor: "#4ade80" }}
                                 icon={<EyeOutlined />}
