@@ -74,7 +74,6 @@ export default function DetailMenu() {
                                         "
                                     id="exampleNumber0"
                                 />
-
                             </div>
                         </div>
 

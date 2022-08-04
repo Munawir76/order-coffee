@@ -7,6 +7,7 @@ import 'tailwindcss/tailwind.css'
 
 const { Footer } = Layout
 
+
 function MainLayout({ children }) {
     return (
         <Layout>

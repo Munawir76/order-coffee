@@ -139,9 +139,11 @@ export default function KontenProduct() {
                 </Row>
                 <Row justify='end' style={{ marginRight: 100 }}>
                     <Col>
-                        <Button type='primary'>
-                            + Add Product
-                        </Button>
+                        <Link href="/admin/productAdd">
+                            <Button type='primary'>
+                                + Add Product
+                            </Button>
+                        </Link>
                     </Col>
                 </Row>
                 <Row justify="center" align="middle" className='h-96 mt-6'>

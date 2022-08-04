@@ -39,7 +39,7 @@ export default function MenuFavorit() {
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuSatu} layout="responsive" />
+                                            <Image className="rounded-t-lg" src={MenuSatu} alt="" />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
