@@ -14,23 +14,23 @@ import axios from 'axios';
 export default function FormLogin() {
 
     const [email, setEmail] = useState('')
-    const [fullName, setFullName] = useState('')
+    const [fullname, setFullname] = useState('')
     const [password, setPassword] = useState('')
-    const [phone, setPhone] = useState('')
-    const [roleId, setRoleId] = useState('2')
+    const [birthofdate, setbirthofdate] = useState('')
+    const [role_id, setRole_id] = useState('2')
     const router = useRouter()
 
     const dataRegister = async () => {
         try {
             const valueForm = {
                 email: email,
-                fullName: fullName,
-                phone: phone,
+                fullname: fullname,
+                birthofdate: birthofdate,
                 password: password,
-                roleId: roleId
+                role_id: role_id
             }
             console.log(valueForm)
-            const sentData = await axios.post("https://42cc-2001-448a-2062-2ea0-3563-6d98-637c-3153.ngrok.io/auth/register", valueForm, {
+            const sentData = await axios.post("https://1451-101-255-119-166.ap.ngrok.io/auth/register", valueForm, {
                 headers: "application/json"
             }).then(res => {
                 console.log(res.status)
@@ -54,19 +54,21 @@ export default function FormLogin() {
     }
     const onChangeFullName = (e) => {
         const value = e.target.value
-        setFullName(value)
+        setFullname(value)
     }
     const onChangePassword = (e) => {
         const value = e.target.value
         setPassword(value)
     }
-    const onChangePhone = (e) => {
+    const onChangeDate = (e) => {
         const value = e.target.value
-        setPhone(value)
+        setbirthofdate(value)
+        // value = new Date()
+        console.log(value)
     }
     const onChangeRoleId = (e) => {
         const value = e.target.value
-        setRoleId(value)
+        setRole_id(value)
     }
 
     const onFormSubmit = (e) => {
@@ -116,12 +118,12 @@ export default function FormLogin() {
                                                     // id="exampleInputName2"
                                                     aria-describedby="nameHelp"
                                                     placeholder="Full Name"
-                                                    value={fullName} onChange={onChangeFullName}
+                                                    value={fullname} onChange={onChangeFullName}
                                                 />
                                             </div>
-                                            {/* <div className="form-group mb-4">
+                                            <div className="form-group mb-4">
                                                 <label
-                                                    htmlFor="exampleInputEmail2"
+                                                    // htmlFor="exampleInputEmail2"
                                                     className="form-label inline-block mb-1 text-black font-light font-sans"
                                                 >
                                                     Date of birth
@@ -146,8 +148,9 @@ export default function FormLogin() {
                                                     id="exampleInputEmail2"
                                                     aria-describedby="emailHelp"
                                                     placeholder="Date of birth"
+                                                    value={birthofdate} onChange={onChangeDate}
                                                 />
-                                            </div> */}
+                                            </div>
                                             <div className="form-group mb-4">
                                                 <label
                                                     // htmlFor="exampleInputEmail2"
@@ -179,7 +182,7 @@ export default function FormLogin() {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="form-group mb-4">
+                                        {/* <div className="form-group mb-4">
                                             <label
                                                 // htmlFor="exampleInputEmail2"
                                                 className="form-label inline-block mb-1 text-black font-light font-sans"
@@ -208,7 +211,7 @@ export default function FormLogin() {
                                                 value={phone} onChange={onChangePhone}
                                             />
 
-                                        </div>
+                                        </div> */}
                                         <div className="form-group mb-4">
                                             <label
                                                 // htmlFor="exampleInputEmail2"
@@ -256,7 +259,7 @@ export default function FormLogin() {
                                                     focus:text-gray-700 focus:bg-white focus:border-[#C78342] focus:outline-[#C78342]"
                                                 // id="exampleInputPassword2"
                                                 placeholder="Password"
-                                                value={roleId} onChange={onChangeRoleId}
+                                                value={role_id} onChange={onChangeRoleId}
                                             />
                                         </div>
                                         <div className="flex justify-end items-center mt-6 mb-4">

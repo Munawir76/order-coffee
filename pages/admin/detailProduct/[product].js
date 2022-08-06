@@ -25,7 +25,7 @@ export default function DetailProduct() {
             product: 'Vietnam Drip',
             varian: 'Coffee',
             harga: 'Rp. 20.000',
-            foto: <Image src={Foto2} width={250} height={220} />,
+            foto: <Image src={Foto2} width={250} height={220} style={{ borderRadius: "5%" }} />,
             tags: ['Tidak Tersedia'],
         },
         {
@@ -33,7 +33,7 @@ export default function DetailProduct() {
             product: 'Taro iced',
             varian: 'Non Coffee',
             harga: 'Rp. 25.000',
-            foto: <Image src={Foto3} width={250} height={220} />,
+            foto: <Image src={Foto3} width={250} height={220} style={{ borderRadius: "5%" }} />,
             tags: ['Tersedia'],
         },
     ];

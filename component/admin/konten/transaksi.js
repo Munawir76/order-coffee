@@ -36,11 +36,13 @@ export default function KontenTransaksi() {
                 <Space size="middle">
                     <Link href={`/${record.deleteUser}`}>
                         <Tooltip placement="right" title="Cek Pembayaran">
-                            <Button
-                                style={{ color: "blue", borderColor: "blue" }}
-                                icon={<FormOutlined />}
-                            >
-                            </Button>
+                            <Link href="/admin/cekTransaksi">
+                                <Button
+                                    style={{ color: "blue", borderColor: "blue" }}
+                                    icon={<FormOutlined />}
+                                >
+                                </Button>
+                            </Link>
                         </Tooltip>
                     </Link>
                 </Space>

@@ -1,4 +1,5 @@
 import { Space, Table, Tag, Button, Layout, Row, Col, DatePicker, Input } from 'antd';
+import { PrinterOutlined } from '@ant-design/icons'
 import React, { useRef, useState } from 'react';
 const { Content, } = Layout;
 
@@ -96,16 +97,21 @@ export default function KontenLaporan() {
                             onSearch={onSearch}
                         />
                     </Col>
-                    <Row className='mt-6 w-full'>
-                        <Col span={12}>
-                            <h3 className="text-sm mt-5">Dari tanggal</h3>
-                            <DatePicker onChange={onChange} />
-                        </Col>
-                        <Col span={12}>
-                            <h3 className="text-sm mt-5">Sampai tanggal</h3>
-                            <DatePicker onChange={onChange} />
-                        </Col>
-                    </Row>
+                </Row>
+                <Row className='mt-2 max-w-5xl ml-24'>
+                    <Col span={5}>
+                        <h3 className="text-sm mt-5">Dari tanggal</h3>
+                        <DatePicker onChange={onChange} />
+                    </Col>
+                    <Col span={7}>
+                        <h3 className="text-sm mt-5 mr-30">Sampai tanggal</h3>
+                        <DatePicker onChange={onChange} />
+                    </Col>
+                    <Col span={10} className="text-sm mt-12 text-end ml-4">
+                        <Button type="primary" icon={<PrinterOutlined />} style={{ width: 120 }}>
+                            Print
+                        </Button>
+                    </Col>
                 </Row>
                 <Row justify="center" align="middle" className="h-80">
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
