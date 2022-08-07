@@ -1,13 +1,15 @@
 import { Col, Row } from 'antd';
 import React, { useState } from 'react';
-import Image from 'next/image'
-import Back from '../../public/images/foster1.jpg'
-import Logo from '../../public/images/logo.png'
+import Image from 'next/image';
+import Back from '../../public/images/foster1.jpg';
+import Logo from '../../public/images/logo.png';
 import Router, { useRouter } from 'next/router';
 import axios from 'axios';
-import 'antd/dist/antd.css'
-import 'tailwindcss/tailwind.css'
-import '@ant-design/icons'
+import 'antd/dist/antd.css';
+import 'tailwindcss/tailwind.css';
+import '@ant-design/icons';
+
+
 
 
 export default function FormLogin() {
@@ -17,6 +19,15 @@ export default function FormLogin() {
     const router = useRouter()
 
 
+    //   decode jwt
+    function parseJwt(token) {
+        if (!token) { return; }
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
+    }
+
+    //calling api
     const dataLogin = async () => {
         try {
             const valueForm = {
@@ -24,18 +35,32 @@ export default function FormLogin() {
                 password: password
             }
             console.log(valueForm)
-            const sentData = await axios.post('https://1451-101-255-119-166.ap.ngrok.io/auth/login', valueForm, {
-                headers: "application/json"
+            const sentData = await axios.post('https://263d-139-193-224-49.ap.ngrok.io/auth/login', valueForm, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
             }).then(res => {
-                console.log(res.status)
-                if (res.status == 201 || res.status == 200) {
+                console.log(res)
+                console.log(res.data.token)
+                console.log(parseJwt(res.data.token));
+                const parseToken = parseJwt(res.data.token)
+                if (parseToken.role == 'Admin' && res.data.statusCode == 200) {
+                    localStorage.setItem('tokenAdmin', res.data.token)
+                    window.alert("Login berhasil")
+                    router.push('admin/dashboard')
+                }
+
+                else if (parseToken.role == 'Customer' && res.data.statusCode == 200) {
+                    localStorage.setItem('tokenCustomer', res.data.token)
                     window.alert("Login Berhasil")
-                    // tinggal routing mau kemana arahnya
                     router.push("/home")
                 }
+
             })
 
         } catch (error) {
+            window.alert(error, error.message = "Email atau Password salah")
+            console.error(error);
 
         }
 

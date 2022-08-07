@@ -1,8 +1,10 @@
 import 'antd/dist/antd.css'
 import 'antd/dist/antd.variable.min.css'
 import 'tailwindcss/tailwind.css'
-import { Layout, Menu, ConfigProvider } from 'antd';
+import { Layout, Menu, ConfigProvider, Button } from 'antd';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import {
     ShoppingOutlined,
     NotificationOutlined,
@@ -15,6 +17,7 @@ import {
 } from '@ant-design/icons';
 import Link from 'next/link';
 
+
 const { Sider } = Layout;
 ConfigProvider.config({
     theme: {
@@ -23,7 +26,49 @@ ConfigProvider.config({
 });
 
 
+
 export default function Sidebar() {
+
+    function parseJwt(token) {
+        if (!token) { return; }
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
+    }
+
+
+    const [isLogged, setLogged] = useState()
+    const router = useRouter();
+
+    async function validate() {
+        try {
+            const token = await localStorage.getItem('tokenAdmin')
+            const decode = await parseJwt(token)
+
+            if (token) {
+                setLogged(true)
+            } else {
+                setLogged(false)
+            }
+
+
+        } catch (error) {
+
+        }
+    }
+
+
+    async function buttonLogout() {
+        try {
+            const remove = localStorage.clear()
+            window.alert("Logout")
+            router.push("/login")
+
+        } catch (error) {
+
+        }
+    }
+
     const [collapsed, setCollapsed] = useState(false);
     const items = [
         {
@@ -93,7 +138,7 @@ export default function Sidebar() {
             }
         },
         {
-            label: <Link href=""><a className='w-full text-lg'>Logout</a></Link>, key: "logout", icon: <ImportOutlined />,
+            label: <button onClick={buttonLogout}><a className='w-full text-lg '>Logout</a></button>, key: "logout", icon: <ImportOutlined />,
             get: function getItem(label, key, icon, children) {
                 return {
                     key,
@@ -104,6 +149,13 @@ export default function Sidebar() {
             }
         },
     ];
+
+    useEffect(() => {
+
+        validate()
+
+    }, []);
+
 
     return (
         <div>

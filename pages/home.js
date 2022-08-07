@@ -3,8 +3,24 @@ import 'antd/dist/antd.css'
 import Navigasi from '../component/navigasi'
 import Slide from '../component/landingPage/carousel'
 import Footer from '../component/footer'
+import LandingPage from '../component/landingPage/landingPage '
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
-export default function Beranda() {
+export default function Home() {
+
+    const router = useRouter()
+    useEffect(() => {
+        const getToken = localStorage.getItem('tokenCustomer')
+
+        if (!getToken) {
+            window.alert("Harus Login terlebih dahulu")
+            router.push("/")
+        }
+
+
+    }, [])
+
     return (
         <div>
             <Head>
@@ -13,6 +29,7 @@ export default function Beranda() {
             </Head>
             <Navigasi />
             <Slide />
+            <LandingPage />
             <Footer />
         </div>
     )

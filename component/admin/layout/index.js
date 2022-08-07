@@ -4,11 +4,27 @@ import NavbarAdmin from "./header";
 import Sidebar from "./sidebar";
 import 'antd/dist/antd.variable.css'
 import 'tailwindcss/tailwind.css'
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const { Footer } = Layout
 
 
 function MainLayout({ children }) {
+
+    // const router = useRouter()
+    // useEffect(() => {
+    //     const getToken = localStorage.getItem('tokenAdmin')
+
+    //     if (!getToken) {
+    //         window.alert("Harus Login terlebih dahulu")
+    //         router.push("/")
+    //     }
+
+
+    // }, [])
+
+
     return (
         <Layout>
             <NavbarAdmin />

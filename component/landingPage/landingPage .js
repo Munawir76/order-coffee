@@ -4,13 +4,12 @@ import { Row, Col } from 'antd'
 import MenuList from './menuTerbaikLandingPage'
 import MenuFavorit from "./menuFavoritLandingPage";
 import Promo from "./promoLandingPage";
-import FormLoginRegist from "./fromlLoginRegist";
 
 
-export default function LoginLanding() {
+
+export default function LandingPage() {
     return (
         <div>
-            <FormLoginRegist />
             <Row align="middle">
                 <Col >
                     <div className="mt-10">

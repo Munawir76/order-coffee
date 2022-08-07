@@ -5,7 +5,6 @@ import Image from 'next/image';
 import SlideSatu from "../../public/images/slideshow1.jpg"
 import SlideDua from '../../public/images/slide1.jpg'
 import SlideTiga from '../../public/images/slide2.jpg'
-import LoginLd from './loginLandingPage'
 
 export default function Slide() {
     const styleCarousel = {
@@ -27,7 +26,6 @@ export default function Slide() {
                     <Image src={SlideTiga} />
                 </div>
             </Carousel>
-            <LoginLd />
         </div>
     );
 }

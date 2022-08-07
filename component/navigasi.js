@@ -19,19 +19,29 @@ ConfigProvider.config({
     },
 });
 
-const handleButtonClick = (e) => {
-    message.info('Click on left button.');
-    console.log('click left button', e);
-};
+async function buttonLogout() {
+    try {
+        const remove = localStorage.clear()
+        window.alert("Logout")
+        router.push("/login/")
 
-const handleMenuClick = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-};
+    } catch (error) {
+
+    }
+}
+// const handleButtonClick = (e) => {
+//     message.info('Click on left button.');
+//     console.log('click left button', e);
+// };
+
+// const handleMenuClick = (e) => {
+//     message.info('Click on menu item.');
+//     console.log('click', e);
+// };
 
 const menu = (
     <Menu
-        onClick={handleMenuClick}
+        onClick={buttonLogout}
         items={[
             {
                 label: 'Logout',

@@ -5,6 +5,8 @@ import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
 import logo from "../../../public/images/logo.png"
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const { Header } = Layout;
 ConfigProvider.config({
