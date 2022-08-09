@@ -1,29 +1,52 @@
-import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input } from 'antd';
-import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal } from 'antd';
+import { EyeOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import Link from "next/link";
+import { useState } from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
+import jwt_decode from 'jwt-decode'
 
+const { confirm } = Modal;
 const { Content } = Layout;
-
 const { Search } = Input;
+
+const showDeleteConfirm = () => {
+    confirm({
+        title: 'Yakin hapus user ?',
+        icon: <ExclamationCircleOutlined />,
+        // content: 'Some descriptions',
+        okText: 'Yes',
+        okType: 'danger',
+        cancelText: 'No',
+
+        onOk() {
+            console.log('OK');
+        },
+
+        onCancel() {
+            console.log('Cancel');
+        },
+    });
+};
 
 export default function KontenUsers() {
 
     const columns = [
         {
-            title: 'No',
-            dataIndex: 'key',
-            key: 'key',
+            title: 'ID',
+            dataIndex: 'id',
+            key: 'id',
         },
         {
             title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
+            dataIndex: 'fullname',
+            key: 'fullname',
             render: (text) => <a>{text}</a>,
         },
         {
             title: 'Date of brith',
-            dataIndex: 'ttl',
-            key: 'ttl',
+            dataIndex: 'birthofdate',
+            key: 'birthofdate',
         },
         {
             title: 'Email',
@@ -32,34 +55,27 @@ export default function KontenUsers() {
         },
         {
             title: 'Role',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: (_, { tags }) => (
-                <div>
-                    {tags.map((tag) => {
-                        let color = ''
-                        if (tag === 'Admin') {
-                            color = 'geekblue';
-                        }
-                        else if (tag === 'Customer') {
-                            color = 'green';
-                        }
+            key: 'role',
+            dataIndex: 'role',
+            render: (role) => {
+                if (role.detail === "Customer") {
+                    return (
+                        <Tag color="blue">{role.detail}</Tag>
+                    )
+                } else if (role.detail === "Admin") {
+                    return (
+                        <Tag color="green" > {role.detail}</Tag>
+                    )
+                }
+            }
 
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </div>
-            ),
         },
         {
             title: 'Action',
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link href={`/admin/detailUser/${record.name}`}>
+                    <Link href={`/admin/detailUser/${record.fullname}`}>
                         <Tooltip placement="left" title="Detail">
                             <Button
                                 style={{ color: "#4ade80", borderColor: "#4ade80" }}
@@ -68,45 +84,52 @@ export default function KontenUsers() {
                             </Button>
                         </Tooltip>
                     </Link>
-                    <Link href={`/${record.deleteUser}`}>
-                        <Tooltip placement="right" title="Delete">
-                            <Button
-                                type="danger"
-                                icon={<DeleteOutlined />}
-                                danger={true}
-                            >
-                            </Button>
-                        </Tooltip>
-                    </Link>
+                    <Tooltip placement="right" title="Delete">
+                        <Button
+                            type="danger"
+                            icon={<DeleteOutlined />}
+                            danger={true}
+                            onClick={showDeleteConfirm}
+                        // onClick={() => { onDeleteUser(record) }}
+                        >
+
+                        </Button>
+                    </Tooltip>
                 </Space>
             ),
         },
     ];
-    const data = [
-        {
-            key: '1',
-            name: 'Bram ukraine',
-            ttl: '01 januari 2022',
-            email: 'bram@gmail.com',
-            tags: ['Admin'],
-        },
-        {
-            key: '2',
-            name: 'Dwi Portugal',
-            ttl: '09 juli 1998',
-            email: 'dwigunardi@gmail.com',
-            tags: ['Customer'],
-        },
-        {
-            key: '3',
-            name: 'Nabil Singapure',
-            ttl: '28 agustus 1999',
-            email: 'nabil@gmail.com',
-            tags: ['Customer'],
-        },
-    ];
+
+    const [dataUser, setDataUser] = useState()
+
+    async function getDataUser() {
+        try {
+            const getToken = localStorage.getItem("tokenAdmin")
+            const decode = jwt_decode(getToken)
+            // console.log(getToken);
+            await axios.get('https://ordercoffee-app.herokuapp.com/users', {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(res => {
+                // console.log(res.data.data);
+                const apiDataUser = res.data.data
+                // console.log(apiDataUser)
+                setDataUser(apiDataUser)
+            })
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    useEffect(() => {
+        getDataUser()
+    }, [])
+
+    console.log(dataUser);
 
     const onSearch = (value) => console.log(value);
+
     return (
         <div>
             <Content>
@@ -123,7 +146,7 @@ export default function KontenUsers() {
                 </Row>
                 <Row justify="center" align="middle" className='h-96 '>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns} dataSource={data} />
+                        <Table columns={columns} dataSource={dataUser} />
                     </Col>
                 </Row>
             </Content>

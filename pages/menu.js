@@ -1,14 +1,11 @@
 import 'antd/dist/antd.css'
-import Navigasi from '../component/navigasi'
 import ListMenu from '../component/menu/listMenu'
-import Footer from '../component/footer'
+import MainLayoutUser from '../component/mainLayotUser'
 
 export default function Beranda() {
     return (
-        <div>
-            <Navigasi />
+        <MainLayoutUser>
             <ListMenu />
-            <Footer />
-        </div>
+        </MainLayoutUser>
     )
 }

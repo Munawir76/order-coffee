@@ -10,6 +10,8 @@ import { useRouter } from "next/router";
 import { Dropdown, Menu, message, Space, ConfigProvider } from 'antd';
 import '@ant-design/icons'
 import { UserOutlined, ShoppingCartOutlined, LogoutOutlined } from '@ant-design/icons'
+import jwt_decode from 'jwt-decode';
+
 
 // #C78342 Muda
 // #805336 tua
@@ -21,23 +23,16 @@ ConfigProvider.config({
 
 async function buttonLogout() {
     try {
-        const remove = localStorage.clear()
+        localStorage.clear()
         window.alert("Logout")
-        router.push("/login/")
+        router.push("/")
 
     } catch (error) {
 
     }
 }
-// const handleButtonClick = (e) => {
-//     message.info('Click on left button.');
-//     console.log('click left button', e);
-// };
 
-// const handleMenuClick = (e) => {
-//     message.info('Click on menu item.');
-//     console.log('click', e);
-// };
+
 
 const menu = (
     <Menu
@@ -52,6 +47,8 @@ const menu = (
 );
 
 export default function Navigasi() {
+
+    const [logged, setLogged] = useState(true)
     const [navbar, setNavbar] = useState(false);
     const router = useRouter();
     return (
@@ -126,13 +123,13 @@ export default function Navigasi() {
                                 <Link href="/cart/"><ShoppingCartOutlined className="text-black hover:text-white hover:bg-[#805336] pt-6 pb-6 px-6 ..." /></Link>
                             </li>
                             <li>
-                                <Space wrap>
+                                {logged ? <Space wrap>
                                     <Dropdown overlay={menu}>
                                         <Space>
                                             <UserOutlined className="text-black hover:text-white hover:bg-[#805336] pt-6 pb-6 px-6 ..." />
                                         </Space>
                                     </Dropdown>
-                                </Space>
+                                </Space> : <p></p>}
                             </li>
 
                         </ul>

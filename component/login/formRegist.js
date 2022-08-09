@@ -30,7 +30,7 @@ export default function FormLogin() {
                 role_id: role_id
             }
             console.log(valueForm)
-            const sentData = await axios.post("https://263d-139-193-224-49.ap.ngrok.io/auth/register", valueForm, {
+            const sentData = await axios.post("https://ordercoffee-app.herokuapp.com/auth/register", valueForm, {
                 headers: {
                     'Content-Type': 'application/json',
                 }

@@ -1,31 +1,31 @@
 import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Menu, Card, Upload, Dropdown } from 'antd';
-import { EyeOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
+import { EyeOutlined, DeleteOutlined, FormOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import Link from "next/link";
-import Image from 'next/image'
-import Foto1 from "../../../public/images/redvalvet.jpg"
-import Foto2 from "../../../public/images/vietnamdrip.jpg"
-import Foto3 from "../../../public/images/taro.jpg"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 
-const { Content } = Layout;
-
+const { confirm } = Modal;
 const { Search } = Input;
+
 
 
 export default function KontenProduct() {
 
-    const [visible, setVisible] = useState(false);
 
-    const showModal = () => {
+    const [visible, setVisible] = useState(false);
+    const [dataProduct, setDataProduct] = useState()
+
+    const showModalAddProduct = () => {
         setVisible(true);
     };
 
-    const hideModal = () => {
+    const hideModalAddProduct = () => {
         setVisible(false);
     };
 
 
-    //value modal
+    //value modal Add Product
     const { Content, } = Layout;
     const { TextArea } = Input
 
@@ -93,13 +93,13 @@ export default function KontenProduct() {
     const columns = [
         {
             title: 'No',
-            dataIndex: 'key',
-            key: 'key',
+            dataIndex: 'id',
+            key: 'id',
         },
         {
             title: 'Product',
-            dataIndex: 'product',
-            key: 'product',
+            dataIndex: 'name',
+            key: 'name',
         },
         // {
         //     title: 'Varian',
@@ -108,44 +108,44 @@ export default function KontenProduct() {
         // },
         {
             title: 'Harga',
-            dataIndex: 'harga',
-            key: 'harga',
+            dataIndex: 'price',
+            key: 'price',
         },
         {
             title: 'Foto',
-            dataIndex: 'foto',
-            key: 'foto',
+            dataIndex: 'photo',
+            key: 'photo',
         },
-        {
-            title: 'Status',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: (_, { tags }) => (
-                <div>
-                    {tags.map((tag) => {
-                        let color = ''
-                        if (tag === 'Tersedia') {
-                            color = 'green';
-                        }
-                        else if (tag === 'Tidak Tersedia') {
-                            color = 'red';
-                        }
+        // {
+        //     title: 'Status',
+        //     key: 'tags',
+        //     dataIndex: 'tags',
+        //     render: (_, { tags }) => (
+        //         <div>
+        //             {tags.map((tag) => {
+        //                 let color = ''
+        //                 if (tag === 'Tersedia') {
+        //                     color = 'green';
+        //                 }
+        //                 else if (tag === 'Tidak Tersedia') {
+        //                     color = 'red';
+        //                 }
 
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </div>
-            ),
-        },
+        //                 return (
+        //                     <Tag color={color} key={tag}>
+        //                         {tag.toUpperCase()}
+        //                     </Tag>
+        //                 );
+        //             })}
+        //         </div>
+        //     ),
+        // },
         {
             title: 'Action',
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link href={`/admin/editProduct/${record.product}`}>
+                    <Link href={`/admin/editProduct/${record.name}`}>
                         <Tooltip placement="left" title="Edit Product">
                             <Button
                                 style={{ color: "blue", borderColor: "blue" }}
@@ -154,7 +154,7 @@ export default function KontenProduct() {
                             </Button>
                         </Tooltip>
                     </Link>
-                    <Link href={`/admin/detailProduct/${record.product}`}>
+                    <Link href={`/admin/detailProduct/${record.name}`}>
                         <Tooltip placement="left" title="Detail Product">
                             <Button
                                 style={{ color: "#4ade80", borderColor: "#4ade80" }}
@@ -163,50 +163,47 @@ export default function KontenProduct() {
                             </Button>
                         </Tooltip>
                     </Link>
-                    <Link href={`/${record.deleteUser}`}>
-                        <Tooltip placement="right" title="Delete">
-                            <Button
-                                type="danger"
-                                icon={<DeleteOutlined />}
-                                danger={true}
-                            >
-                            </Button>
-                        </Tooltip>
-                    </Link>
+                    <Tooltip placement="right" title="Delete">
+                        <Button
+                            type="danger"
+                            icon={<DeleteOutlined />}
+                            danger={true}
+                        // onClick={() => showDeleteConfirm(record)}
+                        >
+                        </Button>
+                    </Tooltip>
                 </Space>
             ),
         },
     ];
 
 
-    const [data, setData] = useState([
-        {
-            key: '1',
-            product: 'Redvalvet',
-            varian: 'Non Coffee',
-            harga: 'Rp. 25.000',
-            foto: <Image src={Foto1} width={60} height={50} />,
-            tags: ['Tersedia'],
-        },
-        {
-            key: '2',
-            product: 'Vietnam Drip',
-            varian: 'Coffee',
-            harga: 'Rp. 20.000',
-            foto: <Image src={Foto2} width={60} height={50} />,
-            tags: ['Tidak Tersedia'],
-        },
-        {
-            key: '3',
-            product: 'Taro iced',
-            varian: 'Non Coffee',
-            harga: 'Rp. 25.000',
-            foto: <Image src={Foto3} width={60} height={50} />,
-            tags: ['Tersedia'],
-        },
-    ]);
+    async function getDataProduct() {
+        try {
+            const getToken = localStorage.getItem("tokenAdmin")
+            const decode = jwt_decode(getToken)
+            // console.log(getToken)
+            await axios.get('https://ordercoffee-app.herokuapp.com/menu', {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                // console.log(res.data.data)
+                const apiDataProduct = res.data.data
+                // console.log(apiDataProduct)
+                setDataProduct(apiDataProduct[0])
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
-    const [query, setQuary] = useState('')
+    useEffect(() => {
+        getDataProduct()
+    }, [])
+
+    console.log(dataProduct)
+
 
     return (
         <div>
@@ -229,14 +226,14 @@ export default function KontenProduct() {
                 </Row>
                 <Row justify='end' style={{ marginRight: 100 }}>
                     <Col>
-                        <Button type="primary" onClick={showModal}>
+                        <Button type="primary" onClick={showModalAddProduct}>
                             + Add Product
                         </Button>
                         <Modal
                             title="Add Product"
                             visible={visible}
-                            onOk={hideModal}
-                            onCancel={hideModal}
+                            onOk={hideModalAddProduct}
+                            onCancel={hideModalAddProduct}
                             okText="Simpan"
                             okType='primary'
 
@@ -246,7 +243,7 @@ export default function KontenProduct() {
 
                         >
                             <Content>
-                                <Row justify="center" className="h-FULL">
+                                <Row justify="center" className="h-full">
                                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                                         <div className="space-y-5">
                                             <Row>
@@ -300,9 +297,9 @@ export default function KontenProduct() {
                         </Modal>
                     </Col>
                 </Row>
-                <Row justify="center" align="middle" className='h-96 mt-6'>
+                <Row justify="center" align="middle" className='h-96'>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns} dataSource={data} />
+                        <Table columns={columns} dataSource={dataProduct} />
                     </Col>
                 </Row>
             </Content>

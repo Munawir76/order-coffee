@@ -8,8 +8,7 @@ import axios from 'axios';
 import 'antd/dist/antd.css';
 import 'tailwindcss/tailwind.css';
 import '@ant-design/icons';
-
-
+import jwt_decode from 'jwt-decode';
 
 
 export default function FormLogin() {
@@ -20,12 +19,12 @@ export default function FormLogin() {
 
 
     //   decode jwt
-    function parseJwt(token) {
-        if (!token) { return; }
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace('-', '+').replace('_', '/');
-        return JSON.parse(window.atob(base64));
-    }
+    // function parseJwt(token) {
+    //     if (!token) { return; }
+    //     const base64Url = token.split('.')[1];
+    //     const base64 = base64Url.replace('-', '+').replace('_', '/');
+    //     return JSON.parse(window.atob(base64));
+    // }
 
     //calling api
     const dataLogin = async () => {
@@ -35,31 +34,37 @@ export default function FormLogin() {
                 password: password
             }
             console.log(valueForm)
-            const sentData = await axios.post('https://263d-139-193-224-49.ap.ngrok.io/auth/login', valueForm, {
+            const sentData = await axios.post('https://ordercoffee-app.herokuapp.com/auth/login', valueForm, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
                 console.log(res)
                 console.log(res.data.token)
-                console.log(parseJwt(res.data.token));
-                const parseToken = parseJwt(res.data.token)
-                if (parseToken.role == 'Admin' && res.data.statusCode == 200) {
-                    localStorage.setItem('tokenAdmin', res.data.token)
+                // console.log(parseJwt(res.data.token));
+                const decode = jwt_decode(res.data.token)
+                console.log(decode)
+                console.log(res.data.statusCode)
+                if (decode.role == "Admin") {
                     window.alert("Login berhasil")
+                    localStorage.setItem('tokenAdmin', res.data.token)
                     router.push('admin/dashboard')
                 }
 
-                else if (parseToken.role == 'Customer' && res.data.statusCode == 200) {
+                else if (decode.role == "Customer") {
                     localStorage.setItem('tokenCustomer', res.data.token)
                     window.alert("Login Berhasil")
                     router.push("/home")
+                }
+                else {
+                    window.alert("Email atau password salah")
+
                 }
 
             })
 
         } catch (error) {
-            window.alert(error, error.message = "Email atau Password salah")
+            window.alert(error, error.message = "Api Benerin Bram")
             console.error(error);
 
         }

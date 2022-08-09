@@ -1,15 +1,10 @@
-import Navigasi from '../component/navigasi'
-import Footer from '../component/footer'
 import ListCart from '../component/cart/listCart'
-// import CartAuth from '../component/cart/cartAuth'
+import MainLayoutUser from '../component/mainLayotUser'
 
 export default function Beranda() {
     return (
-        <div>
-            {/* <CartAuth /> */}
-            <Navigasi />
+        <MainLayoutUser>
             <ListCart />
-            <Footer />
-        </div>
+        </MainLayoutUser>
     )
 }

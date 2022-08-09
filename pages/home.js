@@ -1,11 +1,10 @@
 import Head from 'next/head'
 import 'antd/dist/antd.css'
-import Navigasi from '../component/navigasi'
 import Slide from '../component/landingPage/carousel'
-import Footer from '../component/footer'
 import LandingPage from '../component/landingPage/landingPage '
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import MainLayoutUser from '../component/mainLayotUser'
 
 export default function Home() {
 
@@ -22,15 +21,14 @@ export default function Home() {
     }, [])
 
     return (
-        <div>
+        <MainLayoutUser>
+
             <Head>
                 <title>Order Coffee</title>
                 <link rel="icon" href="/logo1.ico" />
             </Head>
-            <Navigasi />
             <Slide />
             <LandingPage />
-            <Footer />
-        </div>
+        </MainLayoutUser>
     )
 }

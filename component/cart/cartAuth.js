@@ -1,8 +1,6 @@
 import 'antd/dist/antd.variable.min.css'
 import 'tailwindcss/tailwind.css'
 import Link from 'next/link'
-import Navigasi from '../../component/navigasi'
-import Footer from '../../component/footer'
 import { Row, Col, Card, Input, ConfigProvider } from 'antd'
 import Image from 'next/image'
 import Product1 from '../../public/images/kopisusu.jpg'
@@ -20,7 +18,6 @@ export default function CartAuth() {
 
     return (
         <div>
-            <Navigasi />
             <div className='min-h-screen pt-14 ml-40 mt-5' style={{ position: "relative" }}>
                 <Row>
                     <Col span={12}>
@@ -84,7 +81,6 @@ export default function CartAuth() {
                     </Col>
                 </Row>
             </div>
-            <Footer />
         </div>
 
     )

@@ -2,8 +2,6 @@ import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import Link from 'next/link'
 import Image from 'next/image';
-import Navigasi from "../navigasi"
-import Footer from '../footer';
 import MenuSatu from "../../public/images/redvalvet.jpg"
 import { Row, Col, Space } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
@@ -15,7 +13,6 @@ export default function DetailMenu() {
     };
     return (
         <div>
-            <Navigasi />
             <div className='h-screen ml-40 mt-24' style={{ position: "relative" }}>
                 <Row justify='start' >
                     <Col span='8'>
@@ -95,7 +92,6 @@ export default function DetailMenu() {
                     </Col>
                 </Row>
             </div>
-            <Footer />
         </div>
     )
 }

@@ -60,7 +60,7 @@ export default function Sidebar() {
 
     async function buttonLogout() {
         try {
-            const remove = localStorage.clear()
+            localStorage.clear()
             window.alert("Logout")
             router.push("/login")
 
@@ -166,13 +166,11 @@ export default function Sidebar() {
                 theme="light"
                 className='drop-shadow-md h-full'
             >
-
                 <Menu
                     theme="light"
                     mode="inline"
                     defaultSelectedKeys={['1']}
                     items={items}
-
                 />
             </Sider>
         </div>

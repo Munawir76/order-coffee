@@ -12,17 +12,17 @@ const { Footer } = Layout
 
 function MainLayout({ children }) {
 
-    // const router = useRouter()
-    // useEffect(() => {
-    //     const getToken = localStorage.getItem('tokenAdmin')
+    const router = useRouter()
+    useEffect(() => {
+        const getToken = localStorage.getItem('tokenAdmin')
 
-    //     if (!getToken) {
-    //         window.alert("Harus Login terlebih dahulu")
-    //         router.push("/")
-    //     }
+        if (!getToken) {
+            window.alert("Harus Login terlebih dahulu")
+            router.push("/")
+        }
 
 
-    // }, [])
+    }, [])
 
 
     return (
@@ -30,7 +30,8 @@ function MainLayout({ children }) {
             <NavbarAdmin />
             <Layout>
                 <Sidebar />
-                <Layout>{children}
+                <Layout>
+                    {children}
 
                     <Footer
                         className="text-center"

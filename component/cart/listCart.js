@@ -32,7 +32,7 @@ export default function ListCart() {
         <div className='min-h-screen pt-14 ml-40 mt-5' style={{ position: "relative" }}>
             <Row>
                 <Col>
-                    <Steps
+                    {/* <Steps
                         type="navigation"
 
                         current={current}
@@ -42,7 +42,8 @@ export default function ListCart() {
                         <Step status="none" title="Cart" />
                         <Step status="none" title="Detail" />
                         <Step status="none" title="Payment" />
-                    </Steps>
+                    </Steps> */}
+                    <h2>Cart</h2>
                 </Col>
             </Row>
             <Row justify="start" align="middle" className="h-80">
