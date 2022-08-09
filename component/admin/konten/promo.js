@@ -1,189 +1,184 @@
-import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Menu, Dropdown, Upload } from 'antd';
+import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Select, Dropdown, Upload, Form } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import Link from "next/link";
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 const { Header, Content, Sider } = Layout;
-
+const { Option } = Select
 const { Search } = Input;
 
 
-export default function KontenPromo() {
 
-    const [visible, setVisible] = useState(false);
-
-    const showModal = () => {
-        setVisible(true);
-    };
-
-    const hideModal = () => {
-        setVisible(false);
-    };
-
-
-    const { Content, } = Layout;
-    const { TextArea } = Input
-
-    const props = {
-        action: '//jsonplaceholder.typicode.com/posts/',
-        listType: 'picture',
-
-        previewFile(file) {
-            console.log('Your upload file:', file); // Your process logic. Here we just mock to the same file
-
-            return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
-                method: 'POST',
-                body: file,
-            })
-                .then((res) => res.json())
-                .then(({ thumbnail }) => thumbnail);
-        },
-    };
-
-    const handleButtonClick = (e) => {
-        message.info('Click on left button.');
-        console.log('click left button', e);
-    };
-
-    const handleMenuClick = (e) => {
-        message.info('Click on menu item.');
-        console.log('click', e);
-    };
-
-
-    const namaProduct = (
-        <Menu
-            onClick={handleMenuClick}
-            items={[
-                {
-                    label: 'Red Valvet',
-                    key: '1',
-                },
-                {
-                    label: 'Taro Iced',
-                    key: '2',
-                },
-                {
-                    label: 'Machiatto',
-                    key: '3',
-                },
-                {
-                    label: 'Kopi Susu',
-                    key: '4',
-                },
-
-            ]}
-        />
-    );
-
-    const diskon = (
-        <Menu
-            onClick={handleMenuClick}
-            items={[
-                {
-                    label: '10%',
-                    key: '1',
-                },
-                {
-                    label: '20%',
-                    key: '2',
-                },
-                {
-                    label: '30%',
-                    key: '3',
-                },
-                {
-                    label: '40%',
-                    key: '3',
-                },
-                {
-                    label: '50%',
-                    key: '5',
-                },
-
-            ]}
-        />
-    );
-
-    const columns = [
+function columns(deleteModal) {
+    return [
         {
             title: 'No',
-            dataIndex: 'key',
-            key: 'key',
+            dataIndex: 'id',
+            key: 'id',
         },
         {
             title: 'Promo',
-            dataIndex: 'promo',
-            key: 'promo',
+            dataIndex: 'name',
+            key: 'name',
         },
+        // {
+        //     title: 'Varian',
+        //     dataIndex: 'varian',
+        //     key: 'varian',
+        // },
         {
             title: 'Diskon',
-            dataIndex: 'diskon',
-            key: 'diskon',
+            dataIndex: 'discount',
+            key: 'discount',
         },
         {
             title: 'Status',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: (_, { tags }) => (
-                <div>
-                    {tags.map((tag) => {
-                        let color = ''
-                        if (tag === 'Tersedia') {
-                            color = 'green';
-                        }
-                        else if (tag === 'Tidak Tersedia') {
-                            color = 'red';
-                        }
-
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </div>
-            ),
+            key: 'expired',
+            dataIndex: 'expired',
+            render: (expired) => {
+                const d = new Date().toISOString().slice(0, 10);
+                console.log(d)
+                if (expired !== d) {
+                    return (
+                        <Tag color="blue">Tersedia</Tag>
+                    )
+                } else if (expired === d) {
+                    // console.log(expired.expired)
+                    return (
+                        <Tag color="red" >Tidak Tersedia</Tag>
+                    )
+                }
+            }
         },
         {
-            title: 'Delete',
+            title: 'Expired',
+            key: 'expired',
+            dataIndex: 'expired',
+            render: (expired) => {
+                const d = new Date().toISOString().slice(0, 10);
+                console.log(d)
+                if (expired !== d) {
+                    return (
+                        <Tag color="green">{expired}</Tag>
+                    )
+                }
+            }
+
+        },
+        {
+            title: 'Action',
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link href={`/${record.deleteUser}`}>
-                        <Tooltip placement="right" title="Delete">
-                            <Button
-                                type="danger"
-                                icon={<DeleteOutlined />}
-                                danger={true}
-                            >
-                            </Button>
-                        </Tooltip>
-                    </Link>
+                    <Tooltip placement="right" title="Delete">
+                        <Button
+                            type="danger"
+                            icon={<DeleteOutlined />}
+                            danger={true}
+                        // onClick={() => deleteModal(record.name)}
+                        >
+                        </Button>
+                    </Tooltip>
                 </Space>
             ),
         },
     ];
-    const data = [
-        {
-            key: '1',
-            promo: 'Kopi Susu Gula Aren',
-            diskon: '20%',
-            tags: ['Tersedia'],
-        },
-        {
-            key: '2',
-            promo: 'Single Origin',
-            diskon: '25%',
-            tags: ['Tersedia'],
-        },
-        {
-            key: '3',
-            promo: 'Capucino',
-            diskon: '20%',
-            tags: ['Tidak Tersedia'],
-        },
-    ];
+}
+
+export default function KontenPromo() {
+
+    const [dataPromo, setDataPromo] = useState()
+
+    // add promo
+    const [visibleAddPromo, setVisibleAddPromo] = useState(false);
+    const [menuPromo, setMenuPromo] = useState('')
+    const [diskonPromo, setDiskonPromo] = useState('')
+
+    // delete
+    const [visibleDelete, setVisibleDelete] = useState(false);
+    const [modalText, setModalText] = useState('Content of the modal');
+    const [modalTaskId, setModalTaskId] = useState('');
+    const [confirmLoading, setConfirmLoading] = useState(false);
+
+    const showModalAddPromo = () => {
+        setVisibleAddPromo(true);
+    };
+
+    const hideModalAddPromo = () => {
+        setVisibleAddPromo(false);
+    };
+
+    const onChangeDiskonPromo = (e) => {
+        const value = e.target.value
+        setNamaDiskonPromo(value)
+        // console.log(value)
+    }
+
+    const onChangeMenuPromo = (e) => {
+        const value = e.target.value
+        setNamaMenuPromo(value)
+        // console.log(value)
+    }
+
+    const { Content, } = Layout;
+    const { TextArea } = Input
+
+    const deleteModal = (record) => {
+        if (record) {
+            setModalTaskId(record);
+            setVisibleDelete(true);
+
+        } else {
+            setVisibleDelete(false)
+        }
+
+
+    };
+    const handleOkModalDelete = () => {
+        axios.delete(`https://ordercoffee-app.herokuapp.com/promo/${modalTaskId}`).then(res => {
+
+        })
+        setModalText('Modal tertutup dalam 5 detik');
+        setConfirmLoading(true);
+        setTimeout(() => {
+            setVisibleDelete(false);
+            setConfirmLoading(false);
+        }, 2000);
+        location.reload()
+    };
+    const handleCancel = () => {
+        console.log('Clicked cancel button');
+        setVisibleDelete(false);
+
+    }
+
+    async function getDataPromo() {
+        try {
+            const getToken = localStorage.getItem("tokenAdmin")
+            const decode = jwt_decode(getToken)
+            // console.log(getToken)
+            await axios.get('https://ordercoffee-app.herokuapp.com/promo/', {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res.data.data)
+                const apiDataPromo = res.data.data
+                // console.log(apiDataProduct)
+                setDataPromo(apiDataPromo[0])
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        getDataPromo()
+    }, [])
+
+    // console.log(dataPromo)
 
     const onSearch = (value) => console.log(value);
     return (
@@ -202,14 +197,14 @@ export default function KontenPromo() {
                 </Row>
                 <Row justify='end' style={{ marginRight: 100 }}>
                     <Col>
-                        <Button type="primary" onClick={showModal}>
+                        <Button type="primary" onClick={showModalAddPromo}>
                             + Add Promo
                         </Button>
                         <Modal
                             title="Add Product"
-                            visible={visible}
-                            onOk={hideModal}
-                            onCancel={hideModal}
+                            visible={visibleAddPromo}
+                            onOk={hideModalAddPromo}
+                            onCancel={hideModalAddPromo}
                             okText="Simpan"
                             okType='primary'
                             cancelText="Batal"
@@ -222,32 +217,53 @@ export default function KontenPromo() {
                                         <div className="space-y-5">
                                             <Row>
                                                 <Col span={12} className="space-y-6">
-                                                    <div >
-                                                        <h3 className="text-base">Nama Product</h3>
-                                                        <Dropdown overlay={namaProduct}>
-                                                            <Button style={{ width: 270, textAlign: 'start' }}>
-                                                                <Space>
-                                                                    Pilih Product
-                                                                </Space>
-                                                            </Button>
-                                                        </Dropdown>
-                                                    </div>
-                                                    <div>
-                                                        <h3 className="text-base">Diskon</h3>
-                                                        <Dropdown overlay={diskon}>
-                                                            <Button style={{ width: 270, textAlign: 'start' }}>
-                                                                <Space>
-                                                                    Pilih Diskon
-                                                                </Space>
-                                                            </Button>
-                                                        </Dropdown>
-                                                    </div>
+                                                    <Form >
+
+                                                        <Form.Item name="name" >
+                                                            <div >
+                                                                <h3 className="text-base">Nama Menu</h3>
+                                                                <Select
+                                                                    // defaultValue="Tersedia"
+                                                                    style={{
+                                                                        width: 120,
+                                                                    }}
+                                                                    onChange={onChangeMenuPromo}
+                                                                    value={menuPromo}
+                                                                >
+                                                                    <Option value="">10 %</Option>
+                                                                    <Option value="">20 %</Option>
+                                                                    <Option value="">30 %</Option>
+                                                                    <Option value="">40 %</Option>
+                                                                    <Option value="">50 %</Option>
+                                                                </Select>
+                                                            </div>
+                                                        </Form.Item>
+                                                        <Form.Item name="status" >
+                                                            <div >
+                                                                <h3 className="text-base">Diskon</h3>
+                                                                <Select
+                                                                    // defaultValue="Tersedia"
+                                                                    style={{
+                                                                        width: 120,
+                                                                    }}
+                                                                    onChange={onChangeDiskonPromo}
+                                                                    value={diskonPromo}
+                                                                >
+                                                                    <Option value="">10 %</Option>
+                                                                    <Option value="">20 %</Option>
+                                                                    <Option value="">30 %</Option>
+                                                                    <Option value="">40 %</Option>
+                                                                    <Option value="">50 %</Option>
+                                                                </Select>
+                                                            </div>
+                                                        </Form.Item>
+                                                    </Form>
                                                 </Col>
                                                 <Col span={12}>
-                                                    <Upload {...props} >
+                                                    {/* <Upload {...props} >
                                                         <h2 style={{ marginTop: '10px', marginLeft: 110 }}>Gambar Product</h2>
                                                         <Button style={{ backgroundColor: 'rgba(55, 217, 74, 0.8)', color: 'white', marginLeft: 125 }}>Change</Button>
-                                                    </Upload>
+                                                    </Upload> */}
                                                 </Col>
 
                                             </Row>
@@ -260,7 +276,7 @@ export default function KontenPromo() {
                 </Row>
                 <Row justify="center" align="middle" className='h-96 '>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns} dataSource={data} />
+                        <Table columns={columns(deleteModal)} dataSource={dataPromo} />
                     </Col>
                 </Row>
             </Content>

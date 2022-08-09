@@ -1,37 +1,15 @@
 import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal } from 'antd';
-import { EyeOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import Link from "next/link";
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'
 
-const { confirm } = Modal;
 const { Content } = Layout;
 const { Search } = Input;
 
-const showDeleteConfirm = () => {
-    confirm({
-        title: 'Yakin hapus user ?',
-        icon: <ExclamationCircleOutlined />,
-        // content: 'Some descriptions',
-        okText: 'Yes',
-        okType: 'danger',
-        cancelText: 'No',
-
-        onOk() {
-            console.log('OK');
-        },
-
-        onCancel() {
-            console.log('Cancel');
-        },
-    });
-};
-
-export default function KontenUsers() {
-
-    const columns = [
+function columns(deleteModal) {
+    return [
         {
             title: 'ID',
             dataIndex: 'id',
@@ -89,8 +67,8 @@ export default function KontenUsers() {
                             type="danger"
                             icon={<DeleteOutlined />}
                             danger={true}
-                            onClick={showDeleteConfirm}
-                        // onClick={() => { onDeleteUser(record) }}
+                            onClick={() => deleteModal(record.fullname)}
+
                         >
 
                         </Button>
@@ -99,8 +77,46 @@ export default function KontenUsers() {
             ),
         },
     ];
+}
+
+export default function KontenUsers() {
 
     const [dataUser, setDataUser] = useState()
+
+    // Modal delete
+    const [visibleDelete, setVisibleDelete] = useState(false);
+    const [modalText, setModalText] = useState('Content of the modal');
+    const [modalTaskId, setModalTaskId] = useState('');
+    const [confirmLoading, setConfirmLoading] = useState(false);
+
+    const deleteModal = (record) => {
+        if (record) {
+            setModalTaskId(record);
+            setVisibleDelete(true);
+
+        } else {
+            setVisibleDelete(false)
+        }
+
+    };
+    const handleOkModalDelete = () => {
+        axios.delete(`https://ordercoffee-app.herokuapp.com/users/${modalTaskId}`).then(res => {
+
+        })
+        setModalText('Modal tertutup dalam 5 detik');
+        setConfirmLoading(true);
+        setTimeout(() => {
+            setVisibleDelete(false);
+            setConfirmLoading(false);
+        }, 2000);
+        // location.reload()
+    };
+    const handleCancel = () => {
+        console.log('Clicked cancel button');
+        setVisibleDelete(false);
+
+    }
+    // console.log(handleOkModalDelete)
 
     async function getDataUser() {
         try {
@@ -126,7 +142,7 @@ export default function KontenUsers() {
         getDataUser()
     }, [])
 
-    console.log(dataUser);
+    // console.log(dataUser);
 
     const onSearch = (value) => console.log(value);
 
@@ -146,9 +162,20 @@ export default function KontenUsers() {
                 </Row>
                 <Row justify="center" align="middle" className='h-96 '>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns} dataSource={dataUser} />
+                        <Table columns={columns(deleteModal)} dataSource={dataUser} />
                     </Col>
                 </Row>
+                <Modal
+                    title="Konfirmasi Hapus Menu"
+                    width={370}
+                    visible={visibleDelete}
+                    onOk={handleOkModalDelete}
+                    confirmLoading={confirmLoading}
+                    onCancel={handleCancel}
+                >
+                    <p className='text-[#C78342]'>Yakin menghapus ?<Space className='text-black text-base ml-3'>{(modalTaskId)}</Space></p>
+
+                </Modal>
             </Content>
         </div>
     )

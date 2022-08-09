@@ -1,96 +1,16 @@
-import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Menu, Card, Upload, Dropdown } from 'antd';
-import { EyeOutlined, DeleteOutlined, FormOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Menu, Select, Upload, Dropdown, Form } from 'antd';
+import { EyeOutlined, DeleteOutlined, FormOutlined, } from '@ant-design/icons';
+import AddFotoProduct from "../../menu/addFotoProduct"
 import Link from "next/link";
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
-const { confirm } = Modal;
 const { Search } = Input;
+const { Option } = Select
 
-
-
-export default function KontenProduct() {
-
-
-    const [visible, setVisible] = useState(false);
-    const [dataProduct, setDataProduct] = useState()
-
-    const showModalAddProduct = () => {
-        setVisible(true);
-    };
-
-    const hideModalAddProduct = () => {
-        setVisible(false);
-    };
-
-
-    //value modal Add Product
-    const { Content, } = Layout;
-    const { TextArea } = Input
-
-    const props = {
-        action: '//jsonplaceholder.typicode.com/posts/',
-        listType: 'picture',
-
-        previewFile(file) {
-            console.log('Your upload file:', file); // Your process logic. Here we just mock to the same file
-
-            return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
-                method: 'POST',
-                body: file,
-            })
-                .then((res) => res.json())
-                .then(({ thumbnail }) => thumbnail);
-        },
-    };
-
-    const handleButtonClick = (e) => {
-        message.info('Click on left button.');
-        console.log('click left button', e);
-    };
-
-    const handleMenuClick = (e) => {
-        message.info('Click on menu item.');
-        console.log('click', e);
-    };
-
-
-    const varian = (
-        <Menu
-            onClick={handleMenuClick}
-            items={[
-                {
-                    label: 'Coffee',
-                    key: '1',
-                },
-                {
-                    label: 'Non Coffee',
-                    key: '2',
-                },
-
-            ]}
-        />
-    );
-
-    const status = (
-        <Menu
-            onClick={handleMenuClick}
-            items={[
-                {
-                    label: 'Tersedia',
-                    key: '1',
-                },
-                {
-                    label: 'Tidak Tersedia',
-                    key: '2',
-                },
-
-            ]}
-        />
-    );
-
-    const columns = [
+function columns(deleteModal) {
+    return [
         {
             title: 'No',
             dataIndex: 'id',
@@ -168,7 +88,7 @@ export default function KontenProduct() {
                             type="danger"
                             icon={<DeleteOutlined />}
                             danger={true}
-                        // onClick={() => showDeleteConfirm(record)}
+                            onClick={() => deleteModal(record.name)}
                         >
                         </Button>
                     </Tooltip>
@@ -176,6 +96,115 @@ export default function KontenProduct() {
             ),
         },
     ];
+}
+
+
+export default function KontenProduct() {
+
+    // Modal Add Product
+    const [visibleAddProduct, setVisibleAddProduct] = useState(false);
+    const [dataProduct, setDataProduct] = useState()
+    // Modal delete
+    const [visibleDelete, setVisibleDelete] = useState(false);
+    const [modalText, setModalText] = useState('Content of the modal');
+    const [modalTaskId, setModalTaskId] = useState('');
+    const [confirmLoading, setConfirmLoading] = useState(false);
+    // add product
+    const [namaProduct, setNamaProduct] = useState('')
+    const [description, setDescription] = useState('')
+    const [statusProduct, setStatusProduct] = useState('')
+    const [priceProduct, setPriceProduct] = useState('')
+    const [fotoProduct, setFotoProduct] = useState('')
+
+    const onFinishAdd = () => {
+        try {
+            const newProduct = {
+                name: namaProduct,
+                price: priceProduct,
+                description: description,
+                status: statusProduct
+            }
+        } catch (error) {
+
+        }
+    }
+
+    const handleChangeImage = (filePath) => {
+        console.log(filePath)
+        setFotoProduct(filePath)
+    }
+
+    const onChangeNamaProduct = (e) => {
+        const value = e.target.value
+        setNamaProduct(value)
+        // console.log(value)
+    }
+
+    const onChangedescription = (e) => {
+        const value = e.target.value
+        setDescription(value)
+        // console.log(value)
+    }
+
+    const onChangeStatusProduct = (e) => {
+        const value = e.target.value
+        setStatusProduct(value)
+        console.log(value)
+    }
+
+    const onChangePriceProduct = (e) => {
+        const value = e.target.value
+        setPriceProduct(value)
+    }
+
+    const onChangeFotoProduct = (e) => {
+        const value = e.target.value
+        setFotoProduct(value)
+    }
+
+
+    const showModalAddProduct = () => {
+        setVisibleAddProduct(true);
+    };
+
+    const hideModalAddProduct = () => {
+        setVisibleAddProduct(false);
+    };
+
+
+    //value modal Add Product
+    const { Content, } = Layout;
+    const { TextArea } = Input
+
+
+    const deleteModal = (record) => {
+        if (record) {
+            setModalTaskId(record);
+            setVisibleDelete(true);
+
+        } else {
+            setVisibleDelete(false)
+        }
+
+
+    };
+    const handleOkModalDelete = () => {
+        axios.delete(`https://ordercoffee-app.herokuapp.com/promo/${modalTaskId}`).then(res => {
+
+        })
+        setModalText('Modal tertutup dalam 5 detik');
+        setConfirmLoading(true);
+        setTimeout(() => {
+            setVisibleDelete(false);
+            setConfirmLoading(false);
+        }, 2000);
+        location.reload()
+    };
+    const handleCancel = () => {
+        console.log('Clicked cancel button');
+        setVisibleDelete(false);
+
+    }
 
 
     async function getDataProduct() {
@@ -231,7 +260,7 @@ export default function KontenProduct() {
                         </Button>
                         <Modal
                             title="Add Product"
-                            visible={visible}
+                            visible={visibleAddProduct}
                             onOk={hideModalAddProduct}
                             onCancel={hideModalAddProduct}
                             okText="Simpan"
@@ -242,66 +271,78 @@ export default function KontenProduct() {
                             width={800}
 
                         >
-                            <Content>
+                            <Form onFinish={onFinishAdd} >
                                 <Row justify="center" className="h-full">
                                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                                         <div className="space-y-5">
-                                            <Row>
-                                                <Col span={22}>
-                                                    <h3 className="text-base">Nama Product</h3>
-                                                    <Input placeholder="Nama Product" />
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col span={10}>
-                                                    <h3 className="text-base">Deskripsi Product</h3>
-                                                    <TextArea rows={5} placeholder="Deskripsi" />
-                                                </Col>
-                                                <Col span={12}>
-                                                    <Upload {...props} >
-                                                        <h2 style={{ marginTop: '30px', marginLeft: 150 }}>Gambar Product</h2>
-                                                        <Button style={{ backgroundColor: 'rgba(55, 217, 74, 0.8)', color: 'white', marginLeft: 165 }}>Change</Button>
-                                                    </Upload>
-                                                </Col>
-                                            </Row>
-                                            <div >
-                                                <h3 className="text-base">Jenis Variant</h3>
-                                                <Dropdown overlay={varian}>
-                                                    <Button style={{ width: 270, textAlign: 'start' }}>
-                                                        <Space>
-                                                            Pilih Variant
-                                                        </Space>
-                                                    </Button>
-                                                </Dropdown>
-                                            </div>
-                                            <div>
-                                                <h3 className="text-base">Status</h3>
-                                                <Dropdown overlay={status}>
-                                                    <Button style={{ width: 270, textAlign: 'start' }}>
-                                                        <Space>
-                                                            Pilih Status
-                                                        </Space>
-                                                    </Button>
-                                                </Dropdown>
-                                            </div>
-                                            <Row>
-                                                <Col span={10}>
-                                                    <h3 className="text-base">Harga</h3>
-                                                    <Input maxLength={10} placeholder="Rp." />
-                                                </Col>
-                                            </Row>
+                                            <Form.Item name="name">
+                                                <Row>
+                                                    <Col span={22}>
+                                                        <h3 className="text-base">Nama Product</h3>
+                                                        <Input value={namaProduct} onChange={onChangeNamaProduct} placeholder="Nama Product" />
+                                                    </Col>
+                                                </Row>
+                                            </Form.Item>
+                                            <Form.Item name="description">
+                                                <Row>
+                                                    <Col span={10}>
+                                                        <h3 className="text-base">Deskripsi Product</h3>
+                                                        <TextArea value={description} onChange={onChangedescription} rows={5} placeholder="Deskripsi" />
+                                                    </Col>
+                                                    <Col span={12} className="mt-8 text-center ml-5">
+                                                        <AddFotoProduct handleChangeImage={handleChangeImage} />
+                                                    </Col>
+                                                </Row>
+                                            </Form.Item >
+                                            <Form.Item name="status" >
+                                                <div >
+                                                    <h3 className="text-base">Status</h3>
+                                                    <Select
+                                                        // defaultValue="Tersedia"
+                                                        style={{
+                                                            width: 120,
+                                                        }}
+                                                        onChange={onChangeStatusProduct}
+                                                        value={statusProduct}
+                                                    >
+                                                        <Option value="">Tersedia</Option>
+                                                        <Option value="" disabled={true}>Tidak Tersedia</Option>
+                                                    </Select>
+                                                </div>
+                                            </Form.Item>
+
+                                            <Form.Item name="price">
+                                                <Row>
+                                                    <Col span={10}>
+                                                        <h3 className="text-base">Harga</h3>
+                                                        <Input value={priceProduct} onChange={onChangePriceProduct} maxLength={10} placeholder="Rp." />
+                                                    </Col>
+                                                </Row>
+                                            </Form.Item>
                                         </div>
                                     </Col>
                                 </Row>
-                            </Content>
+                            </Form>
                         </Modal>
                     </Col>
                 </Row>
-                <Row justify="center" align="middle" className='h-96'>
+                <Row justify="center" align="middle" className='h-96 mt-6'>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns} dataSource={dataProduct} />
+                        <Table columns={columns(deleteModal)} dataSource={dataProduct} />
                     </Col>
                 </Row>
+                <Modal
+                    title="Konfirmasi Hapus Menu"
+                    width={370}
+                    visible={visibleDelete}
+                    onOk={handleOkModalDelete}
+                    confirmLoading={confirmLoading}
+                    onCancel={handleCancel}
+                >
+                    <p className='text-[#C78342]'>Yakin menghapus ?<Space className='text-black text-base ml-3'>{(modalTaskId)}</Space></p>
+
+                </Modal>
+
             </Content>
         </div>
     )

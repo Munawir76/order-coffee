@@ -48,39 +48,6 @@ export default function DetailProduct() {
     const dataSelected = dataDetailProduct.find((data) => data.name == name);
 
     console.log(dataSelected)
-    // const myRole = {
-    //     id: `${dataSelected?.role.id}`,
-    //     detail: `${dataSelected?.role.detail}`
-    // }
-    // console.log(myRole)
-
-    // const data = [
-    //     {
-    //         key: '1',
-    //         product: 'Redvalvet',
-    //         varian: 'Non Coffee',
-    //         harga: 'Rp. 25.000',
-    //         foto: <Image src={Foto1} width={250} height={220} style={{ borderRadius: "5%" }} />,
-    //         tags: ['Tersedia'],
-    //         desk: 'Redvalvet terbuat dari djsao slfjn sjh sjhao sjbhfioau skfha aksf b shf aoshf '
-    //     },
-    //     {
-    //         key: '2',
-    //         product: 'Vietnam Drip',
-    //         varian: 'Coffee',
-    //         harga: 'Rp. 20.000',
-    //         foto: <Image src={Foto2} width={250} height={220} style={{ borderRadius: "5%" }} />,
-    //         tags: ['Tidak Tersedia'],
-    //     },
-    //     {
-    //         key: '3',
-    //         product: 'Taro iced',
-    //         varian: 'Non Coffee',
-    //         harga: 'Rp. 25.000',
-    //         foto: <Image src={Foto3} width={250} height={220} style={{ borderRadius: "5%" }} />,
-    //         tags: ['Tersedia'],
-    //     },
-    // ];
 
     return (
         <div>
@@ -109,7 +76,7 @@ export default function DetailProduct() {
                                         </div>
                                         <div>
                                             <h3 className="text-xs">Harga</h3>
-                                            <Card style={{ width: 400, height: 25 }}><p className="-mt-5 -ml-3 text-gray-400 text-xs">{dataSelected?.price}</p></Card>
+                                            <Card style={{ width: 400, height: 25 }}><p className="-mt-5 -ml-3 text-gray-400 text-xs">Rp. {dataSelected?.price}</p></Card>
                                         </div>
                                         {/* <div>
                                             <h3 className="text-xs">Status</h3>
