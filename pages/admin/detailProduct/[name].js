@@ -3,10 +3,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import MainLayout from "../../../component/admin/layout";
 import ButtonBack from "../../../component/reusable/buttonBack"
-import Foto1 from '../../../public/images/redvalvet.jpg'
-import Image from 'next/image'
-import Foto2 from '../../../public/images/vietnamdrip.jpg'
-import Foto3 from '../../../public/images/taro.jpg'
 import { Layout, Row, Col, Card } from 'antd';
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -31,13 +27,11 @@ export default function DetailProduct() {
                 // console.log(apiDataProductDetail)
                 setDataDetailProduct(res.data.data[0])
 
-
             })
         } catch (error) {
 
         }
     }
-
     useEffect(() => {
         getDataDetailProduct()
     }, [])
@@ -78,10 +72,10 @@ export default function DetailProduct() {
                                             <h3 className="text-xs">Harga</h3>
                                             <Card style={{ width: 400, height: 25 }}><p className="-mt-5 -ml-3 text-gray-400 text-xs">Rp. {dataSelected?.price}</p></Card>
                                         </div>
-                                        {/* <div>
+                                        <div>
                                             <h3 className="text-xs">Status</h3>
-                                            <Card style={{ width: 400, height: 25 }}><p className="-mt-5 -ml-3 text-gray-400 text-xs">{dataSelected?.}</p></Card>
-                                        </div> */}
+                                            <Card style={{ width: 400, height: 25 }}><p className="-mt-5 -ml-3 text-gray-400 text-xs">{dataSelected?.status}</p></Card>
+                                        </div>
                                     </Col>
                                 </Row>
                                 <Row className="mt-5">

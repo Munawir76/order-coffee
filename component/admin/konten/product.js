@@ -1,6 +1,5 @@
-import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Menu, Select, Upload, Dropdown, Form } from 'antd';
-import { EyeOutlined, DeleteOutlined, FormOutlined, } from '@ant-design/icons';
-import AddFotoProduct from "../../menu/addFotoProduct"
+import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Menu, Select, Upload, Dropdown, Form, message } from 'antd';
+import { EyeOutlined, DeleteOutlined, FormOutlined, UploadOutlined } from '@ant-design/icons';
 import Link from "next/link";
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
@@ -9,10 +8,12 @@ import axios from 'axios';
 const { Search } = Input;
 const { Option } = Select
 
-function columns(deleteModal) {
+
+
+function columns(deleteModal, imageModal) {
     return [
         {
-            title: 'No',
+            title: 'ID Product',
             dataIndex: 'id',
             key: 'id',
         },
@@ -21,45 +22,46 @@ function columns(deleteModal) {
             dataIndex: 'name',
             key: 'name',
         },
-        // {
-        //     title: 'Varian',
-        //     dataIndex: 'varian',
-        //     key: 'varian',
-        // },
         {
             title: 'Harga',
             dataIndex: 'price',
             key: 'price',
         },
-        {
-            title: 'Foto',
-            dataIndex: 'photo',
-            key: 'photo',
-        },
         // {
-        //     title: 'Status',
-        //     key: 'tags',
-        //     dataIndex: 'tags',
-        //     render: (_, { tags }) => (
-        //         <div>
-        //             {tags.map((tag) => {
-        //                 let color = ''
-        //                 if (tag === 'Tersedia') {
-        //                     color = 'green';
-        //                 }
-        //                 else if (tag === 'Tidak Tersedia') {
-        //                     color = 'red';
-        //                 }
-
-        //                 return (
-        //                     <Tag color={color} key={tag}>
-        //                         {tag.toUpperCase()}
-        //                     </Tag>
-        //                 );
-        //             })}
-        //         </div>
-        //     ),
+        //     title: 'Foto',
+        //     dataIndex: 'photo',
+        //     key: 'photo',
+        //     render: (_, record) =>
+        //     (
+        //         <>
+        //             <Tooltip placement="left" title="Open Image">
+        //                 <a
+        //                     onClick={() => imageModal(record.photo)}
+        //                     style={{ color: "#0d6efd", borderColor: "#0d6efd", overflow: "hidden", textDecoration: "underline" }}
+        //                 >
+        //                     Lihat gambar
+        //                 </a>
+        //             </Tooltip>
+        //         </>
+        //     )
         // },
+        {
+            title: 'Status',
+            key: 'status',
+            dataIndex: 'status',
+            render: (status) => {
+                if (status === "Tersedia") {
+                    return (
+                        <Tag color="green">{status}</Tag>
+                    )
+                } else {
+                    return (
+                        <Tag color="red" > {status}</Tag>
+                    )
+                }
+            }
+
+        },
         {
             title: 'Action',
             key: 'action',
@@ -88,7 +90,7 @@ function columns(deleteModal) {
                             type="danger"
                             icon={<DeleteOutlined />}
                             danger={true}
-                            onClick={() => deleteModal(record.name)}
+                            onClick={() => deleteModal(record.id)}
                         >
                         </Button>
                     </Tooltip>
@@ -104,11 +106,15 @@ export default function KontenProduct() {
     // Modal Add Product
     const [visibleAddProduct, setVisibleAddProduct] = useState(false);
     const [dataProduct, setDataProduct] = useState()
+    const [status, setStatus] = useState('Tersedia')
+    const [deskripsi, setDeskripsi] = useState('')
+
     // Modal delete
     const [visibleDelete, setVisibleDelete] = useState(false);
     const [modalText, setModalText] = useState('Content of the modal');
     const [modalTaskId, setModalTaskId] = useState('');
     const [confirmLoading, setConfirmLoading] = useState(false);
+
     // add product
     const [namaProduct, setNamaProduct] = useState('')
     const [description, setDescription] = useState('')
@@ -116,22 +122,51 @@ export default function KontenProduct() {
     const [priceProduct, setPriceProduct] = useState('')
     const [fotoProduct, setFotoProduct] = useState('')
 
-    const onFinishAdd = () => {
+    // Image
+    let [imageUrl, setImageUrl] = useState('')
+    const [visibleImage, setVisibleImage] = useState(false);
+    const [modalImage, setModalImage] = useState('Content of the modal');
+    const [modalIdImage, setModalIdImage] = useState('');
+    const [loadingDua, setLoadingDua] = useState(false);
+
+    const onFinishAdd = async () => {
         try {
             const newProduct = {
                 name: namaProduct,
                 price: priceProduct,
                 description: description,
-                status: statusProduct
+                status: statusProduct,
+                photo: fotoProduct
             }
+            console.log(newProduct)
+            const sentData = await axios.post("https://ordercoffee-app.herokuapp.com/menu/", newProduct, {
+                headers: {
+                    "content-type": "multipart/form-data"
+                }
+            }).then(res => {
+                console.log(res)
+                // if (res.status == 200) {
+                //     window.alert("daftar berhasil")
+                // }
+                // if (res.status == 200 || res.status == 201) {
+                //     window.alert("Register Success")
+                //     // router.push("/login/")
+                // }
+                setVisibleAddProduct(false)
+            })
         } catch (error) {
-
+            console.log(error, "ini error");
         }
     }
 
+    const onFormSubmit = (e) => {
+        e.preventDefault()
+    }
+
     const handleChangeImage = (filePath) => {
-        console.log(filePath)
-        setFotoProduct(filePath)
+        const value = e.target.files[0]
+        // console.log(filePath)
+        setFotoProduct(value)
     }
 
     const onChangeNamaProduct = (e) => {
@@ -149,19 +184,21 @@ export default function KontenProduct() {
     const onChangeStatusProduct = (e) => {
         const value = e.target.value
         setStatusProduct(value)
-        console.log(value)
+        // console.log(value)
     }
 
     const onChangePriceProduct = (e) => {
         const value = e.target.value
         setPriceProduct(value)
+        console.log(value)
     }
 
     const onChangeFotoProduct = (e) => {
-        const value = e.target.value
+        console.log(e.target.files, " ini files nya")
+        const value = e.target.files[0]
+        // console.log(filePath)
         setFotoProduct(value)
     }
-
 
     const showModalAddProduct = () => {
         setVisibleAddProduct(true);
@@ -171,11 +208,9 @@ export default function KontenProduct() {
         setVisibleAddProduct(false);
     };
 
-
     //value modal Add Product
     const { Content, } = Layout;
     const { TextArea } = Input
-
 
     const deleteModal = (record) => {
         if (record) {
@@ -183,13 +218,13 @@ export default function KontenProduct() {
             setVisibleDelete(true);
 
         } else {
+            // console.log(deleteModal)
             setVisibleDelete(false)
         }
-
-
     };
+
     const handleOkModalDelete = () => {
-        axios.delete(`https://ordercoffee-app.herokuapp.com/promo/${modalTaskId}`).then(res => {
+        axios.delete(`https://ordercoffee-app.herokuapp.com/menu/${modalTaskId}`).then(res => {
 
         })
         setModalText('Modal tertutup dalam 5 detik');
@@ -198,14 +233,45 @@ export default function KontenProduct() {
             setVisibleDelete(false);
             setConfirmLoading(false);
         }, 2000);
-        location.reload()
+        // location.reload()
     };
+
+
+    const imageModal = async (record) => {
+        setLoadingDua(true)
+        if (record) {
+            await setModalIdImage(record);
+            setVisibleImage(true);
+            await axios.get(`https://ordercoffee-app.herokuapp.com/menu/image/${modalIdImage}`).then(res => {
+                // console.log(res.config.url)
+                setImageUrl(res.config.url)
+            })
+        } else {
+            setVisibleImage(false)
+        }
+        setLoadingDua(false)
+        // console.log(modalIdImage)
+
+    };
+
+    // const handleOkModalIdImage = () => {
+    //     setImageUrl(null)
+    //     setModalImage('The modal will be closed after two seconds');
+    //     setConfirmLoading(true);
+    //     setTimeout(() => {
+    //         setVisibleImage(false)
+    //         setConfirmLoading(false);
+    //     }, 1000);
+    //     // location.reload()
+    // };
+
+
     const handleCancel = () => {
-        console.log('Clicked cancel button');
+        // console.log('Clicked cancel button');
         setVisibleDelete(false);
+        setVisibleImage(false);
 
     }
-
 
     async function getDataProduct() {
         try {
@@ -221,9 +287,11 @@ export default function KontenProduct() {
                 const apiDataProduct = res.data.data
                 // console.log(apiDataProduct)
                 setDataProduct(apiDataProduct[0])
+                message.success("Successfull Create menu")
             })
         } catch (error) {
             console.error(error);
+            message.error("failed create menu")
         }
     }
 
@@ -231,7 +299,7 @@ export default function KontenProduct() {
         getDataProduct()
     }, [])
 
-    console.log(dataProduct)
+    // console.log(dataProduct)
 
 
     return (
@@ -245,12 +313,7 @@ export default function KontenProduct() {
                             allowClear
                             size="large"
                             type="text"
-                        // onChange={(e) => setQuary(e.target.value ? [e.target.value] : [])}
-                        // onChange={(e) => {
-                        //     setData(e.target.value ? [e.target.value] : []);
-                        // }}
                         />
-                        {/* {data.filter(data => data.product.toLowerCase().includes(data)).map((user) => (user.product))} */}
                     </Col>
                 </Row>
                 <Row justify='end' style={{ marginRight: 100 }}>
@@ -261,17 +324,14 @@ export default function KontenProduct() {
                         <Modal
                             title="Add Product"
                             visible={visibleAddProduct}
-                            onOk={hideModalAddProduct}
+                            onOk={onFinishAdd}
                             onCancel={hideModalAddProduct}
                             okText="Simpan"
                             okType='primary'
-
-
                             cancelText="Batal"
                             width={800}
-
                         >
-                            <Form onFinish={onFinishAdd} >
+                            <Form >
                                 <Row justify="center" className="h-full">
                                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                                         <div className="space-y-5">
@@ -289,25 +349,47 @@ export default function KontenProduct() {
                                                         <h3 className="text-base">Deskripsi Product</h3>
                                                         <TextArea value={description} onChange={onChangedescription} rows={5} placeholder="Deskripsi" />
                                                     </Col>
-                                                    <Col span={12} className="mt-8 text-center ml-5">
-                                                        <AddFotoProduct handleChangeImage={handleChangeImage} />
-                                                    </Col>
+                                                    <div className="flex justify-center">
+                                                        <div className="mb-3 w-30">
+                                                            <label
+                                                                htmlFor="formFile"
+                                                                className="form-label inline-block mb-2 text-gray-700"
+                                                            >
+                                                                Upload Gambar Product
+                                                            </label>
+                                                            <input
+                                                                className="form-control
+                                                                    block
+                                                                    px-3
+                                                                    py-1.5
+                                                                    text-base
+                                                                    font-normal
+                                                                    text-gray-700
+                                                                    bg-white bg-clip-padding
+                                                                    border border-solid border-gray-300
+                                                                    rounded
+                                                                    transition
+                                                                    ease-in-out
+                                                                    m-0
+                                                                    focus:text-gray-700 focus:bg-white focus:border-[#C78342] focus:outline-none"
+                                                                type="file"
+                                                                id="formFile"
+                                                                onChange={onChangeFotoProduct}
+                                                            // value={fotoProduct}
+                                                            />
+                                                        </div>
+                                                    </div>
                                                 </Row>
                                             </Form.Item >
                                             <Form.Item name="status" >
                                                 <div >
                                                     <h3 className="text-base">Status</h3>
-                                                    <Select
-                                                        // defaultValue="Tersedia"
-                                                        style={{
-                                                            width: 120,
-                                                        }}
-                                                        onChange={onChangeStatusProduct}
-                                                        value={statusProduct}
-                                                    >
-                                                        <Option value="">Tersedia</Option>
-                                                        <Option value="" disabled={true}>Tidak Tersedia</Option>
-                                                    </Select>
+                                                    <Row>
+                                                        <Col span={10}>
+                                                            <h3 className="text-base">Status</h3>
+                                                            <Input value={statusProduct} onChange={onChangeStatusProduct} maxLength={10} />
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             </Form.Item>
 
@@ -328,7 +410,7 @@ export default function KontenProduct() {
                 </Row>
                 <Row justify="center" align="middle" className='h-96 mt-6'>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns(deleteModal)} dataSource={dataProduct} />
+                        <Table columns={columns(deleteModal, imageModal)} dataSource={dataProduct} />
                     </Col>
                 </Row>
                 <Modal

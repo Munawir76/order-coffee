@@ -77,8 +77,6 @@ export default function FormLogin() {
         e.preventDefault()
     }
 
-
-
     return (
         <div>
             <Row justify='center' align='middle' className="h-screen bg-[#C78342]">
@@ -88,7 +86,7 @@ export default function FormLogin() {
                             <Image src={Back} height={200} width={500} />
                             <div className="p-6 flex flex-col justify-start">
                                 <div className="block p-6 rounded-lg bg-white max-w-sm">
-                                    <form method="POST" onSubmit={onFormSubmit}>
+                                    <form method="post" onSubmit={onFormSubmit}>
                                         <div className="form-group mb-2">
                                             <div className="">
                                                 <h2 className='text-start text-lg font-bold mb-5'>Register</h2>

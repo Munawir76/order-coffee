@@ -15,7 +15,7 @@ export default function AddFotoProduct({ onChangeImage }) {
 
             const processImage = await axios
                 .post(
-                    'https://ordercoffee-app.herokuapp.com/menu/',
+                    `https://ordercoffee-app.herokuapp.com/menu/`,
                     formData,
                     { headers: { "content-type": "multipart/form-data" } }
                 )

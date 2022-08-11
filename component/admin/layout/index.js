@@ -17,7 +17,7 @@ function MainLayout({ children }) {
         const getToken = localStorage.getItem('tokenAdmin')
 
         if (!getToken) {
-            window.alert("Harus Login terlebih dahulu")
+            // window.alert("Harus Login terlebih dahulu")
             router.push("/")
         }
 

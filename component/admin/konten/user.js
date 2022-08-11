@@ -67,7 +67,7 @@ function columns(deleteModal) {
                             type="danger"
                             icon={<DeleteOutlined />}
                             danger={true}
-                            onClick={() => deleteModal(record.fullname)}
+                            onClick={() => deleteModal(record.id)}
 
                         >
 
@@ -103,13 +103,16 @@ export default function KontenUsers() {
         axios.delete(`https://ordercoffee-app.herokuapp.com/users/${modalTaskId}`).then(res => {
 
         })
-        setModalText('Modal tertutup dalam 5 detik');
+
+
+        setModalText('Modal tertutup dalam 2 detik');
         setConfirmLoading(true);
         setTimeout(() => {
             setVisibleDelete(false);
             setConfirmLoading(false);
         }, 2000);
         // location.reload()
+        console.log('delete oke')
     };
     const handleCancel = () => {
         console.log('Clicked cancel button');
