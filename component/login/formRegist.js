@@ -1,5 +1,5 @@
-import { Col, Row } from 'antd';
-import { React, useState } from 'react';
+import { Col, message, Row } from 'antd';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image'
 import Back from '../../public/images/foster1.jpg'
 
@@ -7,6 +7,7 @@ import Router, { useRouter } from 'next/router';
 import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import '@ant-design/icons'
+import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
 
@@ -36,19 +37,60 @@ export default function FormLogin() {
                 }
             }).then(res => {
                 console.log(res.status)
-                if (res.status == 200) {
-                    window.alert("daftar berhasil")
-                }
+
                 if (res.status == 200 || res.status == 201) {
-                    window.alert("Register Success")
+                    message.success("Register successfull")
                     router.push("/login/")
                 }
             })
         } catch (error) {
+            message.error("Data harus lengkap")
 
         }
     }
 
+    async function validateAdmin() {
+        try {
+
+            const tokenAdmin = await localStorage.getItem('tokenAdmin')
+            const decodeAdmin = jwt_decode(tokenAdmin)
+
+            await axios.get('https://ordercoffee-app.herokuapp.com/users', {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+
+            if (decodeAdmin) {
+                message.error("Anda sudah punya akun")
+                router.push('/admin/dashboard')
+            }
+
+        } catch (error) {
+            console.error(error, 'ini erornya');
+        }
+    }
+
+    async function validateCustomer() {
+        try {
+            const tokenCustomer = await localStorage.getItem('tokenCustomer')
+            const decodeCustomer = jwt_decode(tokenCustomer)
+
+            await axios.get('https://ordercoffee-app.herokuapp.com/users', {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+
+            if (decodeCustomer) {
+                message.error("Anda sudah punya akun")
+                router.push('/home')
+            }
+
+        } catch (error) {
+            console.error(error, 'ini erornya');
+        }
+    }
 
     const onChangeEmail = (e) => {
         const value = e.target.value
@@ -76,6 +118,12 @@ export default function FormLogin() {
     const onFormSubmit = (e) => {
         e.preventDefault()
     }
+
+    useEffect(() => {
+        validateCustomer()
+        validateAdmin()
+
+    }, []);
 
     return (
         <div>

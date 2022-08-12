@@ -1,6 +1,7 @@
-import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Menu, Select, Upload, Dropdown, Form, message } from 'antd';
-import { EyeOutlined, DeleteOutlined, FormOutlined, UploadOutlined } from '@ant-design/icons';
+import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Select, Form, message, Card } from 'antd';
+import { EyeOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import Link from "next/link";
+import ButtonBack from '../../reusable/buttonBack';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
@@ -10,7 +11,7 @@ const { Option } = Select
 
 
 
-function columns(deleteModal, imageModal) {
+function columns(updateModal, deleteModal) {
     return [
         {
             title: 'ID Product',
@@ -27,24 +28,6 @@ function columns(deleteModal, imageModal) {
             dataIndex: 'price',
             key: 'price',
         },
-        // {
-        //     title: 'Foto',
-        //     dataIndex: 'photo',
-        //     key: 'photo',
-        //     render: (_, record) =>
-        //     (
-        //         <>
-        //             <Tooltip placement="left" title="Open Image">
-        //                 <a
-        //                     onClick={() => imageModal(record.photo)}
-        //                     style={{ color: "#0d6efd", borderColor: "#0d6efd", overflow: "hidden", textDecoration: "underline" }}
-        //                 >
-        //                     Lihat gambar
-        //                 </a>
-        //             </Tooltip>
-        //         </>
-        //     )
-        // },
         {
             title: 'Status',
             key: 'status',
@@ -70,8 +53,10 @@ function columns(deleteModal, imageModal) {
                     <Link href={`/admin/editProduct/${record.name}`}>
                         <Tooltip placement="left" title="Edit Product">
                             <Button
+                                // onClick={() => updateModal(record)}
                                 style={{ color: "blue", borderColor: "blue" }}
                                 icon={<FormOutlined />}
+
                             >
                             </Button>
                         </Tooltip>
@@ -106,12 +91,9 @@ export default function KontenProduct() {
     // Modal Add Product
     const [visibleAddProduct, setVisibleAddProduct] = useState(false);
     const [dataProduct, setDataProduct] = useState()
-    const [status, setStatus] = useState('Tersedia')
-    const [deskripsi, setDeskripsi] = useState('')
 
-    // Modal delete
+    // Modal delete                                                                                                                                                                          
     const [visibleDelete, setVisibleDelete] = useState(false);
-    const [modalText, setModalText] = useState('Content of the modal');
     const [modalTaskId, setModalTaskId] = useState('');
     const [confirmLoading, setConfirmLoading] = useState(false);
 
@@ -122,12 +104,13 @@ export default function KontenProduct() {
     const [priceProduct, setPriceProduct] = useState('')
     const [fotoProduct, setFotoProduct] = useState('')
 
-    // Image
-    let [imageUrl, setImageUrl] = useState('')
-    const [visibleImage, setVisibleImage] = useState(false);
-    const [modalImage, setModalImage] = useState('Content of the modal');
-    const [modalIdImage, setModalIdImage] = useState('');
-    const [loadingDua, setLoadingDua] = useState(false);
+    //Update product
+    const [visibleEditProduct, setVisibleEditProduct] = useState(false);
+    const [modalTextDua, setModalTextDua] = useState('Content of the modal');
+    const [modalTaskIdDua, setModalTaskIdDua] = useState('');
+    const [foto, setFoto] = useState('')
+
+    const [form] = Form.useForm();
 
     const onFinishAdd = async () => {
         try {
@@ -145,17 +128,12 @@ export default function KontenProduct() {
                 }
             }).then(res => {
                 console.log(res)
-                // if (res.status == 200) {
-                //     window.alert("daftar berhasil")
-                // }
-                // if (res.status == 200 || res.status == 201) {
-                //     window.alert("Register Success")
-                //     // router.push("/login/")
-                // }
                 setVisibleAddProduct(false)
+                message.success("Successfull Create menu")
             })
         } catch (error) {
-            console.log(error, "ini error");
+            // console.log(error, "ini error");
+            message.error("failed create menu")
         }
     }
 
@@ -181,10 +159,10 @@ export default function KontenProduct() {
         // console.log(value)
     }
 
-    const onChangeStatusProduct = (e) => {
-        const value = e.target.value
+    const onChangeStatusProduct = (value) => {
+        // const value = e.target.value
         setStatusProduct(value)
-        // console.log(value)
+        console.log(value)
     }
 
     const onChangePriceProduct = (e) => {
@@ -208,6 +186,14 @@ export default function KontenProduct() {
         setVisibleAddProduct(false);
     };
 
+    const showModalEditProduct = () => {
+        setVisibleEditProduct(true);
+    };
+
+    const hideModalEditProduct = () => {
+        setVisibleEditProduct(false);
+    };
+
     //value modal Add Product
     const { Content, } = Layout;
     const { TextArea } = Input
@@ -227,7 +213,6 @@ export default function KontenProduct() {
         axios.delete(`https://ordercoffee-app.herokuapp.com/menu/${modalTaskId}`).then(res => {
 
         })
-        setModalText('Modal tertutup dalam 5 detik');
         setConfirmLoading(true);
         setTimeout(() => {
             setVisibleDelete(false);
@@ -236,40 +221,10 @@ export default function KontenProduct() {
         // location.reload()
     };
 
-
-    const imageModal = async (record) => {
-        setLoadingDua(true)
-        if (record) {
-            await setModalIdImage(record);
-            setVisibleImage(true);
-            await axios.get(`https://ordercoffee-app.herokuapp.com/menu/image/${modalIdImage}`).then(res => {
-                // console.log(res.config.url)
-                setImageUrl(res.config.url)
-            })
-        } else {
-            setVisibleImage(false)
-        }
-        setLoadingDua(false)
-        // console.log(modalIdImage)
-
-    };
-
-    // const handleOkModalIdImage = () => {
-    //     setImageUrl(null)
-    //     setModalImage('The modal will be closed after two seconds');
-    //     setConfirmLoading(true);
-    //     setTimeout(() => {
-    //         setVisibleImage(false)
-    //         setConfirmLoading(false);
-    //     }, 1000);
-    //     // location.reload()
-    // };
-
-
     const handleCancel = () => {
         // console.log('Clicked cancel button');
         setVisibleDelete(false);
-        setVisibleImage(false);
+        // setVisibleImage(false);
 
     }
 
@@ -287,11 +242,9 @@ export default function KontenProduct() {
                 const apiDataProduct = res.data.data
                 // console.log(apiDataProduct)
                 setDataProduct(apiDataProduct[0])
-                message.success("Successfull Create menu")
             })
         } catch (error) {
             console.error(error);
-            message.error("failed create menu")
         }
     }
 
@@ -299,8 +252,89 @@ export default function KontenProduct() {
         getDataProduct()
     }, [])
 
-    // console.log(dataProduct)
+    //update start
+    const onChangeFoto = (e) => {
+        const value = e.target.files[0]
+        setFoto(value)
+        // console.log(value)
+    }
+    const normFile = (e) => {
+        console.log('Upload event:', e);
 
+        // if (Array.isArray(e)) {
+        //     return e;
+        // }
+        // return console.log(e?.fileList)
+
+    };
+
+    const updateModal = (record) => {
+        console.log(record, 'INI RECORD')
+        if (record) {
+            setModalTaskIdDua(record.id);
+            setVisibleEditProduct(true);
+            form.setFieldsValue({
+                id: record.id,
+                name: record.name,
+                price: record.price,
+                status: record.status,
+                photo: record.photo,
+                description: record.description,
+            });
+        } else {
+            setVisibleEditProduct(false)
+        }
+    };
+    // const onFormSubmit = (e) => {
+    //     e.preventDefault()
+    // }
+
+    const handleOkModalUpdate = async () => {
+        try {
+            const data = await form.getFieldsValue();
+            // console.log(data)
+            // const dataForm = new FormData()
+            // dataForm.append("id", data.id)
+            // dataForm.append("name", data.name)
+            // dataForm.append('availability', data.availability)
+            // dataForm.append('location', data.location)
+            // // dataForm.append('image', foto)
+            // dataForm.append("description", data.description)
+            // dataForm.append("category_id", data.category)
+            // dataForm.append("merchant_id", merchantId)
+
+            // for (let i = 0; i < data.variant.length; i++) {
+            //     dataForm.append(`variant[${i}][name]`, data.variant[i].name)
+            //     dataForm.append(`variant[${i}][price]`, data.variant[i].price)
+            // }
+            // for (const value of dataForm.values()) {
+            //     console.log(value);
+            // }
+            // console.log(data)
+            await axios.put(`https://ordercoffee-app.herokuapp.com/menu/${data.id}`, data, {
+                headers: {
+
+                    "content-type": "application/json"
+                }
+            }).then(res => {
+                console.log(res)
+            })
+            setModalTextDua('The modal will be closed after two seconds');
+            setConfirmLoading(true);
+            setTimeout(() => {
+                setVisibleDua(false);
+                setConfirmLoading(false);
+            }, 2000);
+            // location.reload()
+        } catch (error) {
+            console.log(error, 'ini errornya')
+
+        }
+
+    };
+
+
+    // console.log(dataProduct)
 
     return (
         <div>
@@ -375,7 +409,7 @@ export default function KontenProduct() {
                                                                 type="file"
                                                                 id="formFile"
                                                                 onChange={onChangeFotoProduct}
-                                                            // value={fotoProduct}
+
                                                             />
                                                         </div>
                                                     </div>
@@ -383,11 +417,23 @@ export default function KontenProduct() {
                                             </Form.Item >
                                             <Form.Item name="status" >
                                                 <div >
-                                                    <h3 className="text-base">Status</h3>
+
                                                     <Row>
                                                         <Col span={10}>
                                                             <h3 className="text-base">Status</h3>
-                                                            <Input value={statusProduct} onChange={onChangeStatusProduct} maxLength={10} />
+                                                            <Select
+                                                                defaultValue="----Pilih status"
+                                                                style={{
+                                                                    width: 225,
+
+                                                                }}
+                                                                onChange={onChangeStatusProduct}
+                                                                value={statusProduct}
+                                                            >
+                                                                <Option value="Tersedia" >Tersedia</Option>
+                                                                <Option disabled>Tidak tersedia</Option>
+
+                                                            </Select>
                                                         </Col>
                                                     </Row>
                                                 </div>
@@ -406,11 +452,114 @@ export default function KontenProduct() {
                                 </Row>
                             </Form>
                         </Modal>
+                        <Modal
+                            title="Konfirmasi Update Data"
+                            visible={visibleEditProduct}
+                            onOk={handleOkModalUpdate}
+                            // confirmLoading={confirmLoading}
+                            onCancel={hideModalEditProduct}
+                            width={800}
+                        >
+                            <Form>
+                                <Row justify="center" className="h-full">
+                                    <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
+
+                                        <div className="space-y-5">
+                                            <Row>
+                                                <Col span={22}>
+                                                    <Form.Item name='name'
+                                                    >
+                                                        <h3 className="text-base">Nama Product</h3>
+                                                        <Input placeholder />
+
+                                                    </Form.Item>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col span={10}>
+                                                    <Form.Item name='description'>
+                                                        <h3 className="text-base">Deskripsi Product</h3>
+                                                        <TextArea rows={5} />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col span={12}>
+                                                    <Form.Item name='photo'>
+                                                        <div className="mb-3 w-30">
+                                                            <label
+                                                                htmlFor="formFile"
+                                                                className="form-label inline-block mb-2 text-gray-700"
+                                                            >
+                                                                Upload Gambar Promo
+                                                            </label>
+                                                            <input
+                                                                className="form-control
+                                                                    block
+                                                                    px-3
+                                                                    py-1.5
+                                                                    text-base
+                                                                    font-normal
+                                                                    text-gray-700
+                                                                    bg-white bg-clip-padding
+                                                                    border border-solid border-gray-300
+                                                                    rounded
+                                                                    transition
+                                                                    ease-in-out
+                                                                    m-0
+                                                                    focus:text-gray-700 focus:bg-white focus:border-[#C78342] focus:outline-none"
+                                                                type="file"
+                                                                id="formFile"
+                                                            // onChange={onChangePhotoPromo}
+
+                                                            />
+                                                        </div>
+                                                    </Form.Item>
+                                                </Col>
+                                            </Row>
+                                            <Form.Item name='status'>
+                                                <h3 className="text-base">Status</h3>
+                                                <Select
+                                                    // defaultValue={dataSelected?.status}
+                                                    style={{
+                                                        width: 225,
+
+                                                    }}
+                                                // onChange={onChangeStatusProduct}
+                                                // value={statusProduct}
+                                                >
+                                                    <Option value="Tersedia" >Tersedia</Option>
+                                                    <Option value='Tidak tersedia'>Tidak tersedia</Option>
+
+                                                </Select>
+                                            </Form.Item>
+
+                                            <Row>
+                                                <Col span={10}>
+                                                    <Form.Item name='price'>
+                                                        <h3 className="text-base">Harga</h3>
+                                                        <Input maxLength={10} />
+                                                    </Form.Item>
+                                                </Col>
+                                            </Row>
+                                            {/* <Row className="justify-start ml-8" >
+                                                <Col span={5}>
+                                                    <Button style={{ backgroundColor: 'rgba(15, 110, 248, 0.8)', color: 'white', }}>Simpan</Button>
+                                                </Col>
+                                                <Col span={5} >
+                                                    <ButtonBack />
+                                                </Col>
+                                            </Row> */}
+                                        </div>
+
+                                    </Col>
+                                </Row>
+                            </Form>
+
+                        </Modal>
                     </Col>
                 </Row>
                 <Row justify="center" align="middle" className='h-96 mt-6'>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns(deleteModal, imageModal)} dataSource={dataProduct} />
+                        <Table columns={columns(updateModal, deleteModal)} dataSource={dataProduct} />
                     </Col>
                 </Row>
                 <Modal

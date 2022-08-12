@@ -1,13 +1,13 @@
-import { Col, Row } from 'antd';
-import React, { useState } from 'react';
+import { Col, message, Row } from 'antd';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Back from '../../public/images/foster1.jpg';
 import Logo from '../../public/images/logo.png';
 import Router, { useRouter } from 'next/router';
-import axios from 'axios';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.css'; 0
 import 'tailwindcss/tailwind.css';
 import '@ant-design/icons';
+import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
 
@@ -18,14 +18,6 @@ export default function FormLogin() {
     const router = useRouter()
 
 
-    //   decode jwt
-    // function parseJwt(token) {
-    //     if (!token) { return; }
-    //     const base64Url = token.split('.')[1];
-    //     const base64 = base64Url.replace('-', '+').replace('_', '/');
-    //     return JSON.parse(window.atob(base64));
-    // }
-
     //calling api
     const dataLogin = async () => {
         try {
@@ -34,41 +26,71 @@ export default function FormLogin() {
                 password: password
             }
             console.log(valueForm)
+
+
             const sentData = await axios.post('https://ordercoffee-app.herokuapp.com/auth/login', valueForm, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
-                console.log(res)
-                console.log(res.data.token)
-                // console.log(parseJwt(res.data.token));
                 const decode = jwt_decode(res.data.token)
-                console.log(decode)
-                console.log(res.data.statusCode)
+                // console.log(decode)
+                // console.log(res.data.statusCode)
                 if (decode.role == "Admin") {
-                    window.alert("Login berhasil")
                     localStorage.setItem('tokenAdmin', res.data.token)
+                    message.success("Login successfull")
                     router.push('admin/dashboard')
                 }
 
                 else if (decode.role == "Customer") {
                     localStorage.setItem('tokenCustomer', res.data.token)
-                    window.alert("Login Berhasil")
+                    message.success("Login successfull")
                     router.push("/home")
                 }
                 else {
-                    window.alert("Email atau password salah")
+                    message.error("Email atau password salah")
 
                 }
 
             })
 
         } catch (error) {
-            window.alert(error, error.message = "Api Benerin Bram")
-            console.error(error);
+            message.error("Email atau password salah")
+            // console.error(error);
 
         }
 
+    }
+
+    async function validateAdmin() {
+        try {
+
+            const tokenAdmin = await localStorage.getItem('tokenAdmin')
+            const decodeAdmin = jwt_decode(tokenAdmin)
+
+            if (decodeAdmin) {
+                message.error("Anda sudah login")
+                router.push('/admin/dashboard')
+            }
+
+        } catch (error) {
+            console.error(error, 'ini erornya');
+        }
+    }
+
+    async function validateCustomer() {
+        try {
+            const tokenCustomer = await localStorage.getItem('tokenCustomer')
+            const decodeCustomer = jwt_decode(tokenCustomer)
+
+            if (decodeCustomer) {
+                message.error("Anda sudah login")
+                router.push('/home')
+            }
+
+        } catch (error) {
+            console.error(error, 'ini erornya');
+        }
     }
 
 
@@ -83,6 +105,12 @@ export default function FormLogin() {
     const onFormSubmit = (e) => {
         e.preventDefault()
     }
+
+    useEffect(() => {
+        validateCustomer()
+        validateAdmin()
+
+    }, []);
 
 
     return (

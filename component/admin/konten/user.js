@@ -104,14 +104,13 @@ export default function KontenUsers() {
 
         })
 
-
         setModalText('Modal tertutup dalam 2 detik');
         setConfirmLoading(true);
         setTimeout(() => {
             setVisibleDelete(false);
             setConfirmLoading(false);
         }, 2000);
-        // location.reload()
+        location.reload()
         console.log('delete oke')
     };
     const handleCancel = () => {

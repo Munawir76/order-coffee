@@ -6,11 +6,13 @@ import Image from 'next/image'
 import React from 'react';
 import logo from "../public/images/logo.png"
 import Link from 'next/link'
+import { useEffect } from 'react';
 import { useRouter } from "next/router";
 import { Dropdown, Menu, message, Space, ConfigProvider } from 'antd';
 import '@ant-design/icons'
 import { UserOutlined, ShoppingCartOutlined, LogoutOutlined } from '@ant-design/icons'
 import jwt_decode from 'jwt-decode';
+import axios from 'axios'
 
 
 // #C78342 Muda
@@ -21,36 +23,70 @@ ConfigProvider.config({
     },
 });
 
-async function buttonLogout() {
-    try {
-        localStorage.clear()
-        window.alert("Logout")
-        router.push("/")
-
-    } catch (error) {
-
-    }
-}
-
-
-
-const menu = (
-    <Menu
-        onClick={buttonLogout}
-        items={[
-            {
-                label: 'Logout',
-                icon: <LogoutOutlined />,
-            },
-        ]}
-    />
-);
 
 export default function Navigasi() {
 
-    const [logged, setLogged] = useState(true)
+
     const [navbar, setNavbar] = useState(false);
+
+    const [logged, setLogged] = useState()
     const router = useRouter();
+
+    async function validate() {
+        try {
+
+            const getToken = localStorage.getItem("tokenCustomer")
+            const decode = jwt_decode(getToken)
+            console.log(decode);
+
+            await axios.get('https://ordercoffee-app.herokuapp.com/users', {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(res => {
+                console.log(res.data.data, 'ini error engga?');
+
+                if (getToken) {
+                    setLogged(true)
+                } else {
+                    setLogged(false)
+                }
+            })
+
+        } catch (error) {
+            console.error(error, 'ini erornya');
+        }
+    }
+
+
+    async function buttonLogout() {
+        try {
+            localStorage.clear()
+            message.success('Logout successfull')
+            router.push("/")
+            location.reload()
+
+        } catch (error) {
+
+        }
+    }
+    const menu = (
+        <Menu
+            onClick={buttonLogout}
+            items={[
+                {
+                    label: 'Logout',
+                    icon: <LogoutOutlined />,
+                },
+
+            ]}
+        />
+    );
+    useEffect(() => {
+
+        validate()
+
+    }, []);
     return (
         <div>
             <nav className="w-full bg-[#C78342] shadow fixed-top h-16" >

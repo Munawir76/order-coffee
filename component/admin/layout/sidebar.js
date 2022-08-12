@@ -1,7 +1,7 @@
 import 'antd/dist/antd.css'
 import 'antd/dist/antd.variable.min.css'
 import 'tailwindcss/tailwind.css'
-import { Layout, Menu, ConfigProvider, Button } from 'antd';
+import { Layout, Menu, ConfigProvider, Button, message } from 'antd';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -16,6 +16,8 @@ import {
     BgColorsOutlined
 } from '@ant-design/icons';
 import Link from 'next/link';
+import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 
 
 const { Sider } = Layout;
@@ -26,15 +28,7 @@ ConfigProvider.config({
 });
 
 
-
 export default function Sidebar() {
-
-    function parseJwt(token) {
-        if (!token) { return; }
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace('-', '+').replace('_', '/');
-        return JSON.parse(window.atob(base64));
-    }
 
 
     const [isLogged, setLogged] = useState()
@@ -43,7 +37,7 @@ export default function Sidebar() {
     async function validate() {
         try {
             const token = await localStorage.getItem('tokenAdmin')
-            const decode = await parseJwt(token)
+            const decode = jwt_decode(res.data.token)
 
             if (token) {
                 setLogged(true)
@@ -61,8 +55,8 @@ export default function Sidebar() {
     async function buttonLogout() {
         try {
             localStorage.clear()
-            window.alert("Logout")
-            router.push("/login")
+            message.success('Logout successfull')
+            router.push("/")
 
         } catch (error) {
 

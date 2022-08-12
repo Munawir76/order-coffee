@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout } from "antd";
+import { Layout, message } from "antd";
 import NavbarAdmin from "./header";
 import Sidebar from "./sidebar";
 import 'antd/dist/antd.variable.css'
@@ -17,7 +17,7 @@ function MainLayout({ children }) {
         const getToken = localStorage.getItem('tokenAdmin')
 
         if (!getToken) {
-            // window.alert("Harus Login terlebih dahulu")
+            message.info('Anda harus login dahulu')
             router.push("/")
         }
 

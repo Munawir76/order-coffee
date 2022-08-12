@@ -6,6 +6,7 @@ import ButtonBack from "../../../component/reusable/buttonBack"
 import { Layout, Row, Col, Card } from 'antd';
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import Image from "next/image";
 
 const { Content, } = Layout;
 
@@ -23,8 +24,6 @@ export default function DetailProduct() {
                 }
             }).then(res => {
                 // console.log(res.data.data)
-                // apiDataProductDetail = res.data.data
-                // console.log(apiDataProductDetail)
                 setDataDetailProduct(res.data.data[0])
 
             })
@@ -54,10 +53,15 @@ export default function DetailProduct() {
                     </Row>
                     <Row justify="center" className="h-screen">
                         <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                            <Card style={{ width: 800, height: 470, justifyContent: 'space-between', borderRadius: "2%" }}>
+                            <Card style={{ width: 800, height: 500, justifyContent: 'space-between', borderRadius: "2%" }}>
                                 <Row>
                                     <Col span={9}>
-                                        {dataSelected?.photo}
+                                        <Image loader={() => dataSelected?.photo}
+                                            src={`https://ordercoffee-app.herokuapp.com/menu/image/${dataSelected?.photo}`}
+                                            unoptimized={true}
+                                            width={250}
+                                            height={250}
+                                            style={{ borderRadius: 10 }} />
                                     </Col>
                                     <Col span={9} className="space-y-3">
                                         <div >
