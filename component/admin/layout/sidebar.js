@@ -55,7 +55,7 @@ export default function Sidebar() {
     async function buttonLogout() {
         try {
             localStorage.clear()
-            message.success('Logout successfull')
+            message.info('Logout successfull')
             router.push("/")
 
         } catch (error) {
@@ -132,7 +132,7 @@ export default function Sidebar() {
             }
         },
         {
-            label: <button onClick={buttonLogout}><a className='w-full text-lg '>Logout</a></button>, key: "logout", icon: <ImportOutlined />,
+            label: <button onClick={buttonLogout}><a className='w-full text-lg'>Logout</a></button>, key: "logout", icon: <ImportOutlined />,
             get: function getItem(label, key, icon, children) {
                 return {
                     key,

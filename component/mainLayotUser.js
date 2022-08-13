@@ -14,7 +14,7 @@ export default function MainLayoutUser({ children }) {
 
         if (!getToken) {
             message.info('Anda Harus login dahulu')
-            router.push("/admin/dashboard")
+            router.back()
         }
 
 

@@ -58,11 +58,14 @@ export default function DetailUser() {
                     </Row>
                     <Row justify="center" className="h-screen">
                         <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                            <Card style={{ width: 500, justifyContent: 'space-between', borderRadius: "5%" }}>
+                            <Card style={{ width: 500, height: 500, justifyContent: 'space-between', borderRadius: "5%" }}>
                                 {/* {dataDetailUser.map((data) => {
                                     return ( */}
                                 <div>
                                     <div className="space-y-5">
+                                        <div className="text-end mr-12">
+                                            <ButtonBack />
+                                        </div>
                                         <div>
                                             <h3 className="text-base">Nama</h3>
                                             <Card style={{ width: 400, height: 30 }}><p className="-mt-5 -ml-3 text-gray-400">{dataSelected?.fullname}</p></Card>
@@ -75,17 +78,10 @@ export default function DetailUser() {
                                             <h3 className="text-base">Email</h3>
                                             <Card style={{ width: 400, height: 30 }}><p className="-mt-5 -ml-3 text-gray-400">{dataSelected?.email}</p></Card>
                                         </div>
-                                        {/* <div>
-                                            <h3 className="text-base">Password</h3>
-                                            <Card style={{ width: 400, height: 30 }}><p className="-mt-5 -ml-3 text-gray-400">{dataSelected?.password}</p></Card>
-                                        </div> */}
-                                    </div>
-                                    <div className="mt-16">
-                                        <h3 className="text-base">Role</h3>
-                                        <Card style={{ width: 110, height: 30, borderColor: 'green', backgroundColor: 'rgba(184, 255, 182, 0.8)', textAlign: 'center' }}><p className="-mt-5">{myRole.detail}</p></Card>
-                                    </div>
-                                    <div className="text-end mr-12 mt-10">
-                                        <ButtonBack />
+                                        <div className="mt-16">
+                                            <h3 className="text-base">Role</h3>
+                                            <Card style={{ width: 110, height: 30, textAlign: 'center' }}><p className="-mt-5">{myRole.detail}</p></Card>
+                                        </div>
                                     </div>
                                 </div>
                                 {/* )

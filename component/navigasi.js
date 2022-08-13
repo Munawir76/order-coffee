@@ -62,10 +62,10 @@ export default function Navigasi() {
     async function buttonLogout() {
         try {
             localStorage.clear()
-            message.success('Logout successfull')
+            message.info('Logout successfull')
+            message.info('Logout successfull')
+            // message.info('Logout successfull')
             router.push("/")
-            location.reload()
-
         } catch (error) {
 
         }

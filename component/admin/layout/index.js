@@ -18,7 +18,7 @@ function MainLayout({ children }) {
 
         if (!getToken) {
             message.info('Anda harus login dahulu')
-            router.push("/")
+            router.back()
         }
 
 
@@ -34,10 +34,11 @@ function MainLayout({ children }) {
                     {children}
 
                     <Footer
-                        className="text-center"
+                        className="text-center h-20  "
                         style={{
                             backgroundColor: "white",
-                            width: "100%"
+                            width: "100%",
+
                         }}
                     >
                         © 2022 Order Coffe. All right reserved

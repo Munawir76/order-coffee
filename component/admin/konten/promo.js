@@ -263,9 +263,10 @@ export default function KontenPromo() {
     return (
         <div>
             <Content>
-                <Row className='mt-6 max-w-sm ml-24'>
-                    <h3 className="text-lg">Data Promo/All</h3>
-                    <Col lg={{ span: 20 }} md={{ span: 20 }} sm={{ span: 22 }} xs={{ span: 24 }}>
+                <h3 className="text-lg mt-6 ml-24">Data Promo/All</h3>
+                <Row className='mt-6 w-full ml-24 justify-between'>
+
+                    <Col span={5}>
                         <Search
                             placeholder="Search Promo"
                             allowClear
@@ -273,12 +274,15 @@ export default function KontenPromo() {
                             onSearch={onSearch}
                         />
                     </Col>
-                </Row>
-                <Row justify='end' style={{ marginRight: 100 }}>
-                    <Col>
+                    <Col span={7}>
                         <Button type="primary" onClick={showModalAddPromo}>
                             + Add Promo
                         </Button>
+                    </Col>
+                </Row>
+                <Row justify='end' style={{ marginRight: 100 }}>
+                    <Col>
+
                         <Modal
                             title="Add Promo"
                             visible={visibleAddPromo}
@@ -479,7 +483,7 @@ export default function KontenPromo() {
                         </Modal>
                     </Col>
                 </Row>
-                <Row justify="center" align="middle" className='h-96 '>
+                <Row justify="center" align="middle" className='h-96 mt-4 '>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                         <Table columns={columns(deleteModal)} dataSource={dataPromo} />
                     </Col>

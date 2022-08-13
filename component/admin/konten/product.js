@@ -339,9 +339,9 @@ export default function KontenProduct() {
     return (
         <div>
             <Content>
-                <Row className='mt-6 max-w-sm ml-24'>
-                    <h3 className="text-lg">Data Product/All</h3>
-                    <Col span={12} lg={{ span: 20 }} md={{ span: 20 }} sm={{ span: 22 }} xs={{ span: 24 }}>
+                <h3 className="text-lg mt-6 ml-24">Data Product/All</h3>
+                <Row className='mt-6 w-full ml-24 justify-between'>
+                    <Col span={5}>
                         <Search
                             placeholder="Search Product"
                             allowClear
@@ -349,12 +349,14 @@ export default function KontenProduct() {
                             type="text"
                         />
                     </Col>
-                </Row>
-                <Row justify='end' style={{ marginRight: 100 }}>
-                    <Col>
+                    <Col span={7} className="">
                         <Button type="primary" onClick={showModalAddProduct}>
                             + Add Product
                         </Button>
+                    </Col>
+                </Row>
+                <Row justify='end' style={{ marginRight: 100 }}>
+                    <Col>
                         <Modal
                             title="Add Product"
                             visible={visibleAddProduct}
@@ -540,24 +542,14 @@ export default function KontenProduct() {
                                                     </Form.Item>
                                                 </Col>
                                             </Row>
-                                            {/* <Row className="justify-start ml-8" >
-                                                <Col span={5}>
-                                                    <Button style={{ backgroundColor: 'rgba(15, 110, 248, 0.8)', color: 'white', }}>Simpan</Button>
-                                                </Col>
-                                                <Col span={5} >
-                                                    <ButtonBack />
-                                                </Col>
-                                            </Row> */}
                                         </div>
-
                                     </Col>
                                 </Row>
                             </Form>
-
                         </Modal>
                     </Col>
                 </Row>
-                <Row justify="center" align="middle" className='h-96 mt-6'>
+                <Row justify="center" align="middle" className='h-96 mt-4'>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                         <Table columns={columns(updateModal, deleteModal)} dataSource={dataProduct} />
                     </Col>

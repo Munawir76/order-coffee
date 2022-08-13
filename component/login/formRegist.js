@@ -63,7 +63,7 @@ export default function FormLogin() {
 
             if (decodeAdmin) {
                 message.error("Anda sudah punya akun")
-                router.push('/admin/dashboard')
+                router.back()
             }
 
         } catch (error) {
@@ -84,7 +84,7 @@ export default function FormLogin() {
 
             if (decodeCustomer) {
                 message.error("Anda sudah punya akun")
-                router.push('/home')
+                router.back()
             }
 
         } catch (error) {

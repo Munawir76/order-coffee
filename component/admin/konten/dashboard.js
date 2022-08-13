@@ -57,12 +57,11 @@ export default function ContentDashBoard() {
     return (
         <div>
             <Content
-                className="bg-white"
+                className="bg-white h-96"
                 style={{
                     padding: 24,
                     margin: 0,
-                    minHeight: 500,
-
+                    height: 600
                 }}
             >
                 <Row justify="center">

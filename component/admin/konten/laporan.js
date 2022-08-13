@@ -87,9 +87,10 @@ export default function KontenLaporan() {
     return (
         <div>
             <Content>
-                <Row className='mt-6 max-w-sm ml-24'>
-                    <h3 className="text-lg">Data Laporan/All</h3>
-                    <Col lg={{ span: 20 }} md={{ span: 20 }} sm={{ span: 22 }} xs={{ span: 24 }}>
+                <h3 className="text-lg mt-6 ml-24">Data Laporan/All</h3>
+                <Row className='mt-6 w-full ml-24 justify-between'>
+
+                    <Col span={5}>
                         <Search
                             placeholder="Search Promo"
                             allowClear
@@ -103,17 +104,17 @@ export default function KontenLaporan() {
                         <h3 className="text-sm mt-5">Dari tanggal</h3>
                         <DatePicker onChange={onChange} />
                     </Col>
-                    <Col span={7}>
+                    <Col span={5}>
                         <h3 className="text-sm mt-5 mr-30">Sampai tanggal</h3>
                         <DatePicker onChange={onChange} />
                     </Col>
-                    <Col span={10} className="text-sm mt-12 text-end ml-4">
+                    <Col span={12} className="text-sm mt-12 text-end">
                         <Button type="primary" icon={<PrinterOutlined />} style={{ width: 120 }}>
                             Print
                         </Button>
                     </Col>
                 </Row>
-                <Row justify="center" align="middle" className="h-80">
+                <Row justify="center" align="middle" className="h-96 -mt-8">
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                         <Table columns={columns} dataSource={data} />
                     </Col>
