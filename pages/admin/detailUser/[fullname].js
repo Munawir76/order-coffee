@@ -63,7 +63,7 @@ export default function DetailUser() {
                                     return ( */}
                                 <div>
                                     <div className="space-y-5">
-                                        <div className="text-end mr-12">
+                                        <div className="text-end">
                                             <ButtonBack />
                                         </div>
                                         <div>
@@ -78,11 +78,13 @@ export default function DetailUser() {
                                             <h3 className="text-base">Email</h3>
                                             <Card style={{ width: 400, height: 30 }}><p className="-mt-5 -ml-3 text-gray-400">{dataSelected?.email}</p></Card>
                                         </div>
-                                        <div className="mt-16">
+                                        <div>
                                             <h3 className="text-base">Role</h3>
-                                            <Card style={{ width: 110, height: 30, textAlign: 'center' }}><p className="-mt-5">{myRole.detail}</p></Card>
+                                            <Card style={{ width: 110, height: 30, borderColor: 'black', backgroundColor: 'rgba(213, 213, 213, 0.8)', textAlign: 'center' }}><p className="-mt-5">{myRole.detail}</p></Card>
                                         </div>
                                     </div>
+
+
                                 </div>
                                 {/* )
                                 })} */}

@@ -6,13 +6,6 @@ import { Col, Button, Row } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import MenuSatu from "../../public/images/redvalvet.jpg"
-import MenuDua from '../../public/images/v60.jpg'
-import MenuTiga from '../../public/images/taro.jpg'
-import MenuEmpat from '../../public/images/vietnamdrip.jpg'
-import MenuLima from '../../public/images/machiatto.jpg'
-import MenuEnam from '../../public/images/tubruk.jpg'
-
 
 
 export default function MenuPromo() {

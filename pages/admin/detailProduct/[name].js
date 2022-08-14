@@ -68,10 +68,7 @@ export default function DetailProduct() {
                                             <h3 className="text-xs">Nama Product</h3>
                                             <Card style={{ width: 400, height: 25 }}><p className="-mt-5 -ml-3 text-gray-400 text-xs">{dataSelected?.name}</p></Card>
                                         </div>
-                                        <div>
-                                            <h3 className="text-xs">Id Product</h3>
-                                            <Card style={{ width: 400, height: 25 }}><p className="-mt-5 -ml-3 text-gray-400 text-xs">{dataSelected?.id}</p></Card>
-                                        </div>
+
                                         <div>
                                             <h3 className="text-xs">Harga</h3>
                                             <Card style={{ width: 400, height: 25 }}><p className="-mt-5 -ml-3 text-gray-400 text-xs">Rp. {dataSelected?.price}</p></Card>

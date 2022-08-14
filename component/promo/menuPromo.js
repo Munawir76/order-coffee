@@ -2,16 +2,37 @@ import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
 import backgroundimg from '../../public/images/background.jpg'
-import promo1 from '../../public/images/promo1.jpg'
-import promo2 from '../../public/images/promo2.jpg'
-import promo3 from '../../public/images/promo3.jpg'
-import promo4 from '../../public/images/promo4.jpg'
+import React, { useState, useEffect } from 'react';
 import { Col, Card, Row } from 'antd';
-
-
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 
 export default function MenuPromo() {
+
+    const [dataPromo, setDataPromo] = useState([])
+
+    async function getDataPromo() {
+        try {
+            const getToken = localStorage.getItem("tokenCustomer")
+            const decode = jwt_decode(getToken)
+            // console.log(getToken)
+            await axios.get('https://ordercoffee-app.herokuapp.com/promo', {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res.data.data, 'ini res api promo')
+                setDataPromo(res.data.data[0])
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    useEffect(() => {
+        getDataPromo()
+    }, [])
+
 
     return (
         <div>
@@ -25,16 +46,29 @@ export default function MenuPromo() {
                     </Row>
                 </div>
                 <Row justify="center space-x-8" align='middle' >
-                    <Col lg={{ span: 5 }}
-                        md={{ span: 5 }}
-                        sm={{ span: 10 }}
-                        xs={{ span: 10 }}
-                        className="rounded-lg shadow-lg  " >
-                        <Card>
-                            <Image src={promo1} />
-                        </Card>
-                    </Col>
-                    <Col lg={{ span: 5 }}
+                    {dataPromo.map((promo) => {
+                        return (
+                            <div>
+                                <Col lg={{ span: 5 }}
+                                    md={{ span: 6 }}
+                                    sm={{ span: 20 }}
+                                    xs={{ span: 20 }}
+                                    className="rounded-lg shadow-lg  " >
+                                    <Card>
+                                        <Image src={`https://ordercoffee-app.herokuapp.com/promo/image/${promo.photo}`}
+                                            unoptimized={true}
+                                            width={850}
+                                            height={850}
+                                            style={{ borderRadius: 10 }} />
+                                    </Card>
+                                </Col>
+                            </div>
+
+                        )
+                    })
+                    }
+
+                    {/* <Col lg={{ span: 5 }}
                         md={{ span: 5 }}
                         sm={{ span: 10 }}
                         xs={{ span: 10 }}
@@ -60,7 +94,7 @@ export default function MenuPromo() {
                         <Card >
                             <Image src={promo4} />
                         </Card>
-                    </Col>
+                    </Col> */}
                 </Row>
             </div >
         </div >

@@ -109,9 +109,10 @@ export default function KontenUsers() {
         setTimeout(() => {
             setVisibleDelete(false);
             setConfirmLoading(false);
+            message.success("Delete successfull")
         }, 2000);
-        location.reload()
-        console.log('delete oke')
+        // location.reload()
+
     };
     const handleCancel = () => {
         console.log('Clicked cancel button');
@@ -152,7 +153,7 @@ export default function KontenUsers() {
         <div>
             <Content>
                 <h3 className="text-lg mt-6 ml-24">Data Users/All</h3>
-                <Row className='mt-6 w-full ml-24 justify-between'>
+                <Row className='mt-6 ml-24 justify-between'>
 
                     <Col span={5}>
                         <Search
@@ -176,7 +177,7 @@ export default function KontenUsers() {
                     confirmLoading={confirmLoading}
                     onCancel={handleCancel}
                 >
-                    <p className='text-[#C78342]'>Yakin menghapus ?<Space className='text-black text-base ml-3'>{(modalTaskId)}</Space></p>
+                    <p className='text-[#C78342]'>Yakin ingin menghapus ?</p>
 
                 </Modal>
             </Content>

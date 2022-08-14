@@ -66,7 +66,7 @@ export default function EditProduct() {
             console.log(newProduct, 'ini new product')
             const sentData = await axios.put(`https://ordercoffee-app.herokuapp.com/menu/${dataSelected?.id}`, newProduct, {
                 headers: {
-                    "content-type": 'application/json'
+                    "content-type": 'multipart/form-data'
                 }
             }).then(res => {
                 console.log(res)

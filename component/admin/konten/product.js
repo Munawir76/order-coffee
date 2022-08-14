@@ -11,13 +11,25 @@ const { Option } = Select
 
 
 
-function columns(updateModal, deleteModal) {
+function columns(deleteModal, editModal) {
     return [
-        {
-            title: 'ID Product',
-            dataIndex: 'id',
-            key: 'id',
-        },
+        // {
+        //     title: 'No.',
+        //     dataIndex: 'no',
+        //     key: 'no',
+        //     render: (_, render) => {
+        //         for (i = 0; i < render.length ; i++) {
+        //             return (
+        //                 { i }
+        //             )
+        //         }
+        //     }
+        // },
+        // {
+        //     title: 'ID Product',
+        //     dataIndex: 'id',
+        //     key: 'id',
+        // },
         {
             title: 'Product',
             dataIndex: 'name',
@@ -50,17 +62,17 @@ function columns(updateModal, deleteModal) {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link href={`/admin/editProduct/${record.name}`}>
-                        <Tooltip placement="left" title="Edit Product">
-                            <Button
-                                // onClick={() => updateModal(record)}
-                                style={{ color: "blue", borderColor: "blue" }}
-                                icon={<FormOutlined />}
+                    {/* <Link href={`/admin/editProduct/${record.name}`}> */}
+                    <Tooltip placement="left" title="Edit Product">
+                        <Button
+                            onClick={() => editModal(record.id)}
+                            style={{ color: "blue", borderColor: "blue" }}
+                            icon={<FormOutlined />}
 
-                            >
-                            </Button>
-                        </Tooltip>
-                    </Link>
+                        >
+                        </Button>
+                    </Tooltip>
+                    {/* </Link> */}
                     <Link href={`/admin/detailProduct/${record.name}`}>
                         <Tooltip placement="left" title="Detail Product">
                             <Button
@@ -90,7 +102,12 @@ export default function KontenProduct() {
 
     // Modal Add Product
     const [visibleAddProduct, setVisibleAddProduct] = useState(false);
-    const [dataProduct, setDataProduct] = useState()
+    const [dataProduct, setDataProduct] = useState('')
+
+    //Modal Edit Product
+    const [visibleEditProduct, setVisibleEditProduct] = useState(false);
+    const [dataSelected, setDataSelected] = useState('')
+
 
     // Modal delete                                                                                                                                                                          
     const [visibleDelete, setVisibleDelete] = useState(false);
@@ -104,13 +121,14 @@ export default function KontenProduct() {
     const [priceProduct, setPriceProduct] = useState('')
     const [fotoProduct, setFotoProduct] = useState('')
 
-    //Update product
-    const [visibleEditProduct, setVisibleEditProduct] = useState(false);
-    const [modalTextDua, setModalTextDua] = useState('Content of the modal');
-    const [modalTaskIdDua, setModalTaskIdDua] = useState('');
-    const [foto, setFoto] = useState('')
-
-    const [form] = Form.useForm();
+    //Edit product
+    const [editNamaProduct, setEditNamaProduct] = useState('')
+    const [editDescription, setEditDescription] = useState('')
+    const [editStatus, setEditStatus] = useState('')
+    const [editPrice, setEditPrice] = useState('')
+    const [editFoto, setEditFoto] = useState('')
+    const [finish, setFinish] = useState('')
+    const [dataDetailProduct, setDataDetailProduct] = useState([])
 
     const onFinishAdd = async () => {
         try {
@@ -147,6 +165,7 @@ export default function KontenProduct() {
         setFotoProduct(value)
     }
 
+    //Add Product
     const onChangeNamaProduct = (e) => {
         const value = e.target.value
         setNamaProduct(value)
@@ -177,6 +196,7 @@ export default function KontenProduct() {
         // console.log(filePath)
         setFotoProduct(value)
     }
+
 
     const showModalAddProduct = () => {
         setVisibleAddProduct(true);
@@ -217,7 +237,9 @@ export default function KontenProduct() {
         setTimeout(() => {
             setVisibleDelete(false);
             setConfirmLoading(false);
+            message.success("Delete successfull")
         }, 2000);
+
         // location.reload()
     };
 
@@ -252,95 +274,108 @@ export default function KontenProduct() {
         getDataProduct()
     }, [])
 
+
+
     //update start
-    const onChangeFoto = (e) => {
-        const value = e.target.files[0]
-        setFoto(value)
+    //Get Product
+    async function getDataDetailProduct() {
+        try {
+            const tokenDetailProduct = localStorage.getItem('tokenAdmin')
+            const decodeTokenDetail = jwt_decode(tokenDetailProduct)
+            const getDataDetail = await axios.get(`https://ordercoffee-app.herokuapp.com/menu/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then(res => {
+                // console.log(res.data.data)
+                setDataDetailProduct(res.data.data[0])
+            })
+        } catch (error) {
+
+        }
+    }
+    useEffect(() => {
+        getDataDetailProduct()
+    }, [])
+
+    // console.log(dataDetailProduct, 'berhasil ambil data')
+
+    const onFinishEdit = async () => {
+        try {
+            const editProduct = {
+                name: editNamaProduct,
+                price: editPrice,
+                description: editDescription,
+                status: editStatus,
+                photo: editFoto
+            }
+            // const editProduct = dataSelected
+            console.log(editProduct, 'ini new product')
+
+            const sentData = await axios.put(`https://ordercoffee-app.herokuapp.com/menu/${dataSelected}`, editProduct, {
+                headers: {
+                    "content-type": 'multipart/form-data'
+                }
+
+            }).then(res => {
+                // console.log(res)
+                setVisibleEditProduct(false)
+                setFinish(true)
+                message.success("Successfull Edit menu")
+            })
+        } catch (error) {
+            console.log(error, "ini error");
+            message.error("failed Edit menu")
+        }
+
+    }
+
+    //Edit Product
+    const onChangeeditNamaProduct = (e) => {
+        const value = e.target.value
+        setEditNamaProduct(value)
         // console.log(value)
     }
-    const normFile = (e) => {
-        console.log('Upload event:', e);
 
-        // if (Array.isArray(e)) {
-        //     return e;
-        // }
-        // return console.log(e?.fileList)
+    const onChangeeditDescription = (e) => {
+        const value = e.target.value
+        setEditDescription(value)
+        // console.log(value)
+    }
 
-    };
+    const onChangeeditStatus = (value) => {
+        // const value = e.target.value
+        setEditStatus(value)
+        // console.log(value)
+    }
 
-    const updateModal = (record) => {
-        console.log(record, 'INI RECORD')
+    const onChangeeditPrice = (e) => {
+        const value = e.target.value
+        setEditPrice(value)
+        // console.log(value)
+    }
+
+    const onChangeeditFoto = (e) => {
+        console.log(e.target.files, " ini files nya")
+        const value = e.target.files[0]
+        // console.log(filePath)
+        setEditFoto(value)
+    }
+    const editModal = (record) => {
+        console.log(record, 'ini record')
         if (record) {
-            setModalTaskIdDua(record.id);
+            setDataSelected(record);
             setVisibleEditProduct(true);
-            form.setFieldsValue({
-                id: record.id,
-                name: record.name,
-                price: record.price,
-                status: record.status,
-                photo: record.photo,
-                description: record.description,
-            });
         } else {
             setVisibleEditProduct(false)
         }
     };
-    // const onFormSubmit = (e) => {
-    //     e.preventDefault()
-    // }
-
-    const handleOkModalUpdate = async () => {
-        try {
-            const data = await form.getFieldsValue();
-            // console.log(data)
-            // const dataForm = new FormData()
-            // dataForm.append("id", data.id)
-            // dataForm.append("name", data.name)
-            // dataForm.append('availability', data.availability)
-            // dataForm.append('location', data.location)
-            // // dataForm.append('image', foto)
-            // dataForm.append("description", data.description)
-            // dataForm.append("category_id", data.category)
-            // dataForm.append("merchant_id", merchantId)
-
-            // for (let i = 0; i < data.variant.length; i++) {
-            //     dataForm.append(`variant[${i}][name]`, data.variant[i].name)
-            //     dataForm.append(`variant[${i}][price]`, data.variant[i].price)
-            // }
-            // for (const value of dataForm.values()) {
-            //     console.log(value);
-            // }
-            // console.log(data)
-            await axios.put(`https://ordercoffee-app.herokuapp.com/menu/${data.id}`, data, {
-                headers: {
-
-                    "content-type": "application/json"
-                }
-            }).then(res => {
-                console.log(res)
-            })
-            setModalTextDua('The modal will be closed after two seconds');
-            setConfirmLoading(true);
-            setTimeout(() => {
-                setVisibleDua(false);
-                setConfirmLoading(false);
-            }, 2000);
-            // location.reload()
-        } catch (error) {
-            console.log(error, 'ini errornya')
-
-        }
-
-    };
-
-
-    // console.log(dataProduct)
 
     return (
         <div>
             <Content>
                 <h3 className="text-lg mt-6 ml-24">Data Product/All</h3>
-                <Row className='mt-6 w-full ml-24 justify-between'>
+                <Row className='mt-6 ml-24 justify-between'>
                     <Col span={5}>
                         <Search
                             placeholder="Search Product"
@@ -349,7 +384,7 @@ export default function KontenProduct() {
                             type="text"
                         />
                     </Col>
-                    <Col span={7} className="">
+                    <Col span={5} className="">
                         <Button type="primary" onClick={showModalAddProduct}>
                             + Add Product
                         </Button>
@@ -385,20 +420,21 @@ export default function KontenProduct() {
                                                         <h3 className="text-base">Deskripsi Product</h3>
                                                         <TextArea value={description} onChange={onChangedescription} rows={5} placeholder="Deskripsi" />
                                                     </Col>
-                                                    <div className="flex justify-center">
-                                                        <div className="mb-3 w-30">
-                                                            <label
-                                                                htmlFor="formFile"
-                                                                className="form-label inline-block mb-2 text-gray-700"
-                                                            >
-                                                                Upload Gambar Product
-                                                            </label>
-                                                            <input
-                                                                className="form-control
+                                                    <Col span={12}>
+                                                        <Form.Item name='photo'>
+                                                            <div className="mb-3 w-30 ml-8">
+                                                                <label
+                                                                    htmlFor="formFile"
+                                                                    className="form-label inline-block text-gray-700"
+                                                                >
+                                                                    <h3 className="text-base ml-16">Upload Gambar Promo</h3>
+                                                                </label>
+                                                                <input
+                                                                    className="form-control w-60 ml-10
                                                                     block
                                                                     px-3
                                                                     py-1.5
-                                                                    text-base
+                                                                    text-sm
                                                                     font-normal
                                                                     text-gray-700
                                                                     bg-white bg-clip-padding
@@ -408,13 +444,14 @@ export default function KontenProduct() {
                                                                     ease-in-out
                                                                     m-0
                                                                     focus:text-gray-700 focus:bg-white focus:border-[#C78342] focus:outline-none"
-                                                                type="file"
-                                                                id="formFile"
-                                                                onChange={onChangeFotoProduct}
+                                                                    type="file"
+                                                                    id="formFile"
+                                                                    onChange={onChangeFotoProduct}
 
-                                                            />
-                                                        </div>
-                                                    </div>
+                                                                />
+                                                            </div>
+                                                        </Form.Item>
+                                                    </Col>
                                                 </Row>
                                             </Form.Item >
                                             <Form.Item name="status" >
@@ -455,33 +492,37 @@ export default function KontenProduct() {
                             </Form>
                         </Modal>
                         <Modal
-                            title="Konfirmasi Update Data"
+                            title="Edit Product"
                             visible={visibleEditProduct}
-                            onOk={handleOkModalUpdate}
-                            // confirmLoading={confirmLoading}
+                            onOk={onFinishEdit}
                             onCancel={hideModalEditProduct}
-                            width={800}
+                            okText="Simpan"
+                            okType='primary'
+                            cancelText="Batal"
+                            width={700}
+
                         >
-                            <Form>
+                            <Form  >
+                                {/* onFinish={finish} */}
                                 <Row justify="center" className="h-full">
                                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-
+                                        {/* <Card style={{ width: 700, height: 600, justifyContent: 'space-between', borderRadius: "3%", }}> */}
                                         <div className="space-y-5">
                                             <Row>
                                                 <Col span={22}>
                                                     <Form.Item name='name'
                                                     >
                                                         <h3 className="text-base">Nama Product</h3>
-                                                        <Input placeholder />
+                                                        <Input onChange={onChangeeditNamaProduct} value={editNamaProduct} />
 
                                                     </Form.Item>
                                                 </Col>
                                             </Row>
                                             <Row>
                                                 <Col span={10}>
-                                                    <Form.Item name='description'>
+                                                    <Form.Item name='editDescription'>
                                                         <h3 className="text-base">Deskripsi Product</h3>
-                                                        <TextArea rows={5} />
+                                                        <TextArea rows={5} onChange={onChangeeditDescription} value={editDescription} />
                                                     </Form.Item>
                                                 </Col>
                                                 <Col span={12}>
@@ -489,16 +530,16 @@ export default function KontenProduct() {
                                                         <div className="mb-3 w-30">
                                                             <label
                                                                 htmlFor="formFile"
-                                                                className="form-label inline-block mb-2 text-gray-700"
+                                                                className="form-label inline-block text-gray-700"
                                                             >
-                                                                Upload Gambar Promo
+                                                                <h3 className="text-base ml-16">Upload Gambar Promo</h3>
                                                             </label>
                                                             <input
-                                                                className="form-control
+                                                                className="form-control w-60 ml-10
                                                                     block
                                                                     px-3
                                                                     py-1.5
-                                                                    text-base
+                                                                    text-sm
                                                                     font-normal
                                                                     text-gray-700
                                                                     bg-white bg-clip-padding
@@ -510,7 +551,7 @@ export default function KontenProduct() {
                                                                     focus:text-gray-700 focus:bg-white focus:border-[#C78342] focus:outline-none"
                                                                 type="file"
                                                                 id="formFile"
-                                                            // onChange={onChangePhotoPromo}
+                                                                onChange={onChangeeditFoto}
 
                                                             />
                                                         </div>
@@ -520,13 +561,12 @@ export default function KontenProduct() {
                                             <Form.Item name='status'>
                                                 <h3 className="text-base">Status</h3>
                                                 <Select
-                                                    // defaultValue={dataSelected?.status}
                                                     style={{
                                                         width: 225,
 
                                                     }}
-                                                // onChange={onChangeStatusProduct}
-                                                // value={statusProduct}
+                                                    onChange={onChangeeditStatus}
+                                                    value={editStatus}
                                                 >
                                                     <Option value="Tersedia" >Tersedia</Option>
                                                     <Option value='Tidak tersedia'>Tidak tersedia</Option>
@@ -538,11 +578,12 @@ export default function KontenProduct() {
                                                 <Col span={10}>
                                                     <Form.Item name='price'>
                                                         <h3 className="text-base">Harga</h3>
-                                                        <Input maxLength={10} />
+                                                        <Input maxLength={10} onChange={onChangeeditPrice} value={editPrice} />
                                                     </Form.Item>
                                                 </Col>
                                             </Row>
                                         </div>
+                                        {/* </Card> */}
                                     </Col>
                                 </Row>
                             </Form>
@@ -551,7 +592,7 @@ export default function KontenProduct() {
                 </Row>
                 <Row justify="center" align="middle" className='h-96 mt-4'>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns(updateModal, deleteModal)} dataSource={dataProduct} />
+                        <Table columns={columns(deleteModal, editModal)} dataSource={dataProduct} />
                     </Col>
                 </Row>
                 <Modal
@@ -562,7 +603,7 @@ export default function KontenProduct() {
                     confirmLoading={confirmLoading}
                     onCancel={handleCancel}
                 >
-                    <p className='text-[#C78342]'>Yakin menghapus ?<Space className='text-black text-base ml-3'>{(modalTaskId)}</Space></p>
+                    <p className='text-[#C78342]'>Yakin ingin menghapus ?</p>
 
                 </Modal>
 

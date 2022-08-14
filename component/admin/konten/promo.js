@@ -1,33 +1,24 @@
 import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Select, Dropdown, Upload, Form, message } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import Image from 'rc-image';
 import Link from "next/link";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 const { Option } = Select
 const { Search } = Input;
 
 
 
-function columns(deleteModal) {
+function columns(deleteModal, imageModal) {
     return [
-        {
-            title: 'No',
-            dataIndex: 'id',
-            key: 'id',
-        },
         {
             title: 'Promo',
             dataIndex: 'name',
             key: 'name',
         },
-        // {
-        //     title: 'Varian',
-        //     dataIndex: 'varian',
-        //     key: 'varian',
-        // },
         {
             title: 'Diskon',
             dataIndex: 'discount',
@@ -68,6 +59,22 @@ function columns(deleteModal) {
 
         },
         {
+            title: 'Gambar',
+            key: 'photo',
+            dataIndex: 'photo',
+            render: (_, record) => (
+                <Space size="middle">
+                    <Tooltip placement="right" title="">
+                        <a
+                            onClick={() => imageModal(record.photo)}
+                        >Lihat Gambar
+                        </a>
+                    </Tooltip>
+                </Space>
+            ),
+
+        },
+        {
             title: 'Action',
             key: 'action',
             render: (_, record) => (
@@ -77,7 +84,7 @@ function columns(deleteModal) {
                             type="danger"
                             icon={<DeleteOutlined />}
                             danger={true}
-                        // onClick={() => deleteModal(record.name)}
+                            onClick={() => deleteModal(record.name)}
                         >
                         </Button>
                     </Tooltip>
@@ -106,6 +113,9 @@ export default function KontenPromo() {
     const [modalTaskId, setModalTaskId] = useState('');
     const [confirmLoading, setConfirmLoading] = useState(false);
 
+    // image modal
+    const [visibleImage, setVisibleImage] = useState(false);
+
     async function getDataPromo() {
         try {
             const getToken = localStorage.getItem("tokenAdmin")
@@ -118,11 +128,11 @@ export default function KontenPromo() {
             }).then(res => {
                 // console.log(res.data.data)
                 const apiDataPromo = res.data.data
-                // console.log(apiDataProduct)
+                console.log(apiDataPromo, 'ini res api')
                 setDataPromo(apiDataPromo[0])
             })
         } catch (error) {
-            console.error(error);
+            console.error(error, 'ini error get promo');
         }
     }
     async function getMenuPromo() {
@@ -152,10 +162,6 @@ export default function KontenPromo() {
         setVisibleAddPromo(false);
     };
 
-    // const onChangeEmail = (e) => {
-    //     const value = e.target.value
-    //     setEmail(value)
-    // }
 
     const onChangeNamaPromo = (e) => {
         const value = e.target.value
@@ -190,18 +196,7 @@ export default function KontenPromo() {
         setPhotoPromo(value)
     }
 
-    const { Content, } = Layout;
-    const { TextArea } = Input
 
-    const deleteModal = (record) => {
-        if (record) {
-            setModalTaskId(record);
-            setVisibleDelete(true);
-
-        } else {
-            setVisibleDelete(false)
-        }
-    };
     const handleOkModalDelete = () => {
         axios.delete(`https://ordercoffee-app.herokuapp.com/promo/${modalTaskId}`).then(res => {
 
@@ -211,16 +206,39 @@ export default function KontenPromo() {
         setTimeout(() => {
             setVisibleDelete(false);
             setConfirmLoading(false);
+            message.success("Delete successfull")
         }, 2000);
-        location.reload()
+        // location.reload()
     };
     const handleCancel = () => {
         console.log('Clicked cancel button');
         setVisibleDelete(false);
     }
 
+    const deleteModal = (record) => {
+        console.log(record, 'ini record')
+        if (record) {
+            setModalTaskId(record);
+            setVisibleDelete(true);
 
+        } else {
+            setVisibleDelete(false)
+        }
+    };
+    const imageModal = (record) => {
+        console.log(record, 'ini record image')
+        if (record) {
+            setDataPromo(record.photo);
+            setVisibleImage(true);
 
+        } else {
+            setVisibleImage(false)
+        }
+    }
+    const handleCancelImage = () => {
+        console.log('Clicked cancel button');
+        setVisibleImage(false);
+    }
     // console.log(dataPromo)
     const onFinishAdd = async () => {
         try {
@@ -264,7 +282,7 @@ export default function KontenPromo() {
         <div>
             <Content>
                 <h3 className="text-lg mt-6 ml-24">Data Promo/All</h3>
-                <Row className='mt-6 w-full ml-24 justify-between'>
+                <Row className='mt-6 ml-24 justify-between'>
 
                     <Col span={5}>
                         <Search
@@ -274,7 +292,7 @@ export default function KontenPromo() {
                             onSearch={onSearch}
                         />
                     </Col>
-                    <Col span={7}>
+                    <Col span={5}>
                         <Button type="primary" onClick={showModalAddPromo}>
                             + Add Promo
                         </Button>
@@ -295,7 +313,7 @@ export default function KontenPromo() {
 
                         >
                             <Content>
-                                <Row justify="center" className="h-FULL">
+                                <Row justify="center" className="h-full">
                                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                                         <div className="space-y-5">
                                             <Row>
@@ -307,7 +325,7 @@ export default function KontenPromo() {
                                                                     // htmlFor="exampleInputEmail2"
                                                                     className="form-label inline-block mb-1 text-black font-light font-sans"
                                                                 >
-                                                                    Nama Promo
+                                                                    <h3 className="text-base"> Nama Promo</h3>
                                                                 </label>
                                                                 <input
                                                                     type="text"
@@ -376,11 +394,8 @@ export default function KontenPromo() {
                                                         </Form.Item>
                                                         <Form.Item>
                                                             <div className="form-group mb-4">
-                                                                <label
-                                                                    // htmlFor="exampleInputEmail2"
-                                                                    className="form-label inline-block mb-1 text-black font-light font-sans"
-                                                                >
-                                                                    Dari Tanggal
+                                                                <label>
+                                                                    <h3 className="text-base">Dari Tanggal</h3>
                                                                 </label>
                                                                 <input
                                                                     type="date"
@@ -410,10 +425,9 @@ export default function KontenPromo() {
                                                         <Form.Item>
                                                             <div className="form-group mb-4">
                                                                 <label
-                                                                    // htmlFor="exampleInputEmail2"
-                                                                    className="form-label inline-block mb-1 text-black font-light font-sans"
+
                                                                 >
-                                                                    Sampai Tanggal
+                                                                    <h3 className="text-base">Sampai Tanggal</h3>
                                                                 </label>
                                                                 <input
                                                                     type="date"
@@ -439,23 +453,20 @@ export default function KontenPromo() {
                                                                 />
                                                             </div>
                                                         </Form.Item>
-
-                                                    </Col>
-                                                    <Col span={12}>
-                                                        <div className="flex justify-center">
-                                                            <div className="mb-3 w-30">
+                                                        <Form.Item>
+                                                            <div className="mb-3 w-60">
                                                                 <label
                                                                     htmlFor="formFile"
-                                                                    className="form-label inline-block mb-2 text-gray-700"
+                                                                    className="form-label inline-block text-gray-700"
                                                                 >
-                                                                    Upload Gambar Promo
+                                                                    <h3 className="text-base">Upload Gambar Promo</h3>
                                                                 </label>
                                                                 <input
-                                                                    className="form-control
+                                                                    className="form-control w-60
                                                                     block
                                                                     px-3
                                                                     py-1.5
-                                                                    text-base
+                                                                    text-sm
                                                                     font-normal
                                                                     text-gray-700
                                                                     bg-white bg-clip-padding
@@ -471,7 +482,11 @@ export default function KontenPromo() {
 
                                                                 />
                                                             </div>
-                                                        </div>
+                                                        </Form.Item>
+
+                                                    </Col>
+                                                    <Col span={12}>
+
                                                     </Col>
                                                 </Form>
                                             </Row>
@@ -481,11 +496,36 @@ export default function KontenPromo() {
                                 </Row>
                             </Content>
                         </Modal>
+                        <Modal
+                            title="Konfirmasi Hapus Menu"
+                            width={370}
+                            visible={visibleDelete}
+                            onOk={handleOkModalDelete}
+                            confirmLoading={confirmLoading}
+                            onCancel={handleCancel}
+                        >
+                            <p className='text-[#C78342]'>Yakin ingin menghapus ?</p>
+
+                        </Modal>
+                        <Modal
+                            title="Image Promo"
+                            width={370}
+                            visible={visibleImage}
+                            onCancel={handleCancelImage}
+                            footer={null}
+                        >
+                            <Image loader={() => dataPromo.photo}
+                                src={`https://ordercoffee-app.herokuapp.com/promo/image/${dataPromo}`}
+                                unoptimized={true}
+                                width={250}
+                                height={250}
+                                style={{ borderRadius: 10 }} />
+                        </Modal>
                     </Col>
                 </Row>
                 <Row justify="center" align="middle" className='h-96 mt-4 '>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns(deleteModal)} dataSource={dataPromo} />
+                        <Table columns={columns(deleteModal, imageModal)} dataSource={dataPromo} />
                     </Col>
                 </Row>
             </Content>
