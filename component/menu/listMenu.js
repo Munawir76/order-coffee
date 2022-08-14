@@ -76,7 +76,7 @@ export default function MenuPromo() {
                                             </Col>
                                             <Col span={10} offset={1}>
 
-                                                <Link href={`/menuDetail`}>
+                                                <Link href={`/detailMenu/${menu.id}`}>
                                                     <button
 
                                                         type="button"

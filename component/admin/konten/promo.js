@@ -84,7 +84,7 @@ function columns(deleteModal, imageModal) {
                             type="danger"
                             icon={<DeleteOutlined />}
                             danger={true}
-                            onClick={() => deleteModal(record.name)}
+                            onClick={() => deleteModal(record.id)}
                         >
                         </Button>
                     </Tooltip>
