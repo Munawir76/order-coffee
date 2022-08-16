@@ -23,7 +23,7 @@ export default function MenuPromo() {
                 }
             }).then(res => {
                 console.log(res.data.data, 'ini res api promo')
-                setDataPromo(res.data.data[0])
+                setDataPromo(res.data.items)
             })
         } catch (error) {
             console.error(error);
@@ -41,62 +41,43 @@ export default function MenuPromo() {
                 <div >
                     <Row align='middle' justify='center' style={{ height: "35vh" }}>
                         <Col>
-                            <h3 className=" text-end font-medium text-black text-xl">Promo</h3>
+                            <h3 className=" text-end font-medium text-black text-xl mt-10">Promo</h3>
                         </Col>
                     </Row>
                 </div>
-                <Row justify="center space-x-8" align='middle' >
+                <Row justify="center space-x-8" align='middle' className="-mt-10">
                     {dataPromo.map((promo) => {
                         return (
                             <div>
-                                <Col lg={{ span: 5 }}
-                                    md={{ span: 6 }}
+                                <Col lg={{ span: 20 }}
+                                    md={{ span: 20 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className="rounded-lg shadow-lg  " >
-                                    <Card>
-                                        <Image src={`https://ordercoffee-app.herokuapp.com/promo/image/${promo.photo}`}
-                                            unoptimized={true}
-                                            width={850}
-                                            height={850}
-                                            style={{ borderRadius: 10 }} />
-                                    </Card>
+                                    className="pt-5">
+                                    <div className="rounded-lg shadow-lg bg-white ">
+                                        <a
+                                            href="#!"
+                                            data-mdb-ripple="true"
+                                            data-mdb-ripple-color="light"
+                                        >
+                                            <Image
+                                                loader={() => promo.photo}
+                                                priority={true}
+                                                src={`https://ordercoffee-app.herokuapp.com/promo/image/${promo.photo}`}
+                                                unoptimized={true}
+                                                width={350}
+                                                height={350}
+                                                style={{ borderRadius: 10 }} />
+                                        </a>
+                                    </div>
                                 </Col>
                             </div>
-
                         )
                     })
                     }
-
-                    {/* <Col lg={{ span: 5 }}
-                        md={{ span: 5 }}
-                        sm={{ span: 10 }}
-                        xs={{ span: 10 }}
-                        className="rounded-lg shadow-lg" >
-                        <Card >
-                            <Image src={promo2} />
-                        </Card>
-                    </Col>
-                    <Col lg={{ span: 5 }}
-                        md={{ span: 5 }}
-                        sm={{ span: 10 }}
-                        xs={{ span: 10 }}
-                        className="rounded-lg shadow-lg" >
-                        <Card >
-                            <Image src={promo3} />
-                        </Card>
-                    </Col>
-                    <Col lg={{ span: 5 }}
-                        md={{ span: 5 }}
-                        sm={{ span: 10 }}
-                        xs={{ span: 10 }}
-                        className="rounded-lg shadow-lg" >
-                        <Card >
-                            <Image src={promo4} />
-                        </Card>
-                    </Col> */}
                 </Row>
             </div >
         </div >
     )
 }
+

@@ -8,17 +8,17 @@ import { useEffect } from 'react'
 
 export default function MainLayoutUser({ children }) {
 
-    const router = useRouter()
-    useEffect(() => {
-        const getToken = localStorage.getItem('tokenCustomer')
+    // const router = useRouter()
+    // useEffect(() => {
+    //     const getToken = localStorage.getItem('tokenCustomer')
 
-        if (!getToken) {
-            message.info('Anda Harus login dahulu')
-            router.back()
-        }
+    //     if (!getToken) {
+    //         message.info('Anda Harus login dahulu')
+    //         router.back()
+    //     }
 
 
-    }, [])
+    // }, [])
 
     return (
         <Layout >

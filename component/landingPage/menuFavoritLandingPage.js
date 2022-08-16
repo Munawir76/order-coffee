@@ -10,6 +10,7 @@ import MenuLima from '../../public/images/machiatto.jpg'
 import MenuEnam from '../../public/images/tubruk.jpg'
 import Link from 'next/link'
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 const styleCarousel = {
 
@@ -19,6 +20,41 @@ const styleCarousel = {
 }
 
 export default function MenuFavorit() {
+
+    const [productSatu, setProductSatu] = useState([])
+    const [productDua, setProductDua] = useState([])
+    const [productTiga, setProductTiga] = useState([])
+    const [productEmpat, setProductEmpat] = useState([])
+    const [productLima, setProductLima] = useState([])
+    const [productEnam, setProductEnam] = useState([])
+
+    async function getDataProduct() {
+        try {
+            // const getToken = localStorage.getItem("tokenCustomer")
+            // const decode = jwt_decode(getToken)
+            // console.log(getToken)
+            await axios.get('https://ordercoffee-app.herokuapp.com/menu', {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res.data, 'ini res get api')
+                setProductSatu(res.data.items[0])
+                setProductDua(res.data.items[1])
+                setProductTiga(res.data.items[2])
+                setProductEmpat(res.data.items[3])
+                setProductLima(res.data.items[4])
+                setProductEnam(res.data.items[5])
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    useEffect(() => {
+        getDataProduct()
+    }, [])
+    console.log(productSatu, 'ini product satu');
+
 
     return (
         <div>
@@ -35,25 +71,34 @@ export default function MenuFavorit() {
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a
-                                            href="#!"
+
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuSatu} alt="" />
+                                            <Image
+                                                loader={() => productSatu.photo}
+                                                priority={true}
+                                                src={`https://ordercoffee-app.herokuapp.com/menu/image/${productSatu?.photo
+                                                    }`}
+                                                unoptimized={true}
+                                                width={350}
+                                                height={350}
+                                                style={{ borderRadius: 10 }} />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}>
                                                     <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                        Red Valvet
+                                                        {productSatu?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 20.000
+                                                        {productSatu?.price}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <Link href='/menuDetail/'>
+                                                    <Link href={`/detailMenu/${productSatu.id}`}>
                                                         <button
+
                                                             type="button"
                                                             className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
                                                         >
@@ -74,25 +119,34 @@ export default function MenuFavorit() {
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a
-                                            href="#!"
+
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuDua} alt="" />
+                                            <Image
+                                                loader={() => productDua.photo}
+                                                priority={true}
+                                                src={`https://ordercoffee-app.herokuapp.com/menu/image/${productDua?.photo
+                                                    }`}
+                                                unoptimized={true}
+                                                width={350}
+                                                height={350}
+                                                style={{ borderRadius: 10 }} />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}>
                                                     <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                        Single Origin
+                                                        {productDua?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 20.000
+                                                        {productDua?.price}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <Link href='/menuDetail/'>
+                                                    <Link href={`/detailMenu/${productDua.id}`}>
                                                         <button
+
                                                             type="button"
                                                             className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
                                                         >
@@ -113,25 +167,34 @@ export default function MenuFavorit() {
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a
-                                            href="#!"
+
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuTiga} alt="" />
+                                            <Image
+                                                loader={() => productTiga.photo}
+                                                priority={true}
+                                                src={`https://ordercoffee-app.herokuapp.com/menu/image/${productTiga?.photo
+                                                    }`}
+                                                unoptimized={true}
+                                                width={350}
+                                                height={350}
+                                                style={{ borderRadius: 10 }} />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}>
                                                     <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                        Taro Iced
+                                                        {productTiga?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 20.000
+                                                        {productTiga?.price}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <Link href='/menuDetail/'>
+                                                    <Link href={`/detailMenu/${productTiga.id}`}>
                                                         <button
+
                                                             type="button"
                                                             className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
                                                         >
@@ -158,25 +221,34 @@ export default function MenuFavorit() {
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a
-                                            href="#!"
+
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuEmpat} alt="" />
+                                            <Image
+                                                loader={() => productEmpat.photo}
+                                                priority={true}
+                                                src={`https://ordercoffee-app.herokuapp.com/menu/image/${productEmpat?.photo
+                                                    }`}
+                                                unoptimized={true}
+                                                width={350}
+                                                height={350}
+                                                style={{ borderRadius: 10 }} />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}>
                                                     <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                        Vietnam Drip
+                                                        {productEmpat?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 20.000
+                                                        {productEmpat?.price}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <Link href='/menuDetail/'>
+                                                    <Link href={`/detailMenu/${productEmpat.id}`}>
                                                         <button
+
                                                             type="button"
                                                             className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
                                                         >
@@ -197,25 +269,34 @@ export default function MenuFavorit() {
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a
-                                            href="#!"
+
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuLima} alt="" />
+                                            <Image
+                                                loader={() => productLima.photo}
+                                                priority={true}
+                                                src={`https://ordercoffee-app.herokuapp.com/menu/image/${productLima?.photo
+                                                    }`}
+                                                unoptimized={true}
+                                                width={350}
+                                                height={350}
+                                                style={{ borderRadius: 10 }} />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}>
                                                     <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                        Machiatto
+                                                        {productLima?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 27.000
+                                                        {productLima?.price}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <Link href='/menuDetail/'>
+                                                    <Link href={`/detailMenu/${productLima.id}`}>
                                                         <button
+
                                                             type="button"
                                                             className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
                                                         >
@@ -236,25 +317,34 @@ export default function MenuFavorit() {
                                     className="pt-5">
                                     <div className="rounded-lg shadow-lg bg-white ">
                                         <a
-                                            href="#!"
+
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                         >
-                                            <Image className="rounded-t-lg" src={MenuEnam} alt="" />
+                                            <Image
+                                                loader={() => productEnam.photo}
+                                                priority={true}
+                                                src={`https://ordercoffee-app.herokuapp.com/menu/image/${productEnam?.photo
+                                                    }`}
+                                                unoptimized={true}
+                                                width={350}
+                                                height={350}
+                                                style={{ borderRadius: 10 }} />
                                         </a>
                                         <div className="p-6">
                                             <Row justify='center'>
                                                 <Col span={12} offset={1}>
                                                     <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                        Tubruk
+                                                        {productEnam?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        Rp. 18.000
+                                                        {productEnam?.price}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <Link href='/menuDetail/'>
+                                                    <Link href={`/detailMenu/${productEnam.id}`}>
                                                         <button
+
                                                             type="button"
                                                             className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
                                                         >
@@ -277,30 +367,3 @@ export default function MenuFavorit() {
     )
 }
 
-
-
-// const [product, setProduct] = useState([])
-
-// async function getData() {
-
-//     try {
-//         await axios.get('https://dummyjson.com/products').then((response) => {
-
-//             const apiData = response.data
-//             setProduct(apiData)
-//         })
-
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
-
-// useEffect(() => {
-//     getData()
-// }, [])
-
-// console.log(product);
-
-// {product.products.map((ele) => (
-// ))
-// }

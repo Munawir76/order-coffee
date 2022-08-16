@@ -1,57 +1,72 @@
-import { Layout, Col, Row, Card } from "antd";
+import { Layout, Col, Row, Card, Space } from "antd";
 import { SwapOutlined, UserOutlined, ShoppingOutlined } from '@ant-design/icons';
 const { Content } = Layout;
+import { useState, useEffect } from "react";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 
 export default function ContentDashBoard() {
 
-    const data = [
-        {
-            key: 2,
-            Nama: "Ariel Winardi",
-            NomorPemesanan: 19072022,
-            tanggalBeli: "09-07-2022",
-            jumlah: 120000,
+    const [dataProduct, setDataProduct] = useState([])
+    const [dataUser, setDataUser] = useState([])
 
-        },
-        {
-            key: 1,
-            Nama: "Dwi Gunawan",
-            NomorPemesanan: 11072022,
-            tanggalBeli: "11-07-2022",
-            jumlah: 180000,
 
-        },
-        {
-            key: 3,
-            Nama: "Galuh Sudariono",
-            NomorPemesanan: 15072022,
-            tanggalBeli: "15-07-2022",
-            jumlah: 200000,
+    async function getDataProduct() {
+        try {
+            const getToken = localStorage.getItem("tokenAdmin")
+            const decode = jwt_decode(getToken)
+            // console.log(getToken)
+            await axios.get('https://ordercoffee-app.herokuapp.com/menu', {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res.data.items, 'INI RES')
+                const apiDataProduct = res.data.items
+                // console.log(apiDataProduct)
+                setDataProduct(apiDataProduct)
+            })
 
-        },
-        {
-            key: 4,
-            Nama: "Budi wicaksono",
-            email: "budi_wicaksono@gaguna.com",
-            jumlah: 0,
-            status: ["Non-Aktif"],
-
-        },
-        {
-            key: 5,
-            Nama: "Munawir",
-            email: "Munawir@hot.com",
-            jumlah: 0,
-            status: ["Aktif"],
-
+        } catch (error) {
+            console.error(error);
         }
-    ];
-    const totalProduct = 2;
-    const totalPendapatan = data.reduce((i, obj) => {
-        return i + obj.jumlah;
-    }, 0);
-    const totalUser = data.length;
+    }
+
+    async function getDataUser() {
+        try {
+
+            await axios.get('https://ordercoffee-app.herokuapp.com/users', {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(res => {
+                // console.log(res.data.data);
+                const apiDataUser = res.data.items
+                // console.log(apiDataUser)
+                setDataUser(apiDataUser)
+            })
+
+
+        } catch (error) {
+            console.log(error, 'ini error bro');
+        }
+    }
+
+
+
+    useEffect(() => {
+        getDataProduct()
+        getDataUser()
+    }, [])
+
+
+    const totalProduct = dataProduct.length;
+    const totalUser = dataUser.length;
+
+    // const totalPendapatan = data.reduce((i, obj) => {
+    //     return i + obj.jumlah;
+    // }, 0);
 
 
     return (
@@ -72,7 +87,9 @@ export default function ContentDashBoard() {
                                     <h5 className="text-gray-900 text-base leading-tight font-semibold ">
                                         Total Product
                                     </h5>
-                                    <Col >{totalProduct}</Col>
+                                    <Col >
+                                        <h5 className="font-light"> {totalProduct} Product</h5>
+                                    </Col>
                                 </Col>
                                 <Col style={{ fontSize: '25pt' }} className="text-white"><SwapOutlined /></Col>
                             </Row>
@@ -83,7 +100,7 @@ export default function ContentDashBoard() {
                                     <h5 className="text-gray-900 text-base leading-tight font-semibold ">
                                         Total User
                                     </h5>
-                                    <Col >{totalUser}</Col>
+                                    <Col ><h5 className="font-light"> {totalUser} Pengguna</h5></Col>
                                 </Col>
                                 <Col style={{ fontSize: '25pt' }} className="text-white"><UserOutlined /></Col>
                             </Row>
@@ -94,7 +111,7 @@ export default function ContentDashBoard() {
                                     <h5 className="text-gray-900 text-base leading-tight font-semibold ">
                                         Total Transaksi
                                     </h5>
-                                    <Col >{totalPendapatan}</Col>
+                                    <Col ></Col>
                                 </Col>
                                 <Col style={{ fontSize: '25pt' }} className="text-white"><ShoppingOutlined /></Col>
                             </Row>

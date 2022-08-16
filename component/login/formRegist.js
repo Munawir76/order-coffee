@@ -108,7 +108,7 @@ export default function FormLogin() {
         const value = e.target.value
         setbirthofdate(value)
         // value = new Date()
-        console.log(value)
+        console.log(e, "ini si e")
     }
     const onChangeRoleId = (e) => {
         const value = e.target.value

@@ -24,7 +24,7 @@ export default function DetailProduct() {
                 }
             }).then(res => {
                 // console.log(res.data.data)
-                setDataDetailProduct(res.data.data[0])
+                setDataDetailProduct(res.data.items)
 
             })
         } catch (error) {

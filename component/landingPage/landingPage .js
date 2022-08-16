@@ -1,9 +1,9 @@
 import React from "react";
 import 'tailwindcss/tailwind.css'
 import { Row, Col } from 'antd'
-import MenuList from './menuTerbaikLandingPage'
 import MenuFavorit from "./menuFavoritLandingPage";
 import Promo from "./promoLandingPage";
+import MenuTerbaikLandingPage from "./menuTerbaikLandingPage";
 
 
 
@@ -13,7 +13,7 @@ export default function LandingPage() {
             <Row align="middle">
                 <Col >
                     <div className="mt-10">
-                        <MenuList />
+                        <MenuTerbaikLandingPage />
                         <div className="mt-10">
                             <MenuFavorit />
                         </div>

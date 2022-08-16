@@ -21,10 +21,8 @@ export default function DetailUser() {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
-                // console.log(res.data)
-                // apiDataUserDetail = res.data
-                // console.log(apiDataUserDetail)
-                setDataDetailUser(res.data.data)
+                console.log(res.data.items, 'ini res')
+                setDataDetailUser(res.data.items)
 
 
             })
@@ -42,8 +40,8 @@ export default function DetailUser() {
     const { fullname } = router.query;
     const dataSelected = dataDetailUser.find((data) => data.fullname == fullname);
     const myRole = {
-        id: `${dataSelected?.role.id}`,
-        detail: `${dataSelected?.role.detail}`
+
+        role: `${dataSelected?.role.detail}`
     }
     console.log(myRole)
 
@@ -80,7 +78,7 @@ export default function DetailUser() {
                                         </div>
                                         <div>
                                             <h3 className="text-base">Role</h3>
-                                            <Card style={{ width: 110, height: 30, borderColor: 'black', backgroundColor: 'rgba(213, 213, 213, 0.8)', textAlign: 'center' }}><p className="-mt-5">{myRole.detail}</p></Card>
+                                            <Card style={{ width: 110, height: 30, borderColor: 'black', backgroundColor: 'rgba(213, 213, 213, 0.8)', textAlign: 'center' }}><p className="-mt-5">{myRole.role}</p></Card>
                                         </div>
                                     </div>
 

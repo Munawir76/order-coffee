@@ -102,7 +102,7 @@ export default function KontenProduct() {
 
     // Modal Add Product
     const [visibleAddProduct, setVisibleAddProduct] = useState(false);
-    const [dataProduct, setDataProduct] = useState('')
+    const [dataProduct, setDataProduct] = useState()
 
     //Modal Edit Product
     const [visibleEditProduct, setVisibleEditProduct] = useState(false);
@@ -129,6 +129,14 @@ export default function KontenProduct() {
     const [editFoto, setEditFoto] = useState('')
     const [finish, setFinish] = useState('')
     const [dataDetailProduct, setDataDetailProduct] = useState([])
+
+    //pagenation
+    const [pagination, setPagination] = useState({
+        current: 1,
+        pageSize: 4,
+    });
+
+    console.log(pagination, 'ini page product')
 
     const onFinishAdd = async () => {
         try {
@@ -250,7 +258,7 @@ export default function KontenProduct() {
 
     }
 
-    async function getDataProduct() {
+    async function getDataProduct(params = {}) {
         try {
             const getToken = localStorage.getItem("tokenAdmin")
             const decode = jwt_decode(getToken)
@@ -260,19 +268,33 @@ export default function KontenProduct() {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                // console.log(res.data.data)
-                const apiDataProduct = res.data.data
+                // console.log(res.data.items)
+                const apiDataProduct = res.data.items
                 // console.log(apiDataProduct)
-                setDataProduct(apiDataProduct[0])
+                setDataProduct(apiDataProduct)
             })
+            setPagination({
+                ...params.pagination,
+                total: dataProduct.length
+            });
+
         } catch (error) {
             console.error(error);
         }
     }
 
     useEffect(() => {
-        getDataProduct()
+        getDataProduct(pagination)
     }, [])
+
+    //pagenition
+    const handleTableChange = (newPagination) => {
+        getDataProduct({
+
+            pagination: newPagination,
+
+        });
+    };
 
 
 
@@ -288,7 +310,7 @@ export default function KontenProduct() {
                 }
             }).then(res => {
                 // console.log(res.data.data)
-                setDataDetailProduct(res.data.data[0])
+                setDataDetailProduct(res.data.items)
             })
         } catch (error) {
 
@@ -371,6 +393,23 @@ export default function KontenProduct() {
         }
     };
 
+    //Search
+    const onSearch = (value) => {
+        axios.get(`https://ordercoffee-app.herokuapp.com/menu/search/menu?page=1&limit=20&search=${value}`).then(res => {
+            setDataProduct(res.data.items)
+            console.log(res.data.items, 'ini hasil search')
+        })
+    };
+
+    const onSelect = (value) => {
+        // console.log('onSelect', value);
+        axios.get(`https://ordercoffee-app.herokuapp.com/menu/search/menu?page=1&limit=20&search=${value}`).then(res => {
+            setDataProduct(res.data.items)
+            console.log(res.data.items, 'ini hasil select search')
+        })
+    };
+
+
     return (
         <div>
             <Content>
@@ -380,8 +419,11 @@ export default function KontenProduct() {
                         <Search
                             placeholder="Search Product"
                             allowClear
+                            enterButton
                             size="large"
                             type="text"
+
+                            onSearch={onSearch}
                         />
                     </Col>
                     <Col span={5} className="">
@@ -592,7 +634,12 @@ export default function KontenProduct() {
                 </Row>
                 <Row justify="center" align="middle" className='h-96 mt-4'>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns(deleteModal, editModal)} dataSource={dataProduct} />
+                        <Table columns={columns(deleteModal, editModal)} dataSource={dataProduct}
+                            pagination={pagination}
+                            onChange={handleTableChange}
+                            className="shadow-sm" />
+
+
                     </Col>
                 </Row>
                 <Modal

@@ -127,9 +127,9 @@ export default function KontenPromo() {
                 }
             }).then(res => {
                 // console.log(res.data.data)
-                const apiDataPromo = res.data.data
+                const apiDataPromo = res.data.items
                 console.log(apiDataPromo, 'ini res api')
-                setDataPromo(apiDataPromo[0])
+                setDataPromo(apiDataPromo)
             })
         } catch (error) {
             console.error(error, 'ini error get promo');
@@ -140,8 +140,9 @@ export default function KontenPromo() {
             await axios.get("https://ordercoffee-app.herokuapp.com/menu", {
 
             }).then(res => {
-                // console.log(res.data.data[0])
-                setMenuPromo(res.data.data[0])
+                // console.log(res.data.items)
+
+                setMenuPromo(res.data.items)
             })
         } catch (error) {
         }
