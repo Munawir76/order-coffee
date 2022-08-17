@@ -515,8 +515,8 @@ export default function KontenPromo() {
                             onCancel={handleCancelImage}
                             footer={null}
                         >
-                            <Image loader={() => dataPromo.photo}
-                                src={`https://ordercoffee-app.herokuapp.com/promo/image/${dataPromo}`}
+                            <Image loader={() => dataPromo?.photo}
+                                src={`https://ordercoffee-app.herokuapp.com/promo/image/${dataPromo?.photo}`}
                                 unoptimized={true}
                                 width={250}
                                 height={250}

@@ -113,14 +113,14 @@ export default function DetailMenu() {
                         <a href='/menu' className='text-[#805336] text-base font-semibold font text-decoration: underline hover:text-black'> Back to menu</a>
                     </Col>
                     <Col className="mt-4 ml-32 mb-10" span='8'>
-                        <Link href='/menuDetail/'>
-                            <button
-                                type="button"
-                                className=" space-x-2 justify-end inline-block px-6 py-2 bg-[#C78342] text-white font-medium text-xs leading-tight shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
-                            >
-                                {<ShoppingCartOutlined className='mr-2 mb-2' />}<Space className="font-medium">+ Add to cart</Space>
-                            </button>
-                        </Link>
+                        {/* <Link href=''> */}
+                        <button
+                            type="button"
+                            className=" space-x-2 justify-end inline-block px-6 py-2 bg-[#C78342] text-white font-medium text-xs leading-tight shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                        >
+                            {<ShoppingCartOutlined className='mr-2 mb-2' />}<Space className="font-medium">+ Add to cart</Space>
+                        </button>
+                        {/* </Link> */}
                     </Col>
                 </Row>
             </div>

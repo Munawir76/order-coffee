@@ -1,6 +1,7 @@
 import React from 'react'
 import "antd/dist/antd.css";
 import { Carousel, Row, Col } from 'antd';
+import { CalendarTwoTone } from '@ant-design/icons';
 import Image from 'next/image';
 import Promo1 from '../../public/images/promo1.jpg'
 import Promo2 from '../../public/images/promo2.jpg'
@@ -56,7 +57,7 @@ export default function Promo() {
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className="pt-5 rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
                                         loader={() => promoSatu.photo}
                                         priority={true}
@@ -66,12 +67,31 @@ export default function Promo() {
                                         width={350}
                                         height={350}
                                         style={{ borderRadius: 10 }} />
+                                    <Col span={24} offset={1}>
+                                        <h2 className="text-gray-900 text-base font-medium mb-2">
+                                            Promo  {promoSatu.name} {promoSatu.discount}
+                                        </h2>
+                                    </Col>
+                                    <Row className=''>
+                                        <Col offset={1}>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Berlaku dari :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone className="text-orange-800" /> {promoSatu.date}</div>
+                                        </Col>
+                                        <Col className='ml-12'>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Sampai dengan :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoSatu.expired}</div>
+                                        </Col>
+                                    </Row>
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className="pt-5 rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
                                         loader={() => promoDua.photo}
                                         priority={true}
@@ -81,12 +101,31 @@ export default function Promo() {
                                         width={350}
                                         height={350}
                                         style={{ borderRadius: 10 }} />
+                                    <Col span={24} offset={1}>
+                                        <h2 className="text-gray-900 text-base font-medium mb-2">
+                                            Promo  {promoDua.name} {promoDua.discount}
+                                        </h2>
+                                    </Col>
+                                    <Row className=''>
+                                        <Col offset={1}>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Berlaku dari :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoDua.date}</div>
+                                        </Col>
+                                        <Col className='ml-12'>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Sampai dengan :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoDua.expired}</div>
+                                        </Col>
+                                    </Row>
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className="pt-5 rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
                                         loader={() => promoTiga.photo}
                                         priority={true}
@@ -96,6 +135,25 @@ export default function Promo() {
                                         width={350}
                                         height={350}
                                         style={{ borderRadius: 10 }} />
+                                    <Col span={24} offset={1}>
+                                        <h2 className="text-gray-900 text-base font-medium mb-2">
+                                            Promo  {promoTiga.name} {promoTiga.discount}
+                                        </h2>
+                                    </Col>
+                                    <Row className=''>
+                                        <Col offset={1}>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Berlaku dari :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoTiga.date}</div>
+                                        </Col>
+                                        <Col className='ml-12'>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Sampai dengan :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoTiga.expired}</div>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
                         </div>
@@ -107,7 +165,7 @@ export default function Promo() {
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className="pt-5 rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
                                         loader={() => promoSatu.photo}
                                         priority={true}
@@ -117,12 +175,31 @@ export default function Promo() {
                                         width={350}
                                         height={350}
                                         style={{ borderRadius: 10 }} />
+                                    <Col span={24} offset={1}>
+                                        <h2 className="text-gray-900 text-base font-medium mb-2">
+                                            Promo  {promoSatu.name} {promoSatu.discount}
+                                        </h2>
+                                    </Col>
+                                    <Row className=''>
+                                        <Col offset={1}>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Berlaku dari :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoSatu.date}</div>
+                                        </Col>
+                                        <Col className='ml-12'>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Sampai dengan :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoSatu.expired}</div>
+                                        </Col>
+                                    </Row>
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className="pt-5 rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
                                         loader={() => promoDua.photo}
                                         priority={true}
@@ -132,12 +209,31 @@ export default function Promo() {
                                         width={350}
                                         height={350}
                                         style={{ borderRadius: 10 }} />
+                                    <Col span={24} offset={1}>
+                                        <h2 className="text-gray-900 text-base font-medium mb-2">
+                                            Promo  {promoDua.name} {promoDua.discount}
+                                        </h2>
+                                    </Col>
+                                    <Row className=''>
+                                        <Col offset={1}>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Berlaku dari :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoDua.date}</div>
+                                        </Col>
+                                        <Col className='ml-12'>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Sampai dengan :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoDua.expired}</div>
+                                        </Col>
+                                    </Row>
                                 </Col>
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
-                                    className="pt-5 rounded-lg shadow-lg">
+                                    className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
                                         loader={() => promoTiga.photo}
                                         priority={true}
@@ -147,6 +243,25 @@ export default function Promo() {
                                         width={350}
                                         height={350}
                                         style={{ borderRadius: 10 }} />
+                                    <Col span={24} offset={1}>
+                                        <h2 className="text-gray-900 text-base font-medium mb-2">
+                                            Promo  {promoTiga.name} {promoTiga.discount}
+                                        </h2>
+                                    </Col>
+                                    <Row className=''>
+                                        <Col offset={1}>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Berlaku dari :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoTiga.date}</div>
+                                        </Col>
+                                        <Col className='ml-12'>
+                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                                Sampai dengan :
+                                            </p>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoTiga.expired}</div>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
                         </div>

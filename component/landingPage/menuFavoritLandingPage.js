@@ -39,11 +39,11 @@ export default function MenuFavorit() {
                 }
             }).then(res => {
                 console.log(res.data, 'ini res get api')
-                setProductSatu(res.data.items[0])
-                setProductDua(res.data.items[1])
-                setProductTiga(res.data.items[2])
+                setProductSatu(res.data.items[2])
+                setProductDua(res.data.items[4])
+                setProductTiga(res.data.items[5])
                 setProductEmpat(res.data.items[3])
-                setProductLima(res.data.items[4])
+                setProductLima(res.data.items[6])
                 setProductEnam(res.data.items[5])
             })
         } catch (error) {
@@ -60,16 +60,16 @@ export default function MenuFavorit() {
         <div>
             <h3 className="text-center font-medium text-black text-xl">Paling Banyak Dicari</h3>
             <div>
-                <Carousel autoplaySpeed={0}>
+                <Carousel autoplaySpeed={0} >
                     <div>
-                        <div style={styleCarousel}>
+                        <div style={styleCarousel} className="">
                             <Row justify="center space-x-5" className="bg-[#fff] mb-10">
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -117,7 +117,7 @@ export default function MenuFavorit() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -165,7 +165,7 @@ export default function MenuFavorit() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -219,7 +219,7 @@ export default function MenuFavorit() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -267,7 +267,7 @@ export default function MenuFavorit() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1 ">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -315,7 +315,7 @@ export default function MenuFavorit() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"

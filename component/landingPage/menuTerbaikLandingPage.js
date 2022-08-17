@@ -65,7 +65,7 @@ export default function MenuTerbaikLandingPage() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -113,7 +113,7 @@ export default function MenuTerbaikLandingPage() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -161,7 +161,7 @@ export default function MenuTerbaikLandingPage() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -215,7 +215,7 @@ export default function MenuTerbaikLandingPage() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -263,7 +263,7 @@ export default function MenuTerbaikLandingPage() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -311,7 +311,7 @@ export default function MenuTerbaikLandingPage() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white ">
+                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"

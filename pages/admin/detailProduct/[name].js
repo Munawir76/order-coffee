@@ -82,11 +82,11 @@ export default function DetailProduct() {
                                 <Row className="mt-5">
                                     <Col>
                                         <h2>Deskripsi</h2>
-                                        <Card style={{ width: 250 }}>
+                                        <Card style={{ width: 350, }}>
                                             <p>{dataSelected?.description}</p>
                                         </Card>
                                     </Col>
-                                    <Col span={14}>
+                                    <Col span={10}>
                                         <div className="text-end mt-32">
                                             <ButtonBack />
                                         </div>

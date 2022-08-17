@@ -40,7 +40,7 @@ export default function ListMenu() {
                     <h3 className=" text-end font-medium text-black text-xl mt-24">Menu</h3>
                 </Col>
             </Row>
-            <Row className="bg-[#fff] mb-16 align-middle justify-center flex gap-10">
+            <Row className="bg-[#fff] mb-16 align-middle justify-center flex gap-10 ">
                 {dataProduct.map((menu) => {
                     return (
                         <>
@@ -50,7 +50,7 @@ export default function ListMenu() {
                                 xs={{ span: 20 }}
                                 // offset={1}
 
-                                className="pt-5">
+                                className="pt-5 transition ease-in-out hover:-translate-y-2">
                                 <div className="rounded-lg shadow-lg bg-white ">
                                     <a
                                         href=""
