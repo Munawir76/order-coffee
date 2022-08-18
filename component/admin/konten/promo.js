@@ -1,4 +1,4 @@
-import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Select, Dropdown, Upload, Form, message } from 'antd';
+import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Select, Dropdown, Upload, Form, message, AutoComplete } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import Image from 'rc-image';
 import Link from "next/link";
@@ -96,7 +96,7 @@ function columns(deleteModal, imageModal) {
 
 export default function KontenPromo() {
 
-    const [dataPromo, setDataPromo] = useState()
+    const [dataPromo, setDataPromo] = useState([])
     const [menuPromo, setMenuPromo] = useState([])
     const [visibleAddPromo, setVisibleAddPromo] = useState(false);
     // add promo
@@ -115,6 +115,10 @@ export default function KontenPromo() {
 
     // image modal
     const [visibleImage, setVisibleImage] = useState(false);
+
+    // Search
+    const [options, setOptions] = useState([]);
+    const [searchText, setSearchText] = useState('');
 
     async function getDataPromo() {
         try {
@@ -275,9 +279,22 @@ export default function KontenPromo() {
         }
     }
 
-    const onSearch = (value) => console.log(value);
+    const onSearch = (value) => {
+        console.log(value, 'ini value search');
+        axios.get(`https://ordercoffee-app.herokuapp.com/promo/search/${value}`).then(res => {
+            if (res.status == 200 || res.status == 201) {
+                setDataPromo([res.data])
+                console.log(res, 'ini hasil search')
+            } else if (res.status == 400 || res.status == 404) {
+                setDataPromo(null)
+                getDataPromo()
+            }
 
-    // console.log(menuPromo);
+        })
+
+    };
+
+
 
     return (
         <div>
@@ -286,13 +303,12 @@ export default function KontenPromo() {
                 <Row className='mt-6 ml-24 justify-between'>
 
                     <Col span={5}>
-                        <Search
-                            placeholder="Search Promo"
-                            allowClear
-                            size="large"
-                            onSearch={onSearch}
-                        />
+                        <AutoComplete
+                            onSearch={onSearch}>
+                            <Input.Search placeholder='Search Promo' size='large' allowClear enterButton />
+                        </AutoComplete>
                     </Col>
+
                     <Col span={5}>
                         <Button type="primary" onClick={showModalAddPromo}>
                             + Add Promo

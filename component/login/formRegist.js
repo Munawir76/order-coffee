@@ -2,14 +2,12 @@ import { Col, message, Row } from 'antd';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image'
 import Back from '../../public/images/foster1.jpg'
-
 import Router, { useRouter } from 'next/router';
 import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import '@ant-design/icons'
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
-
 
 
 export default function FormLogin() {

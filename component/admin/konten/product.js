@@ -2,29 +2,15 @@ import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, Sel
 import { EyeOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import Link from "next/link";
 import ButtonBack from '../../reusable/buttonBack';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
 const { Search } = Input;
 const { Option } = Select
 
-
-
 function columns(deleteModal, editModal) {
     return [
-        // {
-        //     title: 'No.',
-        //     dataIndex: 'no',
-        //     key: 'no',
-        //     render: (_, render) => {
-        //         for (i = 0; i < render.length ; i++) {
-        //             return (
-        //                 { i }
-        //             )
-        //         }
-        //     }
-        // },
         // {
         //     title: 'ID Product',
         //     dataIndex: 'id',
@@ -130,6 +116,10 @@ export default function KontenProduct() {
     const [finish, setFinish] = useState('')
     const [dataDetailProduct, setDataDetailProduct] = useState([])
 
+    //Search
+    const [searchText, setSearchText] = useState('');
+    const searchInput = useRef(null);
+
     //pagenation
     const [pagination, setPagination] = useState({
         current: 1,
@@ -153,7 +143,7 @@ export default function KontenProduct() {
                     "content-type": "multipart/form-data"
                 }
             }).then(res => {
-                console.log(res)
+                // console.log(res)
                 setVisibleAddProduct(false)
                 message.success("Successfull Create menu")
             })
@@ -189,17 +179,17 @@ export default function KontenProduct() {
     const onChangeStatusProduct = (value) => {
         // const value = e.target.value
         setStatusProduct(value)
-        console.log(value)
+        // console.log(value)
     }
 
     const onChangePriceProduct = (e) => {
         const value = e.target.value
         setPriceProduct(value)
-        console.log(value)
+        // console.log(value)
     }
 
     const onChangeFotoProduct = (e) => {
-        console.log(e.target.files, " ini files nya")
+        // console.log(e.target.files, " ini files nya")
         const value = e.target.files[0]
         // console.log(filePath)
         setFotoProduct(value)
@@ -332,7 +322,7 @@ export default function KontenProduct() {
                 photo: editFoto
             }
             // const editProduct = dataSelected
-            console.log(editProduct, 'ini new product')
+            // console.log(editProduct, 'ini new product')
 
             const sentData = await axios.put(`https://ordercoffee-app.herokuapp.com/menu/${dataSelected}`, editProduct, {
                 headers: {
@@ -378,13 +368,13 @@ export default function KontenProduct() {
     }
 
     const onChangeeditFoto = (e) => {
-        console.log(e.target.files, " ini files nya")
+        // console.log(e.target.files, " ini files nya")
         const value = e.target.files[0]
         // console.log(filePath)
         setEditFoto(value)
     }
     const editModal = (record) => {
-        console.log(record, 'ini record')
+        // console.log(record, 'ini record')
         if (record) {
             setDataSelected(record);
             setVisibleEditProduct(true);
@@ -395,19 +385,20 @@ export default function KontenProduct() {
 
     //Search
     const onSearch = (value) => {
-        axios.get(`https://ordercoffee-app.herokuapp.com/menu/search/menu?page=1&limit=20&search=${value}`).then(res => {
+        console.log('search', value)
+        axios.get(`https://ordercoffee-app.herokuapp.com/menu/search/menu?page=1&limit=20&search=${value}&fullname=$email=`).then(res => {
             setDataProduct(res.data.items)
             console.log(res.data.items, 'ini hasil search')
         })
     };
 
-    const onSelect = (value) => {
-        // console.log('onSelect', value);
-        axios.get(`https://ordercoffee-app.herokuapp.com/menu/search/menu?page=1&limit=20&search=${value}`).then(res => {
-            setDataProduct(res.data.items)
-            console.log(res.data.items, 'ini hasil select search')
-        })
-    };
+    // const onSelect = (value) => {
+    //     // console.log('onSelect', value);
+    //     axios.get(`https://ordercoffee-app.herokuapp.com/menu/search/menu?page=1&limit=20&search=${value}&fullname=$email=`).then(res => {
+    //         setDataProduct(res.data.items)
+    //         console.log(res.data.items, 'ini hasil select search')
+    //     })
+    // };
 
 
     return (

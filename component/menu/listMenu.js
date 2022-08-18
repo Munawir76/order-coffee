@@ -11,12 +11,10 @@ import jwt_decode from 'jwt-decode';
 export default function ListMenu() {
 
     const [dataProduct, setDataProduct] = useState([])
+    // const [dataPromo, setDataPromo] = useState([])
 
     async function getDataProduct() {
         try {
-            // const getToken = localStorage.getItem("tokenCustomer")
-            // const decode = jwt_decode(getToken)
-            // console.log(getToken)
             await axios.get('https://ordercoffee-app.herokuapp.com/menu', {
                 headers: {
                     'Content-Type': 'application/json'
@@ -29,8 +27,24 @@ export default function ListMenu() {
             console.error(error);
         }
     }
+
+    async function getDataPromo() {
+        try {
+            await axios.get(`https://ordercoffee-app.herokuapp.com/promo/`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res, 'ini res api promo')
+            })
+        } catch (error) {
+
+        }
+    }
+
     useEffect(() => {
         getDataProduct()
+        getDataPromo()
     }, [])
 
     return (

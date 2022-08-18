@@ -1,7 +1,7 @@
 import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, message } from 'antd';
 import { EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import Link from "next/link";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'
 
@@ -85,6 +85,10 @@ export default function KontenUsers() {
     const [modalTaskId, setModalTaskId] = useState('');
     const [confirmLoading, setConfirmLoading] = useState(false);
 
+    //search
+    const [searchText, setSearchText] = useState('');
+    const searchInput = useRef(null);
+
     //pagenation
     const [pagination, setPagination] = useState({
         current: 1,
@@ -165,11 +169,12 @@ export default function KontenUsers() {
     };
 
     //Search
-    const onSearch = (value) => {
-        axios.get(`https://ordercoffee-app.herokuapp.com/users/search/users?page=1&limit=20&search=${value}&name=&=&email=`).then(res => {
+    const onSearch = function (value) {
+        axios.get(`https://ordercoffee-app.herokuapp.com/users/fullname/users?page=1&limit=20&search=${value}`).then(res => {
             setDataUser(res.data.items)
             console.log(res.data.items, 'ini hasil search')
         })
+
     };
 
     // const onSelect = (value) => {

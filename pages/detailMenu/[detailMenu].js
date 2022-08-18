@@ -3,7 +3,7 @@ import 'tailwindcss/tailwind.css'
 import 'antd/dist/antd.variable.min.css'
 import Link from 'next/link'
 import Image from 'next/image';
-import { Row, Col, Space, Select, Form, ConfigProvider } from 'antd';
+import { Row, Col, Space, Select, Form, ConfigProvider, message } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -21,42 +21,79 @@ const { Option } = Select
 export default function DetailMenu() {
 
     const [dataDetailProduct, setDataDetailProduct] = useState([])
-    // const [dataSelected, setDataSelected] = useState([])
+    const [dataPromo, setDataPromo] = useState([])
+
+    //Request Cart
+    const [idMenu, setIdMenu] = useState('')
+    const [amount, setAmount] = useState()
+    const [totalPrice, setTotalPrice] = useState()
+    const [idPromo, setIdPromo] = useState('')
+    const [finalPrice, setFinalPrice] = useState()
+    const [idUser, setIdUser] = useState('')
+
+
+    const router = useRouter();
+    const { detailMenu } = router.query;
 
     async function getDataDetailProduct() {
         try {
-            // const tokenDetailProduct = localStorage.getItem('tokenCustomer')
-            // const decodeTokenDetail = jwt_decode(tokenDetailProduct)
-            const getDataDetail = await axios.get(`https://ordercoffee-app.herokuapp.com/menu/`, {
+            const getDataDetail = await axios.get(`https://ordercoffee-app.herokuapp.com/menu/${detailMenu}`, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
-                console.log(res.data.data, 'ini res api')
-                setDataDetailProduct(res.data.items)
+                console.log(res.data.data, 'ini res api menu')
+                setDataDetailProduct(res.data.data)
+                setDataPromo(res.data.data.promo)
+                // if (dataDetailProduct) {
+                //     setIsDiskon(true)
+                // } else {
+                //     setIsDiskon(false)
+                // }
 
             })
         } catch (error) {
             console.log(error, 'ini errornya')
         }
     }
+
+    const onFinishAdd = async () => {
+        try {
+            const sentCart = {
+                menu_id: idMenu,
+                amount: amount,
+                total_price: totalPrice,
+                promo_id: idPromo,
+                final_price: finalPrice,
+                user_id: idUser
+            }
+            console.log(sentCart, 'ini value sent cart');
+
+            const sentData = await axios.post("https://ordercoffee-app.herokuapp.com/cart", sentCart, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                // console.log(res)
+                // message.success("Successfull Create promo")
+            })
+        } catch (error) {
+            // console.log(error, "ini error");
+            message.error("failed add product")
+        }
+    }
+
     useEffect(() => {
         getDataDetailProduct()
     }, [])
 
-    const router = useRouter();
-    const { detailMenu } = router.query;
-    const dataSelected = dataDetailProduct.find((data) => data.id == detailMenu);
-    console.log(dataSelected, 'ini data selected')
 
     return (
         <div>
-            {/* {dataSelected.map((menu) => {
-                return ( */}
             <div className='h-screen ml-40 mt-10' style={{ position: "relative" }}>
                 <Row justify='start' >
                     <Col span='8'>
-                        <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${dataSelected?.photo}`}
+                        <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${dataDetailProduct.photo}`}
                             unoptimized={true}
                             width={350}
                             height={350}
@@ -64,14 +101,18 @@ export default function DetailMenu() {
 
                     </Col>
                     <Col style={{ textAlign: 'start', marginLeft: 20 }} span='8'>
-                        <h2 className="font-bold text-2xl text-[#805336]">{dataSelected?.name}</h2>
-                        <h2 className="font-semibold text-xl mt-5 text-gray-500">Rp. {dataSelected?.price}</h2>
+                        <h2 className="font-bold text-2xl text-[#805336]">{dataDetailProduct.name}</h2>
+                        <h2 className="font-semibold text-xl mt-5 text-gray-500">Rp. {dataDetailProduct.price}</h2>
                         <Row className="font-medium text-2xl mt-2">
                             <Col>
-                                <p ></p>
-                            </Col>
-                            <Col>
-                                <Space className="font-extrabold text-[#805336] ml-2">Disini jumlah potongan diskon</Space>
+                                {dataPromo.map((data) => {
+                                    return (
+                                        <>
+                                            <h3 className='text-black'>Diskon {data.discount}</h3><Space className="font-extrabold text-[#805336] ml-2"></Space>
+                                        </>
+                                    )
+                                })
+                                }
                             </Col>
                         </Row>
                     </Col>
@@ -80,7 +121,7 @@ export default function DetailMenu() {
                 <Row justify='start'>
                     <Col span='8'>
                         <h2 className="font-medium text-2xl mt-2">Deskripsi</h2>
-                        <p className="font-normal text-base mt-5">{dataSelected?.description}</p>
+                        <p className="font-normal text-base mt-5">{dataDetailProduct.description}</p>
                     </Col>
                     <Col span={8}>
                         <Form>
@@ -94,8 +135,7 @@ export default function DetailMenu() {
                                             width: 115,
                                             borderBlockColor: "rgba(140, 79, 5, 0.8)"
                                         }}
-                                    // onChange={onChangeStatusProduct}
-                                    // value={statusProduct}
+
                                     >
                                         <Option value="1" >1</Option>
                                         <Option value='2'>2</Option>
@@ -115,6 +155,7 @@ export default function DetailMenu() {
                     <Col className="mt-4 ml-32 mb-10" span='8'>
                         {/* <Link href=''> */}
                         <button
+                            onClick={onFinishAdd}
                             type="button"
                             className=" space-x-2 justify-end inline-block px-6 py-2 bg-[#C78342] text-white font-medium text-xs leading-tight shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
                         >
