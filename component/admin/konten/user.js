@@ -119,7 +119,8 @@ export default function KontenUsers() {
             setConfirmLoading(false);
             message.success("Delete successfull")
         }, 2000);
-        // location.reload()
+        getDataUser(pagination)
+        location.reload()
 
     };
     const handleCancel = () => {
@@ -166,25 +167,23 @@ export default function KontenUsers() {
             pagination: newPagination,
 
         });
-    };
+    }
 
     //Search
-    const onSearch = function (value) {
-        axios.get(`https://ordercoffee-app.herokuapp.com/users/fullname/users?page=1&limit=20&search=${value}`).then(res => {
-            setDataUser(res.data.items)
-            console.log(res.data.items, 'ini hasil search')
+    const onSearch = (value) => {
+        console.log(value, 'ini value search');
+        axios.get(`https://ordercoffee-app.herokuapp.com/users/search/${value}`).then(res => {
+            if (res.status == 200 || res.status == 201) {
+                setDataUser([res.data])
+                console.log(res, 'ini hasil search')
+            } else if (res.status == 400 || res.status == 404) {
+                setDataUser(null)
+                getDataUser()
+            }
+
         })
 
     };
-
-    // const onSelect = (value) => {
-    //     // console.log('onSelect', value);
-    //     axios.get(`https://ordercoffee-app.herokuapp.com/users/search/users?page=1&limit=20&search=${value}&name`).then(res => {
-    //         setDataUser(res.data.items)
-    //         console.log(res.data.items, 'ini hasil select search')
-    //     })
-    // };
-    // console.log(onSelect, 'ini on select')
     return (
         <div>
             <Content>

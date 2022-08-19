@@ -146,6 +146,7 @@ export default function KontenProduct() {
                 // console.log(res)
                 setVisibleAddProduct(false)
                 message.success("Successfull Create menu")
+                // getDataProduct(pagination)
             })
         } catch (error) {
             // console.log(error, "ini error");
@@ -237,7 +238,7 @@ export default function KontenProduct() {
             setConfirmLoading(false);
             message.success("Delete successfull")
         }, 2000);
-
+        // getDataProduct(pagination)
         // location.reload()
     };
 
@@ -385,20 +386,19 @@ export default function KontenProduct() {
 
     //Search
     const onSearch = (value) => {
-        console.log('search', value)
-        axios.get(`https://ordercoffee-app.herokuapp.com/menu/search/menu?page=1&limit=20&search=${value}&fullname=$email=`).then(res => {
-            setDataProduct(res.data.items)
-            console.log(res.data.items, 'ini hasil search')
-        })
-    };
+        console.log(value, 'ini value search');
+        axios.get(`https://ordercoffee-app.herokuapp.com/menu/search/${value}`).then(res => {
+            if (res.status == 200 || res.status == 201) {
+                setDataProduct([res.data])
+                console.log(res, 'ini hasil search')
+            } else if (res.status == 400 || res.status == 404) {
+                setDataProduct(null)
+                getDataProduct()
+            }
 
-    // const onSelect = (value) => {
-    //     // console.log('onSelect', value);
-    //     axios.get(`https://ordercoffee-app.herokuapp.com/menu/search/menu?page=1&limit=20&search=${value}&fullname=$email=`).then(res => {
-    //         setDataProduct(res.data.items)
-    //         console.log(res.data.items, 'ini hasil select search')
-    //     })
-    // };
+        })
+
+    };
 
 
     return (
@@ -623,7 +623,7 @@ export default function KontenProduct() {
                         </Modal>
                     </Col>
                 </Row>
-                <Row justify="center" align="middle" className='h-96 mt-4'>
+                <Row justify="center" align="start" className='h-96 mt-4'>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                         <Table columns={columns(deleteModal, editModal)} dataSource={dataProduct}
                             pagination={pagination}

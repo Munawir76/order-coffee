@@ -33,7 +33,7 @@ function columns(deleteModal, imageModal) {
                 // console.log(d)
                 if (expired !== d) {
                     return (
-                        <Tag color="blue">Tersedia</Tag>
+                        <Tag color="green">Tersedia</Tag>
                     )
                 } else if (expired === d) {
                     // console.log(expired.expired)
@@ -52,7 +52,7 @@ function columns(deleteModal, imageModal) {
                 // console.log(d)
                 if (expired !== d) {
                     return (
-                        <Tag color="green">{expired}</Tag>
+                        <Tag color="blue">{expired}</Tag>
                     )
                 }
             }
@@ -540,7 +540,7 @@ export default function KontenPromo() {
                         </Modal>
                     </Col>
                 </Row>
-                <Row justify="center" align="middle" className='h-96 mt-4 '>
+                <Row justify="center" align="start" className='h-96 mt-4 '>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
                         <Table columns={columns(deleteModal, imageModal)} dataSource={dataPromo} />
                     </Col>

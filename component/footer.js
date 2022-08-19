@@ -47,6 +47,7 @@ function Footer() {
                                     role="img"
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 448 512"
+                                    color='rgba(255, 33, 137, 0.93)'
                                 >
                                     <path
                                         fill="currentColor"
@@ -65,6 +66,7 @@ function Footer() {
                                     role="img"
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 448 512"
+                                    color='rgba(34, 78, 218, 0.93)'
                                 >
                                     <path
                                         fill="currentColor"
@@ -83,6 +85,7 @@ function Footer() {
                                     role="img"
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 512 512"
+
                                 >
                                     <path
                                         fill="currentColor"
@@ -101,6 +104,7 @@ function Footer() {
                                     role="img"
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 512 512"
+                                    color='black'
                                 >
                                     <path
                                         fill="currentColor"
