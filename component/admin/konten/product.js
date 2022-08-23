@@ -322,8 +322,6 @@ export default function KontenProduct() {
                 status: editStatus,
                 photo: editFoto
             }
-            // const editProduct = dataSelected
-            // console.log(editProduct, 'ini new product')
 
             const sentData = await axios.put(`https://ordercoffee-app.herokuapp.com/menu/${dataSelected}`, editProduct, {
                 headers: {

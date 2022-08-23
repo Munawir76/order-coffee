@@ -91,13 +91,13 @@ export default function MenuPromo() {
                                                 <p className="text-gray-700 text-sm font-normal mb-5">
                                                     Berlaku dari :
                                                 </p>
-                                                <div className="-mt-4 font-semibold"><CalendarTwoTone /> {promo.date}</div>
+                                                <div className="-mt-4 font-semibold"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promo.date}</div>
                                             </Col>
                                             <Col className='ml-12'>
                                                 <p className="text-gray-700 text-sm font-normal mb-5">
                                                     Sampai dengan :
                                                 </p>
-                                                <div className="-mt-4 font-semibold"><CalendarTwoTone /> {promo.expired}</div>
+                                                <div className="-mt-4 font-semibold"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promo.expired}</div>
                                             </Col>
                                         </Row>
                                     </div>

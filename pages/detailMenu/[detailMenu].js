@@ -28,7 +28,6 @@ export default function DetailMenu() {
     const [amount, setAmount] = useState()
     const [totalPrice, setTotalPrice] = useState()
     const [idPromo, setIdPromo] = useState('')
-    const [finalPrice, setFinalPrice] = useState()
     const [idUser, setIdUser] = useState('')
 
 
@@ -37,6 +36,8 @@ export default function DetailMenu() {
 
     async function getDataDetailProduct() {
         try {
+            const tokenToCart = localStorage.getItem('tokenCustomer')
+            const decode = jwt_decode(tokenToCart)
             const getDataDetail = await axios.get(`https://ordercoffee-app.herokuapp.com/menu/${detailMenu}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,6 +46,10 @@ export default function DetailMenu() {
                 console.log(res.data.data, 'ini res api menu')
                 setDataDetailProduct(res.data.data)
                 setDataPromo(res.data.data.promo)
+                setIdMenu(res.data.data.id)
+                setIdPromo(res.data.data.promo[0].id)
+                setIdUser(decode)
+                setTotalPrice(res.data.data.price)
                 // if (dataDetailProduct) {
                 //     setIsDiskon(true)
                 // } else {
@@ -62,23 +67,22 @@ export default function DetailMenu() {
             const sentCart = {
                 menu_id: idMenu,
                 amount: amount,
-                total_price: totalPrice,
+                price: totalPrice,
                 promo_id: idPromo,
-                final_price: finalPrice,
                 user_id: idUser
             }
             console.log(sentCart, 'ini value sent cart');
 
             const sentData = await axios.post("https://ordercoffee-app.herokuapp.com/cart", sentCart, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    "content-type": 'multipart/form-data'
                 }
             }).then(res => {
-                // console.log(res)
-                // message.success("Successfull Create promo")
+                console.log(res, 'ini res post')
+                message.success("Successfull Create promo")
             })
         } catch (error) {
-            // console.log(error, "ini error");
+            console.log(error, "ini error");
             message.error("failed add product")
         }
     }
@@ -87,6 +91,10 @@ export default function DetailMenu() {
         getDataDetailProduct()
     }, [])
 
+    const OnChangeAmounMenu = (value) => {
+        setAmount(value)
+        console.log(value, 'ini value amount')
+    }
 
     return (
         <div>
@@ -135,9 +143,10 @@ export default function DetailMenu() {
                                             width: 115,
                                             borderBlockColor: "rgba(140, 79, 5, 0.8)"
                                         }}
-
+                                        onChange={OnChangeAmounMenu}
+                                        value={amount}
                                     >
-                                        <Option value="1" >1</Option>
+                                        <Option value='1' >1</Option>
                                         <Option value='2'>2</Option>
                                         <Option value="3" >3</Option>
                                         <Option value='4'>4</Option>

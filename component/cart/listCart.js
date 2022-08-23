@@ -4,14 +4,10 @@ import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
 import Link from 'next/link';
 import { Row, Col, Steps, Table, Button, Space, ConfigProvider } from 'antd'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Product1 from '../../public/images/kopisusu.jpg'
 import Product2 from '../../public/images/redvalvet.jpg'
 import Product3 from '../../public/images/v60.jpg'
-
-
-const { Step } = Steps;
-
 
 export default function ListCart() {
 
@@ -21,37 +17,49 @@ export default function ListCart() {
         },
     });
 
-    const [current, setCurrent] = useState(0);
+    // get cart
+    const [dataCart, setDataCart] = useState([])
 
-    const onChange = (value) => {
-        console.log('onChange:', value);
-        setCurrent(value);
-    };
+    async function getDataCart() {
+        try {
+            const tokenToCart = localStorage.getItem('tokenCustomer')
+            const decode = jwt_decode(tokenToCart)
+            const getDataCart = await axios.get(`https://ordercoffee-app.herokuapp.com/cart/${decode}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then(res => {
+                console.log(res, 'ini res api ge cart')
+                setDataCart(res)
+            })
+
+        } catch (error) {
+            console.log(error, 'ini error cart')
+
+        }
+    }
+
+    useEffect(() => {
+        getDataCart()
+    }, [])
 
     return (
         <div className='min-h-screen pt-14 ml-40 mt-5' style={{ position: "relative" }}>
             <Row>
                 <Col>
-                    {/* <Steps
-                        type="navigation"
-
-                        current={current}
-                        onChange={onChange}
-                        className="space-x-8"
-                    >
-                        <Step status="none" title="Cart" />
-                        <Step status="none" title="Detail" />
-                        <Step status="none" title="Payment" />
-                    </Steps> */}
                     <h2>Cart</h2>
                 </Col>
             </Row>
+            {/* {dataCart.map((data) => {
+                return (
+                    <> */}
             <Row justify="start" align="middle" className="h-80">
                 <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }}>
                     <div className="flex flex-col">
                         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                                 <div className="overflow-hidden">
+
                                     <table className="min-w-full">
                                         <thead >
                                             <tr className="border-t border-[#C78342]">
@@ -149,6 +157,10 @@ export default function ListCart() {
                     </Link>
                 </Col>
             </Row>
+            {/* </> */}
+            {/* ) */}
+            {/* })} */}
+
         </div >
     )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import "antd/dist/antd.css";
-import { Carousel, Row, Col } from 'antd';
+import 'antd/dist/antd.variable.min.css'
+import { Carousel, Row, Col, ConfigProvider } from 'antd';
 import { CalendarTwoTone } from '@ant-design/icons';
 import Image from 'next/image';
 import Promo1 from '../../public/images/promo1.jpg'
@@ -11,6 +12,13 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
 export default function Promo() {
+
+    ConfigProvider.config({
+        theme: {
+            primaryColor: '#C78342',
+        },
+    });
+
     const styleCarousel = {
         color: '#fff',
         lineHeight: '30px',
@@ -52,7 +60,7 @@ export default function Promo() {
                 <Carousel autoplaySpeed={0}>
                     <div>
                         <div style={styleCarousel}>
-                            <Row justify="center space-x-8" className="bg-[#fff] mb-10">
+                            <Row justify="center space-x-8" className="bg-[#fff] mb-10 h-96">
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
@@ -74,16 +82,16 @@ export default function Promo() {
                                     </Col>
                                     <Row className=''>
                                         <Col offset={1}>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone className="text-orange-800" /> {promoSatu.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoSatu.expired}</div>
+                                            <div className="-mt-4 mb-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -108,16 +116,16 @@ export default function Promo() {
                                     </Col>
                                     <Row className=''>
                                         <Col offset={1}>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoDua.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoDua.expired}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -142,16 +150,16 @@ export default function Promo() {
                                     </Col>
                                     <Row className=''>
                                         <Col offset={1}>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoTiga.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoTiga.expired}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -182,16 +190,16 @@ export default function Promo() {
                                     </Col>
                                     <Row className=''>
                                         <Col offset={1}>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoSatu.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoSatu.expired}</div>
+                                            <div className="-mt-4 mb-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -216,16 +224,16 @@ export default function Promo() {
                                     </Col>
                                     <Row className=''>
                                         <Col offset={1}>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoDua.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoDua.expired}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -250,16 +258,16 @@ export default function Promo() {
                                     </Col>
                                     <Row className=''>
                                         <Col offset={1}>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoTiga.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
-                                            <p className="text-gray-700 text-sm font-normal mb-5">
+                                            <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone /> {promoTiga.expired}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
