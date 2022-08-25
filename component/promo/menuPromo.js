@@ -1,4 +1,4 @@
-import 'antd/dist/antd.css'
+// import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import 'antd/dist/antd.variable.min.css'
 import Image from 'next/image';
@@ -72,7 +72,7 @@ export default function MenuPromo() {
                                         >
                                             {/* <image src={promoPict} style={{ width: 350, height: 350 }} /> */}
                                             <Image
-                                                loader={() => promo.photo}
+                                                loader={() => promo?.photo}
                                                 priority={true}
                                                 // src={promoPict}
                                                 src={`https://ordercoffee-app.herokuapp.com/promo/image/${promo?.photo}`}
@@ -83,7 +83,7 @@ export default function MenuPromo() {
                                         </a>
                                         <Col span={24} offset={1}>
                                             <h2 className="text-gray-900 text-base font-medium mb-2">
-                                                Promo  {promo.name} {promo.discount}
+                                                Promo  {promo?.name} {promo?.discount}
                                             </h2>
                                         </Col>
                                         <Row className=''>
@@ -91,13 +91,13 @@ export default function MenuPromo() {
                                                 <p className="text-gray-700 text-sm font-normal mb-5">
                                                     Berlaku dari :
                                                 </p>
-                                                <div className="-mt-4 font-semibold"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promo.date}</div>
+                                                <div className="-mt-4 font-semibold"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promo?.date}</div>
                                             </Col>
                                             <Col className='ml-12'>
                                                 <p className="text-gray-700 text-sm font-normal mb-5">
                                                     Sampai dengan :
                                                 </p>
-                                                <div className="-mt-4 font-semibold"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promo.expired}</div>
+                                                <div className="-mt-4 font-semibold"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promo?.expired}</div>
                                             </Col>
                                         </Row>
                                     </div>

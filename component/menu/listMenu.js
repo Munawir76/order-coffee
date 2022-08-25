@@ -11,7 +11,6 @@ import jwt_decode from 'jwt-decode';
 export default function ListMenu() {
 
     const [dataProduct, setDataProduct] = useState([])
-    // const [dataPromo, setDataPromo] = useState([])
 
     async function getDataProduct() {
         try {
@@ -72,7 +71,7 @@ export default function ListMenu() {
                                         data-mdb-ripple-color="light"
                                     >
                                         <Image
-                                            src={`https://ordercoffee-app.herokuapp.com/menu/image/${menu.photo}`}
+                                            src={`https://ordercoffee-app.herokuapp.com/menu/image/${menu?.photo}`}
                                             unoptimized={true}
                                             width={350}
                                             height={350}
@@ -82,15 +81,15 @@ export default function ListMenu() {
                                         <Row justify='center'>
                                             <Col span={12} offset={1}>
                                                 <h5 className="text-gray-900 text-l font-medium mb-2">
-                                                    {menu.name}
+                                                    {menu?.name}
                                                 </h5>
                                                 <p className="text-gray-700 text-base mb-4">
-                                                    Rp. {menu.price}
+                                                    Rp. {menu?.price}
                                                 </p>
                                             </Col>
                                             <Col span={10} offset={1}>
 
-                                                <Link href={`/detailMenu/${menu.id}`}>
+                                                <Link href={`/detailMenu/${menu?.id}`}>
                                                     <button
 
                                                         type="button"

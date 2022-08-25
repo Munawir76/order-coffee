@@ -43,13 +43,13 @@ export default function DetailMenu() {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
-                console.log(res.data.data, 'ini res api menu')
+                console.log(res.data, 'ini res api menu')
                 setDataDetailProduct(res.data.data)
-                setDataPromo(res.data.data.promo)
                 setIdMenu(res.data.data.id)
-                setIdPromo(res.data.data.promo[0].id)
-                setIdUser(decode)
+                setIdUser(decode?.id)
                 setTotalPrice(res.data.data.price)
+                setDataPromo(res.data.data.promo)
+                setIdPromo(res.data.data.promo[0].id)
                 // if (dataDetailProduct) {
                 //     setIsDiskon(true)
                 // } else {
@@ -57,6 +57,7 @@ export default function DetailMenu() {
                 // }
 
             })
+
         } catch (error) {
             console.log(error, 'ini errornya')
         }
@@ -73,17 +74,18 @@ export default function DetailMenu() {
             }
             console.log(sentCart, 'ini value sent cart');
 
-            const sentData = await axios.post("https://ordercoffee-app.herokuapp.com/cart", sentCart, {
+            await axios.post("https://ordercoffee-app.herokuapp.com/cart", sentCart, {
                 headers: {
-                    "content-type": 'multipart/form-data'
+                    "content-type": 'application/json',
                 }
+
             }).then(res => {
                 console.log(res, 'ini res post')
-                message.success("Successfull Create promo")
+                message.success("Successfull add cart")
             })
         } catch (error) {
             console.log(error, "ini error");
-            message.error("failed add product")
+            message.error("Failed add cart")
         }
     }
 
@@ -96,12 +98,14 @@ export default function DetailMenu() {
         console.log(value, 'ini value amount')
     }
 
+
+
     return (
         <div>
             <div className='h-screen ml-40 mt-10' style={{ position: "relative" }}>
                 <Row justify='start' >
                     <Col span='8'>
-                        <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${dataDetailProduct.photo}`}
+                        <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${dataDetailProduct?.photo}`}
                             unoptimized={true}
                             width={350}
                             height={350}
@@ -109,14 +113,14 @@ export default function DetailMenu() {
 
                     </Col>
                     <Col style={{ textAlign: 'start', marginLeft: 20 }} span='8'>
-                        <h2 className="font-bold text-2xl text-[#805336]">{dataDetailProduct.name}</h2>
-                        <h2 className="font-semibold text-xl mt-5 text-gray-500">Rp. {dataDetailProduct.price}</h2>
+                        <h2 className="font-bold text-2xl text-[#805336]">{dataDetailProduct?.name}</h2>
+                        <h2 className="font-semibold text-xl mt-5 text-gray-500">Rp. {dataDetailProduct?.price}</h2>
                         <Row className="font-medium text-2xl mt-2">
                             <Col>
                                 {dataPromo.map((data) => {
                                     return (
                                         <>
-                                            <h3 className='text-black'>Diskon {data.discount}</h3><Space className="font-extrabold text-[#805336] ml-2"></Space>
+                                            <h3 className='text-black'>Diskon {data?.discount.toFixed(2) * 100 + '%'}</h3><Space className="font-extrabold text-[#805336] ml-2"></Space>
                                         </>
                                     )
                                 })
@@ -129,7 +133,7 @@ export default function DetailMenu() {
                 <Row justify='start'>
                     <Col span='8'>
                         <h2 className="font-medium text-2xl mt-2">Deskripsi</h2>
-                        <p className="font-normal text-base mt-5">{dataDetailProduct.description}</p>
+                        <p className="font-normal text-base mt-5">{dataDetailProduct?.description}</p>
                     </Col>
                     <Col span={8}>
                         <Form>

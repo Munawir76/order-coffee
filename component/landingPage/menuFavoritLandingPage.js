@@ -76,7 +76,7 @@ export default function MenuFavorit() {
                                             data-mdb-ripple-color="light"
                                         >
                                             <Image
-                                                loader={() => productSatu.photo}
+                                                loader={() => productSatu?.photo}
                                                 priority={true}
                                                 src={`https://ordercoffee-app.herokuapp.com/menu/image/${productSatu?.photo
                                                     }`}
@@ -96,7 +96,7 @@ export default function MenuFavorit() {
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <Link href={`/detailMenu/${productSatu.id}`}>
+                                                    <Link href={`/detailMenu/${productSatu?.id}`}>
                                                         <button
 
                                                             type="button"
@@ -124,7 +124,7 @@ export default function MenuFavorit() {
                                             data-mdb-ripple-color="light"
                                         >
                                             <Image
-                                                loader={() => productDua.photo}
+                                                loader={() => productDua?.photo}
                                                 priority={true}
                                                 src={`https://ordercoffee-app.herokuapp.com/menu/image/${productDua?.photo
                                                     }`}
@@ -144,7 +144,7 @@ export default function MenuFavorit() {
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <Link href={`/detailMenu/${productDua.id}`}>
+                                                    <Link href={`/detailMenu/${productDua?.id}`}>
                                                         <button
 
                                                             type="button"
@@ -172,7 +172,7 @@ export default function MenuFavorit() {
                                             data-mdb-ripple-color="light"
                                         >
                                             <Image
-                                                loader={() => productTiga.photo}
+                                                loader={() => productTiga?.photo}
                                                 priority={true}
                                                 src={`https://ordercoffee-app.herokuapp.com/menu/image/${productTiga?.photo
                                                     }`}
@@ -226,7 +226,7 @@ export default function MenuFavorit() {
                                             data-mdb-ripple-color="light"
                                         >
                                             <Image
-                                                loader={() => productEmpat.photo}
+                                                loader={() => productEmpat?.photo}
                                                 priority={true}
                                                 src={`https://ordercoffee-app.herokuapp.com/menu/image/${productEmpat?.photo
                                                     }`}
@@ -246,7 +246,7 @@ export default function MenuFavorit() {
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <Link href={`/detailMenu/${productEmpat.id}`}>
+                                                    <Link href={`/detailMenu/${productEmpat?.id}`}>
                                                         <button
 
                                                             type="button"
@@ -274,7 +274,7 @@ export default function MenuFavorit() {
                                             data-mdb-ripple-color="light"
                                         >
                                             <Image
-                                                loader={() => productLima.photo}
+                                                loader={() => productLima?.photo}
                                                 priority={true}
                                                 src={`https://ordercoffee-app.herokuapp.com/menu/image/${productLima?.photo
                                                     }`}
@@ -294,7 +294,7 @@ export default function MenuFavorit() {
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <Link href={`/detailMenu/${productLima.id}`}>
+                                                    <Link href={`/detailMenu/${productLima?.id}`}>
                                                         <button
 
                                                             type="button"
@@ -322,7 +322,7 @@ export default function MenuFavorit() {
                                             data-mdb-ripple-color="light"
                                         >
                                             <Image
-                                                loader={() => productEnam.photo}
+                                                loader={() => productEnam?.photo}
                                                 priority={true}
                                                 src={`https://ordercoffee-app.herokuapp.com/menu/image/${productEnam?.photo
                                                     }`}
@@ -342,7 +342,7 @@ export default function MenuFavorit() {
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
-                                                    <Link href={`/detailMenu/${productEnam.id}`}>
+                                                    <Link href={`/detailMenu/${productEnam?.id}`}>
                                                         <button
 
                                                             type="button"

@@ -67,7 +67,7 @@ export default function Promo() {
                                     xs={{ span: 20 }}
                                     className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
-                                        loader={() => promoSatu.photo}
+                                        loader={() => promoSatu?.photo}
                                         priority={true}
                                         src={`https://ordercoffee-app.herokuapp.com/promo/image/${promoSatu?.photo
                                             }`}
@@ -77,7 +77,7 @@ export default function Promo() {
                                         style={{ borderRadius: 10 }} />
                                     <Col span={24} offset={1}>
                                         <h2 className="text-gray-900 text-base font-medium mb-2">
-                                            Promo  {promoSatu.name} {promoSatu.discount}
+                                            Promo  {promoSatu?.name} {promoSatu?.discount}
                                         </h2>
                                     </Col>
                                     <Row className=''>
@@ -85,13 +85,13 @@ export default function Promo() {
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu?.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 mb-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu.expired}</div>
+                                            <div className="-mt-4 mb-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu?.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -101,7 +101,7 @@ export default function Promo() {
                                     xs={{ span: 20 }}
                                     className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
-                                        loader={() => promoDua.photo}
+                                        loader={() => promoDua?.photo}
                                         priority={true}
                                         src={`https://ordercoffee-app.herokuapp.com/promo/image/${promoDua?.photo
                                             }`}
@@ -111,7 +111,7 @@ export default function Promo() {
                                         style={{ borderRadius: 10 }} />
                                     <Col span={24} offset={1}>
                                         <h2 className="text-gray-900 text-base font-medium mb-2">
-                                            Promo  {promoDua.name} {promoDua.discount}
+                                            Promo  {promoDua?.name} {promoDua?.discount}
                                         </h2>
                                     </Col>
                                     <Row className=''>
@@ -119,13 +119,13 @@ export default function Promo() {
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua?.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua.expired}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua?.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -135,7 +135,7 @@ export default function Promo() {
                                     xs={{ span: 20 }}
                                     className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
-                                        loader={() => promoTiga.photo}
+                                        loader={() => promoTiga?.photo}
                                         priority={true}
                                         src={`https://ordercoffee-app.herokuapp.com/promo/image/${promoTiga?.photo
                                             }`}
@@ -145,7 +145,7 @@ export default function Promo() {
                                         style={{ borderRadius: 10 }} />
                                     <Col span={24} offset={1}>
                                         <h2 className="text-gray-900 text-base font-medium mb-2">
-                                            Promo  {promoTiga.name} {promoTiga.discount}
+                                            Promo  {promoTiga?.name} {promoTiga?.discount}
                                         </h2>
                                     </Col>
                                     <Row className=''>
@@ -153,13 +153,13 @@ export default function Promo() {
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga?.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga.expired}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga?.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -175,7 +175,7 @@ export default function Promo() {
                                     xs={{ span: 20 }}
                                     className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
-                                        loader={() => promoSatu.photo}
+                                        loader={() => promoSatu?.photo}
                                         priority={true}
                                         src={`https://ordercoffee-app.herokuapp.com/promo/image/${promoSatu?.photo
                                             }`}
@@ -185,7 +185,7 @@ export default function Promo() {
                                         style={{ borderRadius: 10 }} />
                                     <Col span={24} offset={1}>
                                         <h2 className="text-gray-900 text-base font-medium mb-2">
-                                            Promo  {promoSatu.name} {promoSatu.discount}
+                                            Promo  {promoSatu?.name} {promoSatu?.discount}
                                         </h2>
                                     </Col>
                                     <Row className=''>
@@ -193,13 +193,13 @@ export default function Promo() {
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu?.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 mb-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu.expired}</div>
+                                            <div className="-mt-4 mb-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoSatu?.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -209,7 +209,7 @@ export default function Promo() {
                                     xs={{ span: 20 }}
                                     className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
-                                        loader={() => promoDua.photo}
+                                        loader={() => promoDua?.photo}
                                         priority={true}
                                         src={`https://ordercoffee-app.herokuapp.com/promo/image/${promoDua?.photo
                                             }`}
@@ -219,7 +219,7 @@ export default function Promo() {
                                         style={{ borderRadius: 10 }} />
                                     <Col span={24} offset={1}>
                                         <h2 className="text-gray-900 text-base font-medium mb-2">
-                                            Promo  {promoDua.name} {promoDua.discount}
+                                            Promo  {promoDua?.name} {promoDua?.discount}
                                         </h2>
                                     </Col>
                                     <Row className=''>
@@ -227,13 +227,13 @@ export default function Promo() {
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua?.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua.expired}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoDua?.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -243,7 +243,7 @@ export default function Promo() {
                                     xs={{ span: 20 }}
                                     className="pt-5 rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                     <Image
-                                        loader={() => promoTiga.photo}
+                                        loader={() => promoTiga?.photo}
                                         priority={true}
                                         src={`https://ordercoffee-app.herokuapp.com/promo/image/${promoTiga?.photo
                                             }`}
@@ -253,7 +253,7 @@ export default function Promo() {
                                         style={{ borderRadius: 10 }} />
                                     <Col span={24} offset={1}>
                                         <h2 className="text-gray-900 text-base font-medium mb-2">
-                                            Promo  {promoTiga.name} {promoTiga.discount}
+                                            Promo  {promoTiga?.name} {promoTiga?.discount}
                                         </h2>
                                     </Col>
                                     <Row className=''>
@@ -261,13 +261,13 @@ export default function Promo() {
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Berlaku dari :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga.date}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga?.date}</div>
                                         </Col>
                                         <Col className='ml-12'>
                                             <p className="text-gray-700 text-sm font-normal mb-3">
                                                 Sampai dengan :
                                             </p>
-                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga.expired}</div>
+                                            <div className="-mt-4 font-semibold text-black"><CalendarTwoTone twoToneColor='rgba(155, 101, 7, 0.8)' /> {promoTiga?.expired}</div>
                                         </Col>
                                     </Row>
                                 </Col>
