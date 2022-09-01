@@ -39,6 +39,7 @@ export default function FormLogin() {
                 if (decode.role == "Admin") {
                     localStorage.setItem('tokenAdmin', res.data.token)
                     message.success("Login successfull")
+                    // message.success("Login successfull")
                     router.push('admin/dashboard')
                 }
 

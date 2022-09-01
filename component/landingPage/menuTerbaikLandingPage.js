@@ -50,8 +50,9 @@ export default function MenuTerbaikLandingPage() {
     console.log(productSatu, 'ini product satu yang terbaik');
 
     return (
-        <div>
-            <h3 className="text-center font-medium text-black text-xl">Menu Terbaik Kami</h3>
+        <div className='bg-[#004349]'>
+
+            <h3 className="text-center font-medium text-white text-xl py-4">Menu Terbaik Kami</h3>
             <div>
                 {/* {dataProduct.map((menu) => {
                     console.log(menu, "jajajajajaj");
@@ -59,13 +60,13 @@ export default function MenuTerbaikLandingPage() {
                 <Carousel autoplaySpeed={0}>
                     <div>
                         <div style={styleCarousel}>
-                            <Row justify="center space-x-5" className="bg-[#fff] mb-10">
+                            <Row justify="center space-x-5" className="bg-[#004349] mb-10">
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
+                                    <div className="rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -81,15 +82,21 @@ export default function MenuTerbaikLandingPage() {
                                                 height={350}
                                                 style={{ borderRadius: 10 }} />
                                         </a>
-                                        <div className="p-6">
-                                            <Row justify='center'>
-                                                <Col span={12} offset={1}>
-                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        <div className="p-2">
+                                            <Row justify='start'>
+                                                <Col>
+                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
                                                         {productSatu?.name}
                                                     </h5>
-                                                    <p className="text-gray-700 text-base mb-4">
+
+                                                </Col>
+                                            </Row>
+                                            <Row justify='center'>
+                                                <Col span={12}>
+                                                    <p className="text-gray-300 text-base mb-6">
                                                         {productSatu?.price}
                                                     </p>
+
                                                 </Col>
                                                 <Col span={10} offset={1}>
                                                     <Link href={`/detailMenu/${productSatu?.id}`}>
@@ -113,7 +120,7 @@ export default function MenuTerbaikLandingPage() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
+                                    <div className="rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -129,15 +136,21 @@ export default function MenuTerbaikLandingPage() {
                                                 height={350}
                                                 style={{ borderRadius: 10 }} />
                                         </a>
-                                        <div className="p-6">
-                                            <Row justify='center'>
-                                                <Col span={12} offset={1}>
-                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        <div className="p-2">
+                                            <Row justify='start'>
+                                                <Col>
+                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
                                                         {productDua?.name}
                                                     </h5>
-                                                    <p className="text-gray-700 text-base mb-4">
+
+                                                </Col>
+                                            </Row>
+                                            <Row justify='center'>
+                                                <Col span={12}>
+                                                    <p className="text-gray-300 text-base mb-6">
                                                         {productDua?.price}
                                                     </p>
+
                                                 </Col>
                                                 <Col span={10} offset={1}>
                                                     <Link href={`/detailMenu/${productDua?.id}`}>
@@ -161,7 +174,7 @@ export default function MenuTerbaikLandingPage() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
+                                    <div className="rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -177,15 +190,21 @@ export default function MenuTerbaikLandingPage() {
                                                 height={350}
                                                 style={{ borderRadius: 10 }} />
                                         </a>
-                                        <div className="p-6">
-                                            <Row justify='center'>
-                                                <Col span={12} offset={1}>
-                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        <div className="p-2">
+                                            <Row justify='start'>
+                                                <Col>
+                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
                                                         {productTiga?.name}
                                                     </h5>
-                                                    <p className="text-gray-700 text-base mb-4">
+
+                                                </Col>
+                                            </Row>
+                                            <Row justify='center'>
+                                                <Col span={12}>
+                                                    <p className="text-gray-300 text-base mb-6">
                                                         {productTiga?.price}
                                                     </p>
+
                                                 </Col>
                                                 <Col span={10} offset={1}>
                                                     <Link href={`/detailMenu/${productTiga?.id}`}>
@@ -209,13 +228,13 @@ export default function MenuTerbaikLandingPage() {
                     </div>
                     <div>
                         <div style={styleCarousel}>
-                            <Row justify="center space-x-5" className="bg-[#fff] mb-10">
+                            <Row justify="center space-x-5" className="bg-[#004349] mb-10">
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
+                                    <div className="rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -231,15 +250,21 @@ export default function MenuTerbaikLandingPage() {
                                                 height={350}
                                                 style={{ borderRadius: 10 }} />
                                         </a>
-                                        <div className="p-6">
-                                            <Row justify='center'>
-                                                <Col span={12} offset={1}>
-                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        <div className="p-2">
+                                            <Row justify='start'>
+                                                <Col>
+                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
                                                         {productEmpat?.name}
                                                     </h5>
-                                                    <p className="text-gray-700 text-base mb-4">
+
+                                                </Col>
+                                            </Row>
+                                            <Row justify='center'>
+                                                <Col span={12}>
+                                                    <p className="text-gray-300 text-base mb-6">
                                                         {productEmpat?.price}
                                                     </p>
+
                                                 </Col>
                                                 <Col span={10} offset={1}>
                                                     <Link href={`/detailMenu/${productEmpat?.id}`}>
@@ -263,7 +288,7 @@ export default function MenuTerbaikLandingPage() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
+                                    <div className="rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -279,15 +304,21 @@ export default function MenuTerbaikLandingPage() {
                                                 height={350}
                                                 style={{ borderRadius: 10 }} />
                                         </a>
-                                        <div className="p-6">
-                                            <Row justify='center'>
-                                                <Col span={12} offset={1}>
-                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        <div className="p-2">
+                                            <Row justify='start'>
+                                                <Col>
+                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
                                                         {productLima?.name}
                                                     </h5>
-                                                    <p className="text-gray-700 text-base mb-4">
+
+                                                </Col>
+                                            </Row>
+                                            <Row justify='center'>
+                                                <Col span={12}>
+                                                    <p className="text-gray-300 text-base mb-6">
                                                         {productLima?.price}
                                                     </p>
+
                                                 </Col>
                                                 <Col span={10} offset={1}>
                                                     <Link href={`/detailMenu/${productLima?.id}`}>
@@ -311,7 +342,7 @@ export default function MenuTerbaikLandingPage() {
                                     sm={{ span: 20 }}
                                     xs={{ span: 20 }}
                                     className="pt-5">
-                                    <div className="rounded-lg shadow-lg bg-white transition ease-in-out hover:-translate-y-1">
+                                    <div className="rounded-lg shadow-lg transition ease-in-out hover:-translate-y-1">
                                         <a
 
                                             data-mdb-ripple="true"
@@ -327,15 +358,21 @@ export default function MenuTerbaikLandingPage() {
                                                 height={350}
                                                 style={{ borderRadius: 10 }} />
                                         </a>
-                                        <div className="p-6">
-                                            <Row justify='center'>
-                                                <Col span={12} offset={1}>
-                                                    <h5 className="text-gray-900 text-l font-medium mb-2">
+                                        <div className="p-2">
+                                            <Row justify='start'>
+                                                <Col>
+                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
                                                         {productEnam?.name}
                                                     </h5>
-                                                    <p className="text-gray-700 text-base mb-4">
+
+                                                </Col>
+                                            </Row>
+                                            <Row justify='center'>
+                                                <Col span={12}>
+                                                    <p className="text-gray-300 text-base mb-6">
                                                         {productEnam?.price}
                                                     </p>
+
                                                 </Col>
                                                 <Col span={10} offset={1}>
                                                     <Link href={`/detailMenu/${productEnam?.id}`}>

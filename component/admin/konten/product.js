@@ -145,6 +145,7 @@ export default function KontenProduct() {
             }).then(res => {
                 // console.log(res)
                 setVisibleAddProduct(false)
+                getDataProduct()
                 message.success("Successfull Create menu")
                 // getDataProduct(pagination)
             })
@@ -228,26 +229,7 @@ export default function KontenProduct() {
         }
     };
 
-    const handleOkModalDelete = () => {
-        axios.delete(`https://ordercoffee-app.herokuapp.com/menu/${modalTaskId}`).then(res => {
 
-        })
-        setConfirmLoading(true);
-        setTimeout(() => {
-            setVisibleDelete(false);
-            setConfirmLoading(false);
-            message.success("Delete successfull")
-        }, 2000);
-        // getDataProduct(pagination)
-        // location.reload()
-    };
-
-    const handleCancel = () => {
-        // console.log('Clicked cancel button');
-        setVisibleDelete(false);
-        // setVisibleImage(false);
-
-    }
 
     async function getDataProduct(params = {}) {
         try {
@@ -286,7 +268,6 @@ export default function KontenProduct() {
 
         });
     };
-
 
 
     //update start
@@ -398,6 +379,27 @@ export default function KontenProduct() {
 
     };
 
+    const handleOkModalDelete = () => {
+        axios.delete(`https://ordercoffee-app.herokuapp.com/menu/${modalTaskId}`).then(res => {
+
+        })
+        setConfirmLoading(true);
+        setTimeout(() => {
+            setVisibleDelete(false);
+            setConfirmLoading(false);
+            getDataProduct()
+            message.success("Delete successfull")
+        }, 2000);
+        // getDataProduct(pagination)
+        // location.reload()
+    };
+
+    const handleCancel = () => {
+        // console.log('Clicked cancel button');
+        setVisibleDelete(false);
+        // setVisibleImage(false);
+
+    }
 
     return (
         <div>

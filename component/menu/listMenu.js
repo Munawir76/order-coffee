@@ -66,7 +66,7 @@ export default function ListMenu() {
                                 className="pt-5 transition ease-in-out hover:-translate-y-2">
                                 <div className="rounded-lg shadow-lg bg-white ">
                                     <a
-                                        href=""
+                                        // href={`/detailMenu/${menu?.id}`}
                                         data-mdb-ripple="true"
                                         data-mdb-ripple-color="light"
                                     >

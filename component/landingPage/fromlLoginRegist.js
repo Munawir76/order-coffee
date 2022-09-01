@@ -8,7 +8,7 @@ export default function FormLoginRegist() {
     return (
         <div>
             <Row className=" flex justify-start">
-                <Col className="block pl-10 rounded-lg bg-white mb-10">
+                <Col className="block pl-10 rounded-lg bg-white ">
                     <div className="text-center">
                         <h3 className="text-gray-700 text-right mb-2 text-lg">Nikmati kelebihan lainnya dengan Berlangganan</h3>
                         <h3 className="text-gray-900 text-xl font-medium">Daftarkan Segera !</h3>

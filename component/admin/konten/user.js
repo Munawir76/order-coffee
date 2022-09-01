@@ -81,8 +81,8 @@ export default function KontenUsers() {
 
     // Modal delete
     const [visibleDelete, setVisibleDelete] = useState(false);
-    const [modalText, setModalText] = useState('Content of the modal');
-    const [modalTaskId, setModalTaskId] = useState('');
+    const [modalText, setModalText] = useState();
+    const [deleteId, setDeleteId] = useState('');
     const [confirmLoading, setConfirmLoading] = useState(false);
 
     //search
@@ -97,37 +97,8 @@ export default function KontenUsers() {
 
     console.log(pagination, 'ini page user')
 
-    const deleteModal = (record) => {
-        if (record) {
-            setModalTaskId(record);
-            setVisibleDelete(true);
 
-        } else {
-            setVisibleDelete(false)
-        }
 
-    };
-    const handleOkModalDelete = () => {
-        axios.delete(`https://ordercoffee-app.herokuapp.com/users/${modalTaskId}`).then(res => {
-
-        })
-
-        setModalText('Modal tertutup dalam 2 detik');
-        setConfirmLoading(true);
-        setTimeout(() => {
-            setVisibleDelete(false);
-            setConfirmLoading(false);
-            message.success("Delete successfull")
-        }, 2000);
-        getDataUser(pagination)
-        location.reload()
-
-    };
-    const handleCancel = () => {
-        console.log('Clicked cancel button');
-        setVisibleDelete(false);
-
-    }
     // console.log(handleOkModalDelete)
 
     async function getDataUser(params = {}) {
@@ -140,7 +111,7 @@ export default function KontenUsers() {
                     'Content-Type': 'application/json',
                 },
             }).then(res => {
-                // console.log(res.data.data);
+                console.log(res.data, 'ini ge user all');
                 const apiDataUser = res.data.items
                 // console.log(apiDataUser)
                 setDataUser(apiDataUser)
@@ -168,6 +139,38 @@ export default function KontenUsers() {
 
         });
     }
+    const handleOkModalDelete = () => {
+        axios.delete(`https://ordercoffee-app.herokuapp.com/users/${deleteId}`).then(res => {
+
+        })
+
+        setModalText('Modal tertutup dalam 2 detik');
+        setConfirmLoading(true);
+        setTimeout(() => {
+            setVisibleDelete(false);
+            setConfirmLoading(false);
+            getDataUser()
+            message.success("Delete successfull")
+        }, 2000);
+        getDataUser(pagination)
+        // location.reload()
+
+    };
+    const handleCancel = () => {
+        console.log('Clicked cancel button');
+        setVisibleDelete(false);
+
+    }
+    const deleteModal = (record) => {
+        if (record) {
+            setDeleteId(record);
+            setVisibleDelete(true);
+
+        } else {
+            setVisibleDelete(false)
+        }
+
+    };
 
     //Search
     const onSearch = (value) => {

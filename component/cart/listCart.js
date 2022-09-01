@@ -3,13 +3,12 @@ import 'antd/dist/antd.variable.min.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
 import Link from 'next/link';
-import { Row, Col, Steps, Table, Button, Space, ConfigProvider } from 'antd'
+import { Row, Col, Steps, Table, Button, Space, ConfigProvider, Modal, message, Empty } from 'antd'
+import { DeleteOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
-import Product1 from '../../public/images/kopisusu.jpg'
-import Product2 from '../../public/images/redvalvet.jpg'
-import Product3 from '../../public/images/v60.jpg'
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+
 
 export default function ListCart() {
 
@@ -21,76 +20,265 @@ export default function ListCart() {
 
     // get cart
     const [dataCart, setDataCart] = useState([])
-
-    const [idCart, setIdCart] = useState('')
+    const [paymentId, setPaymentId] = useState('')
+    const [userId, setUserId] = useState('')
+    const [keranjang, setKeranjang] = useState([])
     const [totalPrice, setTotalPrice] = useState()
-    const [cartDetail, setCartDetail] = useState([])
+    //delete
+    const [deleteId, setDeleteId] = useState()
+    const [visibleDelete, setVisibleDelete] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+
+    // const [isData, setIsData] = useState(true)
 
     async function getDataCart() {
         try {
-            // const tokenToCart = localStorage.getItem('tokenCustomer')
-            // const setDecode = jwt_decode(tokenToCart)
-            // console.log(decode, 'ini decode')
-            const getDataCart = await axios.get(`https://ordercoffee-app.herokuapp.com/cart/`, {
+            const tokenToCart = localStorage.getItem('tokenCustomer')
+            const decode = jwt_decode(tokenToCart)
+            console.log(decode, 'ini decode')
+            setUserId(decode?.id)
+            const getDataCart = await axios.get(`https://ordercoffee-app.herokuapp.com/users/${decode?.id}`, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
-                console.log(res.data.data, 'ini res api ge cart')
-                // setCartDetail(res[0].map((data) => {
+                if (res.status == 200 || res.status == 201) {
+                    console.log(res.data, "ini dari res");
+                    setDataCart(res.data.data.cart)
 
-                // }))
-                setDataCart(res)
-            })
+                    axios.get(`https://ordercoffee-app.herokuapp.com/cart`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    }).then(res => {
+                        // console.log(res.data.data, "ini res");
+                        if (res.status == 200 || res.status == 201) {
+                            setKeranjang(res.data.data[0])
 
-        } catch (error) {
-            console.log(error, 'ini error cart')
-
-        }
-    }
-
-    async function getIdCart() {
-        try {
-            await axios.get(`https://ordercoffee-app.herokuapp.com/cart`, {
-                headers: {
-                    'Content-Type': 'application/json'
+                        }
+                        // settotalPrice(res.data.data )
+                    })
                 }
-            }).then(res => {
-                console.log(res, 'ini res get id cart')
             })
-        } catch (error) {
 
+
+        } catch (error) {
+            // console.log(error, 'ini error cart')
         }
     }
+
+
+
+    // console.log(dataCart, 'ini data cart');
+    useEffect(() => {
+        // getDataUser()
+        getDataCart()
+    }, [])
+    // console.log(dataCart, "ini data cart");
+    const mapped = dataCart.map((data) => {
+        const filterFind = keranjang.find((menu) => menu?.id == data?.id)
+        return filterFind
+    })
+
+
+    // console.log(subTotal, 'ini subtotal')
+    // console.log(mapped, "ini mapped");
+    const dataMenuCart = () => {
+        if (mapped[0]?.id) {
+            return (
+                <>
+                    <table className="min-w-full">
+                        <thead >
+                            <tr className="border-t border-[#C78342]">
+                                <th
+                                    scope="col"
+                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                >
+                                    Product
+                                </th>
+                                <th
+                                    scope="col"
+                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                >
+                                    Price
+                                </th>
+                                <th
+                                    scope="col"
+                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                >
+                                    Quantity
+                                </th>
+                                <th
+                                    scope="col"
+                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                >
+                                    Total
+                                </th>
+                                <th
+                                    scope="col"
+                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                >
+                                    Hapus
+                                </th>
+                            </tr>
+                        </thead>
+                        {mapped.map((data) => {
+
+                            return (
+                                // <>
+
+                                <tbody className="border-b">
+                                    <tr className="bg-white" key={data?.id}>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+
+                                            <div className="flex justify-start">
+
+                                                <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${data?.menu?.photo}`} unoptimized={true} height={50} width={60} /><h3 className="ml-8 mt-4">{data?.menu?.name}</h3>
+                                            </div>
+                                        </td>
+                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {data?.price}
+                                        </td>
+                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {data?.amount}
+                                        </td>
+                                        <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap ">
+                                            {data?.price * data?.amount}
+                                        </td>
+                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <Button onClick={() => deleteModal(data?.id)} icon={<DeleteOutlined />} type='danger' danger={true}></Button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                                // </>
+
+                            )
+                        })}
+                    </table>
+                </>
+
+            )
+        } else {
+            return (
+                <table className="min-w-full">
+                    <thead >
+                        <tr className="border-t border-[#C78342]">
+                            <th
+                                scope="col"
+                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                            >
+                                Product
+                            </th>
+                            <th
+                                scope="col"
+                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                            >
+                                Price
+                            </th>
+                            <th
+                                scope="col"
+                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                            >
+                                Quantity
+                            </th>
+                            <th
+                                scope="col"
+                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                            >
+                                Total
+                            </th>
+                            <th
+                                scope="col"
+                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                            >
+                                Hapus
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colSpan={5} className='text-center'><Empty /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            )
+        }
+    }
+
+    // delete
+    const id = mapped.map((data) => {
+        const idData = [data?.id]
+        return idData
+    })
+    // console.log(id, "ini dari mapped delete");
+
+    const handleOkModalDelete = () => {
+        axios.delete(`https://ordercoffee-app.herokuapp.com/cart/${deleteId}`).then(res => {
+            console.log(res, 'ini res api delete')
+        })
+        setConfirmLoading(true);
+        setTimeout(() => {
+            setVisibleDelete(false);
+            setConfirmLoading(false);
+            message.success("Delete successfull")
+            message.success("Delete successfull")
+        }, 2000);
+    };
+    const handleCancel = () => {
+        console.log('Clicked cancel button');
+        setVisibleDelete(false);
+    }
+
+    const deleteModal = (value) => {
+        console.log(value, 'ini record value')
+        if (value) {
+            setDeleteId(value);
+            setVisibleDelete(true);
+        } else {
+            setVisibleDelete(false)
+        }
+    };
+
+    // console.log(userId, 'ini data sent')
 
     const finishCheckout = async () => {
         try {
+
+            const hitung = mapped.map((data) => {
+                const nilai = data?.price * data?.amount
+                return nilai
+            }).reduce((prev, current) => {
+                return prev + current
+            })
+            // console.log(hitung)
             const sentCart = {
-                cart_id: idCart,
-                total_price: totalPrice,
+                totalPrice: hitung,
+                payment_id: paymentId,
+                user_id: userId
             }
-            console.log(sentCart, 'ini value sent cart');
 
-            await axios.post("https://ordercoffee-app.herokuapp.com/cart-detail", sentCart, {
+            // console.log(totalPrice, 'ini value sent cart');
+
+            await axios.post("https://ordercoffee-app.herokuapp.com/transaction", sentCart, {
                 headers: {
-                    "content-type": 'multipart/form-data',
+                    "Content-Type": 'application/json   ',
                 }
-
             }).then(res => {
                 console.log(res, 'ini res post')
-                // message.success("Successfull Create promo")
+                if (res.status == 200 || res.status == 201) {
+                    message.success("Selamat Transaksi Anda telah sukses")
+                    message.success("Selamat Transaksi Anda telah sukses")
+                }
             })
         } catch (error) {
-            console.log(error, "ini error");
-            message.error("Failed checkout")
+            if (error) {
+                console.log(error, "ini error");
+                message.error("Failed checkout")
+            }
+
         }
     }
-
-
-    useEffect(() => {
-        getDataCart()
-        getIdCart()
-    }, [])
 
     return (
         <div className='min-h-screen pt-14 ml-40 mt-5' style={{ position: "relative" }}>
@@ -107,86 +295,8 @@ export default function ListCart() {
                                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                                     <div className="overflow-hidden">
 
-                                        <table className="min-w-full">
-                                            <thead >
-                                                <tr className="border-t border-[#C78342]">
-                                                    <th
-                                                        scope="col"
-                                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                                                    >
-                                                        Product
-                                                    </th>
-                                                    <th
-                                                        scope="col"
-                                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                                                    >
-                                                        Price
-                                                    </th>
-                                                    <th
-                                                        scope="col"
-                                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                                                    >
-                                                        Quantity
-                                                    </th>
-                                                    <th
-                                                        scope="col"
-                                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                                                    >
-                                                        Total
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody className="border-b">
-                                                {/* {dataCart.map((data) => {
-                                                    return ( */}
-                                                <div>
-                                                    <tr className="bg-white">
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                            <div className="flex justify-start"><Image src={Product1} height={50} width={60} /><h3 className="ml-8 mt-4">Kopi susu gula aren</h3></div>
-                                                        </td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                            {/* {data?.price} */}
-                                                        </td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                            1
-                                                        </td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                            20000
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="bg-white ">
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                            <div className="flex justify-start"><Image src={Product2} height={50} width={60} /><h3 className="ml-8 mt-4">Redvalvet</h3></div>
-                                                        </td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                            20000
-                                                        </td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                            2
-                                                        </td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                            40000
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="bg-white ">
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                            <div className="flex justify-start"><Image src={Product3} height={50} width={60} /><h3 className="ml-8 mt-4">Single Origin</h3></div>
-                                                        </td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                            25000
-                                                        </td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                            1
-                                                        </td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                            25000
-                                                        </td>
-                                                    </tr>
-                                                </div>
-                                                {/* )
-                                                })} */}
-                                            </tbody>
-                                        </table>
+                                        {dataMenuCart()}
+
                                     </div>
                                 </div>
                             </div>
@@ -194,12 +304,12 @@ export default function ListCart() {
 
                         <Row className="flex justify-end mr-48 mt-4">
                             <Col >
-                                <h3>Sub-total<Space>Rp. 85.000</Space></h3>
+                                {/* <h3>Sub-total<Space> Rp.{keranjang.map((data) => { return (data?.price * data?.amount) })} </Space></h3> */}
                             </Col>
                         </Row>
                         <Row className="flex justify-end">
-                            <Col className="mr-48 mt-10 ">
-                                <Link href='/authCart/'>
+                            <Col className="mr-30 mt-10 ">
+                                <Link href=''>
                                     <button
                                         type="button"
                                         className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
@@ -210,6 +320,17 @@ export default function ListCart() {
                                 </Link>
                             </Col>
                         </Row>
+                        <Modal
+                            title="Konfirmasi Hapus Menu"
+                            width={370}
+                            visible={visibleDelete}
+                            onOk={handleOkModalDelete}
+                            confirmLoading={confirmLoading}
+                            onCancel={handleCancel}
+                        >
+                            <p className='text-[#C78342]'>Yakin ingin menghapus ?</p>
+
+                        </Modal>
                     </div>
 
                 </Col>

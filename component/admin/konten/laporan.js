@@ -1,101 +1,114 @@
 import { Space, Table, Tag, Button, Layout, Row, Col, DatePicker, Input } from 'antd';
 import { PrinterOutlined } from '@ant-design/icons'
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 const { Content, } = Layout;
 
 const onChange = (date, dateString) => {
     console.log(date, dateString);
 };
 const { Search } = Input;
-export default function KontenLaporan() {
 
-
-    const columns = [
-        {
-            title: 'No',
-            dataIndex: 'key',
-            key: 'key',
-        },
+const columns = () => {
+    return [
         {
             title: 'Customer',
-            dataIndex: 'customer',
-            key: 'customer',
+            dataIndex: 'fullname',
+            key: 'fullname',
+            render: (_, render) => {
+                return (
+                    <a>{render.user.fullname}</a>
+                )
+            }
         },
         {
             title: 'Product',
-            dataIndex: 'product',
-            key: 'product',
+            dataIndex: 'finalPrice',
+            key: 'finalPrice',
+        },
+        {
+            title: 'Total Harga',
+            dataIndex: 'totalPrice',
+            key: 'totalPrice',
         },
         {
             title: 'Tanggal Transaksi',
-            dataIndex: 'tgltransaksi',
-            key: 'tgltransaksi',
+            dataIndex: 'create_at',
+            key: 'create_at',
         },
         {
             title: 'Status',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: (_, { tags }) => (
-                <div>
-                    {tags.map((tag) => {
-                        let color = ''
-                        if (tag === 'Selesai') {
-                            color = 'green';
-                        }
-                        else if (tag === 'Menunggu') {
-                            color = 'blue';
-                        }
-                        else if (tag === 'Belum') {
-                            color = 'red';
-                        }
-
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </div>
-            ),
+            key: 'status',
+            dataIndex: 'status',
+            render: (_, tags) => {
+                if (tags.status === 'Menunggu Pembayaran') {
+                    return (
+                        <Tag color="blue">{tags.status}</Tag>
+                    )
+                } else if (tags.status === 'Belum Bayar') {
+                    return (
+                        <Tag color="yellow" > {tags.status}</Tag>
+                    )
+                } else if (tags.status === "Sudah Bayar") {
+                    return (
+                        <Tag color='green'>{tags.status}</Tag>
+                    )
+                }
+            }
         },
     ];
-    const data = [
-        {
-            key: '1',
-            customer: 'Dwi GN',
-            product: 'Kopi Susu',
-            tgltransaksi: '20 juli 2022',
-            tags: ['Selesai'],
-        },
-        {
-            key: '2',
-            customer: 'Nabil',
-            product: 'Kopi Susu',
-            tgltransaksi: '20 juli 2022',
-            tags: ['Menunggu'],
-        },
-        {
-            key: '3',
-            customer: 'Bram',
-            product: 'Kopi Susu',
-            tgltransaksi: '20 juli 2022',
-            tags: ['Belum'],
-        },
-    ];
+}
 
-    const onSearch = (value) => console.log(value);
+export default function KontenLaporan() {
+
+    const [dataLaporan, setDataLaporan] = useState([])
+    const [pagination, setPagination] = useState({
+        current: 1,
+        pageSize: 4,
+    });
+
+    async function getDataLaporan(params = {}) {
+        try {
+            await axios.get(`https://ordercoffee-app.herokuapp.com/transaction`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(res => {
+                console.log(res, 'ini res laporan');
+                setDataLaporan(res.data.data)
+            })
+            setPagination({
+                ...params.pagination,
+                total: dataUser.length
+            });
+
+        } catch (error) {
+
+        }
+    }
+    useEffect(() => {
+        getDataLaporan(pagination)
+    }, [])
+
+    const handleTableChange = (newPagination) => {
+        getDataLaporan({
+            pagination: newPagination,
+
+        });
+    }
+
     return (
         <div>
             <Content>
                 <h3 className="text-lg mt-6 ml-24">Data Laporan/All</h3>
-                <Row className='mt-6 w-full ml-24 justify-between'>
+                <Row className='mt-6 ml-24 justify-between'>
 
                     <Col span={5}>
                         <Search
                             placeholder="Search Promo"
                             allowClear
                             size="large"
-                            onSearch={onSearch}
+                        // onSearch={onSearch}
                         />
                     </Col>
                 </Row>
@@ -114,9 +127,12 @@ export default function KontenLaporan() {
                         </Button>
                     </Col>
                 </Row>
-                <Row justify="center" align="middle" className="h-96 -mt-8">
+                <Row justify="center" align="middle" className="h-96">
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns} dataSource={data} />
+                        <Table columns={columns()} dataSource={dataLaporan}
+                            pagination={pagination}
+                            onChange={handleTableChange}
+                        />
                     </Col>
                 </Row>
             </Content>

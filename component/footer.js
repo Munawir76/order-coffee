@@ -6,7 +6,7 @@ import Logo1 from '../public/images/logo1.png'
 function Footer() {
     return (
         <div>
-            <footer className="text-start lg:text-left bg-[#805336] text-white">
+            <footer className="text-start lg:text-left bg-white text-black">
                 <div className="mx-6 py-10 text-center md:text-left">
                     <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-2 gap-15">
                         <div className="mx-auto mb-4">
@@ -24,9 +24,9 @@ function Footer() {
                                 <Image src={Logo1} width={25} height={25} className=" mr-3" />
                                 <h3 className="ml-2">Order Coffee</h3>
                             </div>
-                            <div>
-                                <h3 className="text-white">Order Coffe berdiri sejak Tahun 2022.</h3>
-                                <p>
+                            <div className="max-w-sm">
+                                <h3 className="text-black">Order Coffe berdiri sejak Tahun 2022.</h3>
+                                <p className=''>
                                     Bermula dari kegemaran kami menikmati kopi.
                                     Namun seiring berjalannya waktu kami tidak hanya sebatas menikmatinya.
                                     Tapi kami mencoba membuat dan menyampaikan rasa yang Kami nikmati pada pelanggan.

@@ -211,6 +211,7 @@ export default function KontenPromo() {
         setTimeout(() => {
             setVisibleDelete(false);
             setConfirmLoading(false);
+            getDataPromo()
             message.success("Delete successfull")
         }, 2000);
         // location.reload()
@@ -230,6 +231,7 @@ export default function KontenPromo() {
             setVisibleDelete(false)
         }
     };
+
     const imageModal = (record) => {
         console.log(record, 'ini record image')
         if (record) {
@@ -401,11 +403,11 @@ export default function KontenPromo() {
                                                                     onChange={onChangeDiskonPromo}
 
                                                                 >
-                                                                    <Option value="10 %">10 %</Option>
-                                                                    <Option value="20 %">20 %</Option>
-                                                                    <Option value="30 %">30 %</Option>
-                                                                    <Option value="40 %">40 %</Option>
-                                                                    <Option value="50 %">50 %</Option>
+                                                                    <Option value={10}>10 %</Option>
+                                                                    <Option value={20}>20 %</Option>
+                                                                    <Option value={30}>30 %</Option>
+                                                                    <Option value={40}>40 %</Option>
+                                                                    <Option value={50}>50 %</Option>
                                                                 </Select>
                                                             </div>
                                                         </Form.Item>

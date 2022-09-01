@@ -1,34 +1,32 @@
 import 'tailwindcss/tailwind.css'
 import 'antd/dist/antd.variable.min.css'
 /* This example requires Tailwind CSS v2.0+ */
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import React from 'react';
 import logo from "../public/images/logo.png"
 import Link from 'next/link'
-import { useEffect } from 'react';
 import { useRouter } from "next/router";
 import { Dropdown, Menu, message, Space, ConfigProvider } from 'antd';
-import '@ant-design/icons'
-import { UserOutlined, ShoppingCartOutlined, LogoutOutlined } from '@ant-design/icons'
+import { UserOutlined, ShoppingCartOutlined, LogoutOutlined, } from '@ant-design/icons'
 import jwt_decode from 'jwt-decode';
 import axios from 'axios'
 
 
 // #C78342 Muda
 // #805336 tua
-ConfigProvider.config({
-    theme: {
-        primaryColor: '#C78342',
-    },
-});
+
 
 
 export default function Navigasi() {
 
+    ConfigProvider.config({
+        theme: {
+            primaryColor: '#C78342',
+        },
+    });
 
     const [navbar, setNavbar] = useState(false);
-
+    const [fullName, setFullName] = useState()
     const [logged, setLogged] = useState()
     const router = useRouter();
 
@@ -37,14 +35,14 @@ export default function Navigasi() {
 
             const getToken = localStorage.getItem("tokenCustomer")
             const decode = jwt_decode(getToken)
-            console.log(decode);
-
+            // console.log(decode.fullname, 'ini decode');
+            setFullName(decode?.fullname)
             await axios.get('https://ordercoffee-app.herokuapp.com/users', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             }).then(res => {
-                console.log(res.data.data, 'ini error engga?');
+                // console.log(res.data.items, 'ini ress');
 
                 if (getToken) {
                     setLogged(true)
@@ -57,7 +55,7 @@ export default function Navigasi() {
             console.error(error, 'ini erornya');
         }
     }
-
+    // console.log(fullName, 'ini fullname')
 
     async function buttonLogout() {
         try {
@@ -72,11 +70,16 @@ export default function Navigasi() {
     }
     const menu = (
         <Menu
-            onClick={buttonLogout}
+            style={{ hoverBackground: 'white' }}
             items={[
+                {
+                    label: fullName,
+                    icon: <UserOutlined twoToneColor="rgba(145, 69, 25, 0.8)" />,
+                },
                 {
                     label: 'Logout',
                     icon: <LogoutOutlined />,
+                    onClick: buttonLogout
                 },
 
             ]}
@@ -165,6 +168,7 @@ export default function Navigasi() {
                                             <UserOutlined className="text-black hover:text-white hover:bg-[#805336] pt-6 pb-6 px-6 ..." />
                                         </Space>
                                     </Dropdown>
+
                                 </Space> : <p></p>}
                             </li>
 

@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { Row, Col, Card, Input, ConfigProvider } from 'antd'
 import Image from 'next/image'
 import Product1 from '../../public/images/kopisusu.jpg'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 
 const { TextArea } = Input
@@ -16,6 +18,27 @@ ConfigProvider.config({
 
 export default function CartAuth() {
 
+    const [cartToPay, setCartToPay] = useState([])
+    const [cartToPayId, setCartToPayId] = useState()
+
+    async function getCartToPay() {
+        try {
+            await axios.get(`https://ordercoffee-app.herokuapp.com/transaction/detail`, {
+                headers: {
+                    "Content-Type": 'application/json   ',
+                }
+            }).then(res => {
+                console.log(res, 'ini res cart to pay')
+                // setCartToPay(res)
+            })
+        } catch (error) {
+
+        }
+    }
+
+    useEffect(() => {
+        getCartToPay()
+    }, [])
     return (
         <div>
             <div className='min-h-screen pt-14 ml-40 mt-5' style={{ position: "relative" }}>

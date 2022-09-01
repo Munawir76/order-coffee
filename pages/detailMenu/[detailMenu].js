@@ -3,12 +3,14 @@ import 'tailwindcss/tailwind.css'
 import 'antd/dist/antd.variable.min.css'
 import Link from 'next/link'
 import Image from 'next/image';
-import { Row, Col, Space, Select, Form, ConfigProvider, message } from 'antd';
+import MainLayoutUser from '../../component/mainLayotUser'
+import { Row, Col, Space, Select, Form, ConfigProvider, message, InputNumber } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+
 
 ConfigProvider.config({
     theme: {
@@ -26,13 +28,16 @@ export default function DetailMenu() {
     //Request Cart
     const [idMenu, setIdMenu] = useState('')
     const [amount, setAmount] = useState()
-    const [totalPrice, setTotalPrice] = useState()
+    // const [totalPrice, setTotalPrice] = useState()
     const [idPromo, setIdPromo] = useState('')
     const [idUser, setIdUser] = useState('')
+    const [price, setPrice] = useState()
 
 
     const router = useRouter();
     const { detailMenu } = router.query;
+
+
 
     async function getDataDetailProduct() {
         try {
@@ -47,9 +52,10 @@ export default function DetailMenu() {
                 setDataDetailProduct(res.data.data)
                 setIdMenu(res.data.data.id)
                 setIdUser(decode?.id)
-                setTotalPrice(res.data.data.price)
+                setPrice(res.data.data.price)
                 setDataPromo(res.data.data.promo)
                 setIdPromo(res.data.data.promo[0].id)
+
                 // if (dataDetailProduct) {
                 //     setIsDiskon(true)
                 // } else {
@@ -59,18 +65,23 @@ export default function DetailMenu() {
             })
 
         } catch (error) {
-            console.log(error, 'ini errornya')
+            if (error) {
+                console.log(error, 'ini errornya')
+            }
+
         }
     }
 
     const onFinishAdd = async () => {
         try {
+            const totalPrice = amount * price
             const sentCart = {
                 menu_id: idMenu,
                 amount: amount,
-                price: totalPrice,
+                price: price,
                 promo_id: idPromo,
-                user_id: idUser
+                user_id: idUser,
+                totalPrice: totalPrice
             }
             console.log(sentCart, 'ini value sent cart');
 
@@ -80,12 +91,21 @@ export default function DetailMenu() {
                 }
 
             }).then(res => {
-                console.log(res, 'ini res post')
-                message.success("Successfull add cart")
+                if (res.status == 200 || res.status == 201) {
+                    console.log(res, 'ini res post')
+                    setTimeout(() => {
+                        message.info("Successfull add cart")
+                        message.info("Successfull add cart")
+                    }, 2000);
+                }
+
             })
         } catch (error) {
-            console.log(error, "ini error");
-            message.error("Failed add cart")
+            if (error) {
+                console.log(error, "ini error");
+                message.error("Failed add cart")
+            }
+
         }
     }
 
@@ -93,16 +113,20 @@ export default function DetailMenu() {
         getDataDetailProduct()
     }, [])
 
+    // const OnChangeAmounMenu = (value) => {
+    //     setAmount(value)
+    //     console.log(value, 'ini value amount')
+    // }
     const OnChangeAmounMenu = (value) => {
         setAmount(value)
-        console.log(value, 'ini value amount')
-    }
+        console.log('changed', value);
+    };
 
 
 
     return (
-        <div>
-            <div className='h-screen ml-40 mt-10' style={{ position: "relative" }}>
+        <MainLayoutUser>
+            <div className='h-screen ml-40 mt-20' style={{ position: "relative" }}>
                 <Row justify='start' >
                     <Col span='8'>
                         <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${dataDetailProduct?.photo}`}
@@ -140,7 +164,7 @@ export default function DetailMenu() {
                             <div className="flex justify-center ml-4">
                                 <Form.Item name='status'>
                                     <h3 className="text-base text-center">Quantity</h3>
-                                    <Select
+                                    {/* <Select
                                         className='hover: bg-[#805336] active:bg-[#805336]'
                                         placeholder="Masukan jumlah menu"
                                         style={{
@@ -155,7 +179,9 @@ export default function DetailMenu() {
                                         <Option value="3" >3</Option>
                                         <Option value='4'>4</Option>
                                         <Option value='5'>5</Option>
-                                    </Select>
+                                    </Select> */}
+
+                                    <InputNumber min={0} max={10} onChange={OnChangeAmounMenu} value={amount} />
                                 </Form.Item>
                             </div>
                         </Form>
@@ -181,6 +207,6 @@ export default function DetailMenu() {
             {/* )
             })} */}
 
-        </div>
+        </MainLayoutUser>
     )
 }
