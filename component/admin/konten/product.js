@@ -48,7 +48,6 @@ function columns(deleteModal, editModal) {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    {/* <Link href={`/admin/editProduct/${record.name}`}> */}
                     <Tooltip placement="left" title="Edit Product">
                         <Button
                             onClick={() => editModal(record.id)}
@@ -58,7 +57,6 @@ function columns(deleteModal, editModal) {
                         >
                         </Button>
                     </Tooltip>
-                    {/* </Link> */}
                     <Link href={`/admin/detailProduct/${record.name}`}>
                         <Tooltip placement="left" title="Detail Product">
                             <Button
@@ -313,6 +311,7 @@ export default function KontenProduct() {
                 // console.log(res)
                 setVisibleEditProduct(false)
                 setFinish(true)
+                getDataPromo()
                 message.success("Successfull Edit menu")
             })
         } catch (error) {

@@ -115,6 +115,7 @@ export default function KontenPromo() {
 
     // image modal
     const [visibleImage, setVisibleImage] = useState(false);
+    const [pathImage, setPathImage] = useState()
 
     // Search
     const [options, setOptions] = useState([]);
@@ -235,8 +236,9 @@ export default function KontenPromo() {
     const imageModal = (record) => {
         console.log(record, 'ini record image')
         if (record) {
-            setDataPromo(record.photo);
+            setPathImage(record);
             setVisibleImage(true);
+            getDataPromo()
 
         } else {
             setVisibleImage(false)
@@ -273,6 +275,7 @@ export default function KontenPromo() {
             }).then(res => {
                 console.log(res)
                 setVisibleAddPromo(false)
+                getDataPromo()
                 message.success("Successfull Create promo")
             })
         } catch (error) {
@@ -296,7 +299,7 @@ export default function KontenPromo() {
 
     };
 
-
+    // console.log(dataPromo[0].photo, 'ini path promo')
 
     return (
         <div>
@@ -403,11 +406,11 @@ export default function KontenPromo() {
                                                                     onChange={onChangeDiskonPromo}
 
                                                                 >
-                                                                    <Option value={10}>10 %</Option>
-                                                                    <Option value={20}>20 %</Option>
-                                                                    <Option value={30}>30 %</Option>
-                                                                    <Option value={40}>40 %</Option>
-                                                                    <Option value={50}>50 %</Option>
+                                                                    <Option value={0.1}>10 %</Option>
+                                                                    <Option value={0.2}>20 %</Option>
+                                                                    <Option value={0.3}>30 %</Option>
+                                                                    <Option value={0.4}>40 %</Option>
+                                                                    <Option value={0.5}>50 %</Option>
                                                                 </Select>
                                                             </div>
                                                         </Form.Item>
@@ -533,12 +536,13 @@ export default function KontenPromo() {
                             onCancel={handleCancelImage}
                             footer={null}
                         >
-                            <Image loader={() => dataPromo?.photo}
-                                src={`https://ordercoffee-app.herokuapp.com/promo/image/${dataPromo?.photo}`}
+                            <Image loader={() => pathImage}
+                                src={`https://ordercoffee-app.herokuapp.com/promo/image/${pathImage}`}
                                 unoptimized={true}
                                 width={250}
                                 height={250}
-                                style={{ borderRadius: 10 }} />
+                                className="ml-8"
+                                style={{ borderRadius: 10, }} />
                         </Modal>
                     </Col>
                 </Row>

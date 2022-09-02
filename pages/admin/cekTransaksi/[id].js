@@ -1,14 +1,44 @@
-import MainLayout from "./layout/index"
-import ButtonBack from "../reusable/buttonBack"
-import React from "react";
+import MainLayout from "../../../component/admin/layout/index"
+import ButtonBack from "../../../component/reusable/buttonBack"
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import 'antd/dist/antd.css'
 import { DownloadOutlined } from '@ant-design/icons'
 import { Layout, Row, Col, Card, Button, } from 'antd';
+import axios from "axios";
 
 
 const { Content, } = Layout;
 
 export default function CekPembayaran() {
+
+    const [cekTransaksi, setCekTransaksi] = useState([])
+
+    async function getCekTransaksi() {
+        try {
+            await axios.get(`https://ordercoffee-app.herokuapp.com/transaction/detail`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(res => {
+                console.log(res, 'ini res api cek tr')
+                setCekTransaksi(res.data.items)
+            })
+        } catch (error) {
+
+        }
+    }
+
+    useEffect(() => {
+        getCekTransaksi()
+    }, [])
+
+    const router = useRouter();
+    const { id } = router.query;
+    const dataSelected = cekTransaksi.find((data) => data.id == id);
+
+    console.log(dataSelected, 'ini data selected')
+
     return (
         <div>
             <MainLayout>

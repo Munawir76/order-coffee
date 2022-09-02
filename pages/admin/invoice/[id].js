@@ -6,6 +6,7 @@ import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
 import logo from '../public/images/logo.png'
 import { Row, Col, Card, Table, Button, Space, ConfigProvider, Modal, message } from 'antd'
+import axios from "axios"
 
 ConfigProvider.config({
     theme: {
@@ -21,6 +22,33 @@ export default function Invoice() {
         onAfterPrint: () => message.success('Print Success')
 
     })
+
+    const [getInvoice, setGetInvoice] = useState([])
+    const [incoiceId, setInvoiceId] = useState()
+
+    async function getCekTransaksi() {
+        try {
+            await axios.get(`https://ordercoffee-app.herokuapp.com/transaction/detail${incoiceId}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(res => {
+                console.log(res, 'ini res get transaksi')
+                setGetInvoice(res.data.items)
+            })
+        } catch (error) {
+
+        }
+    }
+
+    const router = useRouter();
+    const { id } = router.query;
+    const dataSelected = getInvoice.find((data) => data.id == id);
+    console.log(dataSelected, 'ini data selected')
+
+    useEffect(() => {
+        getCekTransaksi()
+    }, [])
 
     return (
         <>

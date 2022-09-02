@@ -8,7 +8,7 @@ const { Content, } = Layout;
 
 const { Search } = Input;
 
-const columns = (deleteModal) => {
+const columns = (deleteModal, approveModal) => {
     return [
         {
             title: 'Customer',
@@ -30,21 +30,23 @@ const columns = (deleteModal) => {
             title: 'Tanggal Transaksi',
             dataIndex: 'create_at',
             key: 'create_at',
+            // render: (dataIndex) => {
+            //     const slice = dataIndex;
+            //     slice.slice(0, 9)
+            // }
         },
         {
             title: 'Cek Pembayaran',
             // key: 'cek',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link href={`/${record.id}`}>
+                    <Link href={`/admin/cekTransaksi/${record.id}`}>
                         <Tooltip placement="right" title="Cek Pembayaran">
-                            <Link href="/admin/cekTransaksi">
-                                <Button
-                                    style={{ color: "blue", borderColor: "blue" }}
-                                    icon={<FormOutlined />}
-                                >
-                                </Button>
-                            </Link>
+                            <Button
+                                style={{ color: "blue", borderColor: "blue" }}
+                                icon={<FormOutlined />}
+                            >
+                            </Button>
                         </Tooltip>
                     </Link>
                 </Space>
@@ -75,15 +77,14 @@ const columns = (deleteModal) => {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link href={`/${record}`}>
-                        <Tooltip placement="right" title="Selesai">
-                            <Button
-                                style={{ color: "green", borderColor: "green" }}
-                                icon={<CheckOutlined />}
-                            >
-                            </Button>
-                        </Tooltip>
-                    </Link>
+                    <Tooltip placement="right" title="Selesai">
+                        <Button
+                            style={{ color: "green", borderColor: "green" }}
+                            icon={<CheckOutlined />}
+                            onClick={() => approveModal(record)}
+                        >
+                        </Button>
+                    </Tooltip>
                     <Tooltip placement="right" title="Delete">
                         <Button
                             type="danger"
@@ -110,9 +111,18 @@ export default function KontenTransaksi() {
     const [visibleDelete, setVisibleDelete] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
 
+    const [pagination, setPagination] = useState({
+        current: 1,
+        pageSize: 4,
+    });
+
+    //approve
+    const [visibleApprove, setVisibleApprove] = useState(false);
+    const [approveId, setApproveId] = useState('');
+    const [foto, setFoto] = useState('')
 
 
-    async function getDataTransaksi() {
+    async function getDataTransaksi(params = {}) {
         try {
             await axios.get(`https://ordercoffee-app.herokuapp.com/transaction/detail`, {
                 headers: {
@@ -120,8 +130,13 @@ export default function KontenTransaksi() {
                 },
             }).then(res => {
                 console.log(res, 'ini res transaksi')
-                setDataTransaksi(res.data.data)
+                setDataTransaksi(res.data.items)
             })
+            setPagination({
+                ...params.pagination,
+                total: dataUser.length
+            });
+
         } catch (error) {
 
         }
@@ -142,6 +157,8 @@ export default function KontenTransaksi() {
     const handleCancel = () => {
         console.log('Clicked cancel button');
         setVisibleDelete(false);
+        setVisibleApprove(false)
+
     }
 
     const deleteModal = (record) => {
@@ -156,9 +173,54 @@ export default function KontenTransaksi() {
 
 
     useEffect(() => {
-        getDataTransaksi()
+        getDataTransaksi(pagination)
     }, [])
     // console.log(dataTransaksi, "transaksi");
+    const handleTableChange = (newPagination) => {
+        getDataLaporan({
+            pagination: newPagination,
+
+        });
+    }
+
+
+    const approveModal = (record) => {
+        console.log(record, 'ini record approve')
+        if (record) {
+            setApproveId(record);
+            setVisibleApprove(true);
+        } else {
+            setVisibleApprove(false)
+        }
+    };
+
+    const handleOkModalUpdate = async () => {
+        try {
+            const update = await {
+                status: "Sudah Bayar",
+            }
+            // console.log(update, 'ini update approve)
+            await axios.put(`https://ordercoffee-app.herokuapp.com/transaction/detail/${approveId.id}`, update, {
+                headers: {
+                    "content-type": "application/json"
+                }
+            }).then(res => {
+                console.log(res, 'ini res api approve')
+            })
+            setConfirmLoading(true);
+            setTimeout(() => {
+                getDataTransaksi()
+                setVisibleApprove(false);
+                setConfirmLoading(false);
+            }, 2000);
+            // location.reload()
+        } catch (error) {
+
+        }
+
+    };
+
+
     return (
         <div>
             <Content>
@@ -167,7 +229,7 @@ export default function KontenTransaksi() {
 
                     <Col span={5}>
                         <Search
-                            placeholder="Search Promo"
+                            placeholder="Search Transaksi"
                             allowClear
                             size="large"
                         // onSearch={onSearch}
@@ -176,7 +238,10 @@ export default function KontenTransaksi() {
                 </Row>
                 <Row justify="center" align="start" className='h-96 mt-4'>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns(deleteModal)} dataSource={dataTransaksi} />
+                        <Table columns={columns(deleteModal, approveModal)} dataSource={dataTransaksi}
+                            pagination={pagination}
+                            onChange={handleTableChange}
+                        />
                     </Col>
                 </Row>
                 <Modal
@@ -190,6 +255,18 @@ export default function KontenTransaksi() {
                     <p className='text-[#C78342]'>Yakin ingin menghapus ?</p>
 
                 </Modal>
+                <Modal
+                    title="Konfirmasi Approve"
+                    width={370}
+                    visible={visibleApprove}
+                    onOk={handleOkModalUpdate}
+                    confirmLoading={confirmLoading}
+                    onCancel={handleCancel}
+                >
+
+                    <p className='text-[#C78342]'>Approve Transaksi ?</p>
+                </Modal>
+
             </Content>
         </div>
     )

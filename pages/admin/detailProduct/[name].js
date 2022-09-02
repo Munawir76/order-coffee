@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../../component/admin/layout";
 import ButtonBack from "../../../component/reusable/buttonBack"
 import { Layout, Row, Col, Card } from 'antd';
