@@ -8,6 +8,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import { useRouter } from 'next/router';
 
 
 export default function ListCart() {
@@ -28,7 +29,7 @@ export default function ListCart() {
     const [deleteId, setDeleteId] = useState()
     const [visibleDelete, setVisibleDelete] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
-
+    const router = useRouter()
     // const [isData, setIsData] = useState(true)
 
     async function getDataCart() {
@@ -269,6 +270,8 @@ export default function ListCart() {
                 if (res.status == 200 || res.status == 201) {
                     message.success("Selamat Transaksi Anda telah sukses")
                     message.success("Selamat Transaksi Anda telah sukses")
+
+                    router.push(`/transaksi/${userId}`)
                 }
             })
         } catch (error) {
@@ -285,14 +288,6 @@ export default function ListCart() {
             <Row>
                 <Col span={12}>
                     <h2>Cart</h2>
-                </Col>
-                <Col span={12} className="text-end px-52">
-                    <Link href={`/admin/cekTransaksi`}>
-                        <Button type='primary'
-                            style={{ color: "black", }}
-                        >Detail
-                        </Button>
-                    </Link>
                 </Col>
             </Row>
             <Row justify="start" align="middle" className="h-80">
@@ -317,15 +312,15 @@ export default function ListCart() {
                         </Row>
                         <Row className="flex justify-end">
                             <Col className="mr-30 mt-10 ">
-                                <Link href=''>
-                                    <button
-                                        type="button"
-                                        className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
-                                        onClick={finishCheckout}
-                                    >
-                                        Checkout
-                                    </button>
-                                </Link>
+
+                                <button
+                                    type="button"
+                                    className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                                    onClick={finishCheckout}
+                                >
+                                    Checkout
+                                </button>
+
                             </Col>
                         </Row>
                         <Modal

@@ -7,15 +7,13 @@ import logo from "../public/images/logo.png"
 import Link from 'next/link'
 import { useRouter } from "next/router";
 import { Dropdown, Menu, message, Space, ConfigProvider } from 'antd';
-import { UserOutlined, ShoppingCartOutlined, LogoutOutlined, } from '@ant-design/icons'
+import { UserOutlined, ShoppingCartOutlined, LogoutOutlined, SwapOutlined } from '@ant-design/icons'
 import jwt_decode from 'jwt-decode';
 import axios from 'axios'
 
 
 // #C78342 Muda
 // #805336 tua
-
-
 
 export default function Navigasi() {
 
@@ -28,6 +26,9 @@ export default function Navigasi() {
     const [navbar, setNavbar] = useState(false);
     const [fullName, setFullName] = useState()
     const [logged, setLogged] = useState()
+
+    const [transaction, setTransaction] = useState([])
+    const [findIdUser, setFinIdUser] = useState([])
     const router = useRouter();
 
     async function validate() {
@@ -35,15 +36,16 @@ export default function Navigasi() {
 
             const getToken = localStorage.getItem("tokenCustomer")
             const decode = jwt_decode(getToken)
-            // console.log(decode.fullname, 'ini decode');
+            console.log(decode.id, 'ini decode cari id');
             setFullName(decode?.fullname)
+            setFinIdUser(decode?.id)
             await axios.get('https://ordercoffee-app.herokuapp.com/users', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             }).then(res => {
-                // console.log(res.data.items, 'ini ress');
-
+                console.log(res.data.items, 'ini ress navigasi');
+                setTransaction(res.data.items)
                 if (getToken) {
                     setLogged(true)
                 } else {
@@ -68,6 +70,20 @@ export default function Navigasi() {
 
         }
     }
+    async function buttonTr() {
+        try {
+            router.push(`/transaksi/${findIdUser}`)
+        } catch (error) {
+
+        }
+    }
+
+    // const transactionId = transaction.map((dataTr) => {
+    //     const filterFind = findIdUser.find((data) => data?.id == dataTr?.id)
+    //     return filterFind
+    // })
+
+    // console.log(transactionId, 'ini hasil find tr');
     const menu = (
         <Menu
             style={{ hoverBackground: 'white' }}
@@ -75,6 +91,11 @@ export default function Navigasi() {
                 {
                     label: fullName,
                     icon: <UserOutlined twoToneColor="rgba(145, 69, 25, 0.8)" />,
+                },
+                {
+                    label: 'Transaksi',
+                    icon: <SwapOutlined />,
+                    onClick: buttonTr
                 },
                 {
                     label: 'Logout',

@@ -45,11 +45,11 @@ const columns = () => {
                     return (
                         <Tag color="blue">{tags.status}</Tag>
                     )
-                } else if (tags.status === 'Belum Bayar') {
+                } else if (tags.status === 'Menunggu Pengecekan') {
                     return (
                         <Tag color="yellow" > {tags.status}</Tag>
                     )
-                } else if (tags.status === "Sudah Bayar") {
+                } else if (tags.status === "Sukses") {
                     return (
                         <Tag color='green'>{tags.status}</Tag>
                     )
@@ -79,7 +79,7 @@ export default function KontenLaporan() {
             })
             setPagination({
                 ...params.pagination,
-                total: dataUser.length
+                total: dataLaporan.length
             });
 
         } catch (error) {

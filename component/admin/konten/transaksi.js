@@ -1,6 +1,7 @@
-import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, message } from 'antd';
+import { Space, Table, Tag, Button, Layout, Row, Col, Tooltip, Input, Modal, message, } from 'antd';
 import { FormOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
 import Link from "next/link";
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -8,7 +9,7 @@ const { Content, } = Layout;
 
 const { Search } = Input;
 
-const columns = (deleteModal, approveModal) => {
+const columns = (deleteModal, approveModal, imageModal) => {
     return [
         {
             title: 'Customer',
@@ -40,15 +41,12 @@ const columns = (deleteModal, approveModal) => {
             // key: 'cek',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link href={`/admin/cekTransaksi/${record.id}`}>
-                        <Tooltip placement="right" title="Cek Pembayaran">
-                            <Button
-                                style={{ color: "blue", borderColor: "blue" }}
-                                icon={<FormOutlined />}
-                            >
-                            </Button>
-                        </Tooltip>
-                    </Link>
+                    <Tooltip placement="right" title="">
+                        <a
+                            onClick={() => imageModal(record.image)}
+                        >Lihat Gambar
+                        </a>
+                    </Tooltip>
                 </Space>
             ),
         },
@@ -110,6 +108,9 @@ export default function KontenTransaksi() {
     const [deleteId, setDeleteId] = useState()
     const [visibleDelete, setVisibleDelete] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
+    //image
+    const [visibleImage, setVisibleImage] = useState(false);
+    const [pathImage, setPathImage] = useState()
 
     const [pagination, setPagination] = useState({
         current: 1,
@@ -133,7 +134,7 @@ export default function KontenTransaksi() {
             })
             setPagination({
                 ...params.pagination,
-                total: dataUser.length
+                total: dataTransaksi.length
             });
 
         } catch (error) {
@@ -169,14 +170,28 @@ export default function KontenTransaksi() {
             setVisibleDelete(false)
         }
     };
+    const imageModal = (record) => {
+        console.log(record, 'ini record image')
+        if (record) {
+            setPathImage(record);
+            setVisibleImage(true);
+            getDataTransaksi()
 
+        } else {
+            setVisibleImage(false)
+        }
+    }
+    const handleCancelImage = () => {
+        console.log('Clicked cancel button');
+        setVisibleImage(false);
+    }
 
     useEffect(() => {
         getDataTransaksi(pagination)
     }, [])
     // console.log(dataTransaksi, "transaksi");
     const handleTableChange = (newPagination) => {
-        getDataLaporan({
+        getDataTransaksi({
             pagination: newPagination,
 
         });
@@ -198,8 +213,8 @@ export default function KontenTransaksi() {
             const update = {
                 status: "Sukses",
             }
-            // console.log(update, 'ini update approve)
-            await axios.put(`https://ordercoffee-app.herokuapp.com/transaction/detail/${approveId?.id}`, update, {
+            console.log(update, 'ini update approve')
+            await axios.put(`https://ordercoffee-app.herokuapp.com/transaction/edit/${approveId?.id}`, update, {
                 headers: {
                     "content-type": "application/json"
                 }
@@ -237,7 +252,7 @@ export default function KontenTransaksi() {
                 </Row>
                 <Row justify="center" align="start" className='h-96 mt-4'>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns(deleteModal, approveModal)} dataSource={dataTransaksi}
+                        <Table columns={columns(deleteModal, approveModal, imageModal)} dataSource={dataTransaksi}
                             pagination={pagination}
                             onChange={handleTableChange}
                         />
@@ -264,6 +279,21 @@ export default function KontenTransaksi() {
                 >
 
                     <p className='text-[#C78342]'>Approve Transaksi ?</p>
+                </Modal>
+                <Modal
+                    title="Image Promo"
+                    width={370}
+                    visible={visibleImage}
+                    onCancel={handleCancelImage}
+                    footer={null}
+                >
+                    <Image loader={() => pathImage}
+                        src={`https://ordercoffee-app.herokuapp.com/transaction/detail/${pathImage}`}
+                        unoptimized={true}
+                        width={250}
+                        height={250}
+                        className="ml-8"
+                        style={{ borderRadius: 10, }} />
                 </Modal>
 
             </Content>

@@ -5,35 +5,35 @@ import { Row, Col, Card, ConfigProvider, Input, Upload, } from 'antd'
 import React, { useState } from 'react'
 
 
-const props = {
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    listType: 'picture',
+// const props = {
+//     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+//     listType: 'picture',
 
-    beforeUpload(file) {
-        return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
+//     beforeUpload(file) {
+//         return new Promise((resolve) => {
+//             const reader = new FileReader();
+//             reader.readAsDataURL(file);
 
-            reader.onload = () => {
-                const img = document.createElement('img');
-                img.src = reader.result;
+//             reader.onload = () => {
+//                 const img = document.createElement('img');
+//                 img.src = reader.result;
 
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.naturalWidth;
-                    canvas.height = img.naturalHeight;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    ctx.fillStyle = 'red';
-                    ctx.textBaseline = 'middle';
-                    ctx.font = '33px Arial';
-                    ctx.fillText('Ant Design', 20, 20);
-                    canvas.toBlob((result) => resolve(result));
-                };
-            };
-        });
-    },
-};
+//                 img.onload = () => {
+//                     const canvas = document.createElement('canvas');
+//                     canvas.width = img.naturalWidth;
+//                     canvas.height = img.naturalHeight;
+//                     const ctx = canvas.getContext('2d');
+//                     ctx.drawImage(img, 0, 0);
+//                     ctx.fillStyle = 'red';
+//                     ctx.textBaseline = 'middle';
+//                     ctx.font = '33px Arial';
+//                     ctx.fillText('Ant Design', 20, 20);
+//                     canvas.toBlob((result) => resolve(result));
+//                 };
+//             };
+//         });
+//     },
+// };
 
 ConfigProvider.config({
     theme: {
@@ -109,9 +109,9 @@ export default function AuthPayment() {
                         <div className="text-center mt-24">
                             <h3 className="text-center text-[#C78342] font-bold">Upload Bukti Pembayaran</h3>
                             <div style={{ marginTop: 26 }}>
-                                <Upload {...props} >
+                                {/* <Upload {...props} >
                                     <button type='button' className='bg-[#C78342] text-white font-medium rounded shadow-md hover:bg-[#805336] hover:shadow-l focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#C78342] active:shadow-lg transition duration-150 ease-in-out w-40 h-8' >Upload</button>
-                                </Upload>
+                                </Upload> */}
                             </div>
                         </div>
                     </Card>
