@@ -8,7 +8,7 @@ function Footer() {
         <div>
             <footer className="text-start lg:text-left bg-white text-black">
                 <div className="mx-6 py-10 text-center md:text-left">
-                    <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-2 gap-15">
+                    <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-3 gap-15">
                         <div className="mx-auto mb-4">
                             <div
                                 className="
@@ -25,13 +25,37 @@ function Footer() {
                                 <h3 className="ml-2">Order Coffee</h3>
                             </div>
                             <div className="max-w-sm">
-                                <h3 className="text-black">Order Coffe berdiri sejak Tahun 2022.</h3>
-                                <p className=''>
+                                {/* <h3 className="text-black">Order Coffe berdiri sejak Tahun 2022.</h3> */}
+                                {/* <p className=''>
                                     Bermula dari kegemaran kami menikmati kopi.
                                     Namun seiring berjalannya waktu kami tidak hanya sebatas menikmatinya.
                                     Tapi kami mencoba membuat dan menyampaikan rasa yang Kami nikmati pada pelanggan.
-                                </p>
+                                </p> */}
+                                <p>Jl. Hanjuang VII No. 88
+                                    Jatibening Baru</p>
+                                <p> Pondok Gede
+                                    Bekasi - 17412</p>
                             </div>
+                        </div>
+                        <div className="mx-auto">
+                            <h6 className="uppercase font-bold mb-4 flex justify-center md:justify-start">
+                                Link
+                            </h6>
+                            <a className="flex items-center justify-center md:justify-start mb-4 text-blue-500 underline">
+                                @oder.coffee
+                            </a>
+                            <a className="flex items-center justify-center md:justify-start mb-4 text-blue-500 underline">
+
+                                About
+                            </a>
+                            <a className="flex items-center justify-center md:justify-start mb-4 text-blue-500 underline">
+
+                                Menu
+                            </a>
+                            <a className="flex items-center justify-center md:justify-start text-blue-500 underline">
+
+                                promo
+                            </a>
                         </div>
                         <div className="mx-auto">
                             <h6 className="uppercase font-bold mb-4 flex justify-center md:justify-start">
@@ -94,7 +118,7 @@ function Footer() {
                                 </svg>
                                 order.coffee@gmail.com
                             </p>
-                            <p className="flex items-center justify-center md:justify-start mb-4">
+                            <p className="flex items-center justify-center md:justify-start">
                                 <svg
                                     aria-hidden="true"
                                     focusable="false"

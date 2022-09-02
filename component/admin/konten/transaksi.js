@@ -61,11 +61,11 @@ const columns = (deleteModal, approveModal) => {
                     return (
                         <Tag color="blue">{tags.status}</Tag>
                     )
-                } else if (tags.status === 'Belum Bayar') {
+                } else if (tags.status === 'Menunggu Pengecekan') {
                     return (
                         <Tag color="yellow" > {tags.status}</Tag>
                     )
-                } else if (tags.status === "Sudah Bayar") {
+                } else if (tags.status === "Sukses") {
                     return (
                         <Tag color='green'>{tags.status}</Tag>
                     )
@@ -119,7 +119,6 @@ export default function KontenTransaksi() {
     //approve
     const [visibleApprove, setVisibleApprove] = useState(false);
     const [approveId, setApproveId] = useState('');
-    const [foto, setFoto] = useState('')
 
 
     async function getDataTransaksi(params = {}) {
@@ -196,11 +195,11 @@ export default function KontenTransaksi() {
 
     const handleOkModalUpdate = async () => {
         try {
-            const update = await {
-                status: "Sudah Bayar",
+            const update = {
+                status: "Sukses",
             }
             // console.log(update, 'ini update approve)
-            await axios.put(`https://ordercoffee-app.herokuapp.com/transaction/detail/${approveId.id}`, update, {
+            await axios.put(`https://ordercoffee-app.herokuapp.com/transaction/detail/${approveId?.id}`, update, {
                 headers: {
                     "content-type": "application/json"
                 }

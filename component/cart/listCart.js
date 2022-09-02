@@ -283,8 +283,16 @@ export default function ListCart() {
     return (
         <div className='min-h-screen pt-14 ml-40 mt-5' style={{ position: "relative" }}>
             <Row>
-                <Col>
+                <Col span={12}>
                     <h2>Cart</h2>
+                </Col>
+                <Col span={12} className="text-end px-52">
+                    <Link href={`/admin/cekTransaksi`}>
+                        <Button type='primary'
+                            style={{ color: "black", }}
+                        >Detail
+                        </Button>
+                    </Link>
                 </Col>
             </Row>
             <Row justify="start" align="middle" className="h-80">

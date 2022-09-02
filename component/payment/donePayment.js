@@ -50,7 +50,7 @@ export default function DonePayment() {
                             <button
                                 type="button"
 
-                                className=" bg-[#C78342] text-white font-medium rounded shadow-md hover:bg-[#805336] hover:shadow-l focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#C78342] active:shadow-lg transition duration-150 ease-in-out h-8 w-48"
+                                className="  text-[#C78342] font-medium rounded shadow-md hover:bg-[#805336] hover:border-[#805336] hover:text-white border-2 border-[#C78342] hover:shadow-l focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#C78342] active:shadow-lg transition duration-150 ease-in-out h-8 w-48"
                             >
                                 Show Invoice
                             </button>

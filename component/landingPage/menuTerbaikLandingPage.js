@@ -50,9 +50,9 @@ export default function MenuTerbaikLandingPage() {
     console.log(productSatu, 'ini product satu yang terbaik');
 
     return (
-        <div className='bg-[#004349]'>
+        <div className='bg-white'>
 
-            <h3 className="text-center font-medium text-white text-xl py-4">Menu Terbaik Kami</h3>
+            <h3 className="text-center font-medium text-black text-xl">Menu Terbaik Kami</h3>
             <div>
                 {/* {dataProduct.map((menu) => {
                     console.log(menu, "jajajajajaj");
@@ -60,7 +60,7 @@ export default function MenuTerbaikLandingPage() {
                 <Carousel autoplaySpeed={0}>
                     <div>
                         <div style={styleCarousel}>
-                            <Row justify="center space-x-5" className="bg-[#004349] mb-10">
+                            <Row justify="center space-x-5" className="bg-white mb-10">
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
@@ -85,7 +85,7 @@ export default function MenuTerbaikLandingPage() {
                                         <div className="p-2">
                                             <Row justify='start'>
                                                 <Col>
-                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
+                                                    <h5 className="text-black text-l font-medium mb-4 border-b-2 border-gray-400 w-64 mx-auto">
                                                         {productSatu?.name}
                                                     </h5>
 
@@ -93,8 +93,8 @@ export default function MenuTerbaikLandingPage() {
                                             </Row>
                                             <Row justify='center'>
                                                 <Col span={12}>
-                                                    <p className="text-gray-300 text-base mb-6">
-                                                        {productSatu?.price}
+                                                    <p className="text-black text-base mb-6">
+                                                        Rp. {productSatu?.price}
                                                     </p>
 
                                                 </Col>
@@ -139,7 +139,7 @@ export default function MenuTerbaikLandingPage() {
                                         <div className="p-2">
                                             <Row justify='start'>
                                                 <Col>
-                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
+                                                    <h5 className="text-black text-l font-medium mb-4 border-b-2 border-gray-400 w-64 mx-auto">
                                                         {productDua?.name}
                                                     </h5>
 
@@ -147,8 +147,8 @@ export default function MenuTerbaikLandingPage() {
                                             </Row>
                                             <Row justify='center'>
                                                 <Col span={12}>
-                                                    <p className="text-gray-300 text-base mb-6">
-                                                        {productDua?.price}
+                                                    <p className="text-black text-base mb-6">
+                                                        Rp. {productDua?.price}
                                                     </p>
 
                                                 </Col>
@@ -193,7 +193,7 @@ export default function MenuTerbaikLandingPage() {
                                         <div className="p-2">
                                             <Row justify='start'>
                                                 <Col>
-                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
+                                                    <h5 className="text-black text-l font-medium mb-4 border-b-2 border-gray-400 w-64 mx-auto">
                                                         {productTiga?.name}
                                                     </h5>
 
@@ -201,8 +201,8 @@ export default function MenuTerbaikLandingPage() {
                                             </Row>
                                             <Row justify='center'>
                                                 <Col span={12}>
-                                                    <p className="text-gray-300 text-base mb-6">
-                                                        {productTiga?.price}
+                                                    <p className="text-black text-base mb-6">
+                                                        Rp. {productTiga?.price}
                                                     </p>
 
                                                 </Col>
@@ -228,7 +228,7 @@ export default function MenuTerbaikLandingPage() {
                     </div>
                     <div>
                         <div style={styleCarousel}>
-                            <Row justify="center space-x-5" className="bg-[#004349] mb-10">
+                            <Row justify="center space-x-5" className="bg-white mb-10">
                                 <Col lg={{ span: 5 }}
                                     md={{ span: 5 }}
                                     sm={{ span: 20 }}
@@ -253,7 +253,7 @@ export default function MenuTerbaikLandingPage() {
                                         <div className="p-2">
                                             <Row justify='start'>
                                                 <Col>
-                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
+                                                    <h5 className="text-black text-l font-medium mb-4 border-b-2 border-gray-400 w-64 mx-auto">
                                                         {productEmpat?.name}
                                                     </h5>
 
@@ -261,8 +261,8 @@ export default function MenuTerbaikLandingPage() {
                                             </Row>
                                             <Row justify='center'>
                                                 <Col span={12}>
-                                                    <p className="text-gray-300 text-base mb-6">
-                                                        {productEmpat?.price}
+                                                    <p className="text-black text-base mb-6">
+                                                        Rp.  {productEmpat?.price}
                                                     </p>
 
                                                 </Col>
@@ -307,7 +307,7 @@ export default function MenuTerbaikLandingPage() {
                                         <div className="p-2">
                                             <Row justify='start'>
                                                 <Col>
-                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
+                                                    <h5 className="text-black text-l font-medium mb-4 border-b-2 border-gray-400 w-64 mx-auto">
                                                         {productLima?.name}
                                                     </h5>
 
@@ -315,7 +315,7 @@ export default function MenuTerbaikLandingPage() {
                                             </Row>
                                             <Row justify='center'>
                                                 <Col span={12}>
-                                                    <p className="text-gray-300 text-base mb-6">
+                                                    <p className="text-black text-base mb-6">
                                                         {productLima?.price}
                                                     </p>
 
@@ -361,7 +361,7 @@ export default function MenuTerbaikLandingPage() {
                                         <div className="p-2">
                                             <Row justify='start'>
                                                 <Col>
-                                                    <h5 className="text-white text-l font-medium mb-4 border-b-2 w-64 mx-auto">
+                                                    <h5 className="text-black text-l font-medium mb-4 border-b-2 border-gray-400 w-64 mx-auto">
                                                         {productEnam?.name}
                                                     </h5>
 
@@ -369,7 +369,7 @@ export default function MenuTerbaikLandingPage() {
                                             </Row>
                                             <Row justify='center'>
                                                 <Col span={12}>
-                                                    <p className="text-gray-300 text-base mb-6">
+                                                    <p className="text-black text-base mb-6">
                                                         {productEnam?.price}
                                                     </p>
 
