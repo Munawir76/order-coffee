@@ -145,6 +145,7 @@ export default function DetailMenu() {
                                     return (
                                         <>
                                             <h3 className='text-black'>Diskon {data?.discount.toFixed(2) * 100 + '%'}</h3><Space className="font-extrabold text-[#805336] ml-2"></Space>
+                                            {/* <h3>{hitung}</h3> */}
                                         </>
                                     )
                                 })
@@ -164,23 +165,6 @@ export default function DetailMenu() {
                             <div className="flex justify-center ml-4">
                                 <Form.Item name='status'>
                                     <h3 className="text-base text-center">Quantity</h3>
-                                    {/* <Select
-                                        className='hover: bg-[#805336] active:bg-[#805336]'
-                                        placeholder="Masukan jumlah menu"
-                                        style={{
-                                            width: 115,
-                                            borderBlockColor: "rgba(140, 79, 5, 0.8)"
-                                        }}
-                                        onChange={OnChangeAmounMenu}
-                                        value={amount}
-                                    >
-                                        <Option value='1' >1</Option>
-                                        <Option value='2'>2</Option>
-                                        <Option value="3" >3</Option>
-                                        <Option value='4'>4</Option>
-                                        <Option value='5'>5</Option>
-                                    </Select> */}
-
                                     <InputNumber min={0} max={10} onChange={OnChangeAmounMenu} value={amount} />
                                 </Form.Item>
                             </div>

@@ -75,7 +75,6 @@ export default function Invoice() {
 
                         }}
                     >
-                        {/* <h1 className="text-center text-lg font-semibold text-orange-700 py-10">INVOICE</h1> */}
                         <Row className="justify-center" align="middle">
                             <Col span={8} offset={1}>
                                 <Image src={logo} height={70} width={110} style={{}} />
@@ -88,7 +87,6 @@ export default function Invoice() {
                             </Col>
                         </Row>
                         <div className="border-b-2 border-black w-4/5 mt-4 mx-auto"></div>
-                        {/* <hr className="border-black ml-40 mt-4 w-4/5" /> */}
                         <Row className="justify-center  py-4">
                             <Col span={8} offset={1}>
                                 <h4>Invoice issued for :</h4>
@@ -97,9 +95,9 @@ export default function Invoice() {
 
                             </Col>
                             <Col span={8} offset={1} className="text-end">
-                                <h4 className="text-base font-bold">Invoice #: <Space>disini apa ya?</Space></h4>
-                                <h4>Payment Date: <Space>disini apa ya?</Space></h4>
-                                <h4>Invoice Date: <Space>disini apa ya?</Space></h4>
+                                <Space> <h4 className="text-base font-bold">Invoice : </h4><h4 className="text-sm font-normal">{dataSelected?.id.slice(0, 7).toUpperCase()}</h4></Space>
+                                <h4>Payment Date: <Space>{dataSelected?.create_at.slice(0, 10)}</Space></h4>
+                                <h4>Invoice Date: <Space>{dataSelected?.create_at.slice(0, 10)}</Space></h4>
                             </Col>
                         </Row>
                         <Row justify="center">
@@ -166,7 +164,7 @@ export default function Invoice() {
                             </Col>
                             <Col span={8} offset={1} className="text-end mt-5">
                                 {/* <h2>Total :<Space>{dataSelected?.user?.cart?.map((data) => { return (data?.price * data?.price) })}</Space></h2> */}
-                                <h2>Total Diskon :<Space>disini total</Space></h2>
+                                {/* <h2>Total Diskon :<Space>disini total</Space></h2> */}
                                 <h2>Sub Total : <Space className="font-bold">{rupiah(dataSelected?.finalPrice)}</Space></h2>
                             </Col>
                         </Row>

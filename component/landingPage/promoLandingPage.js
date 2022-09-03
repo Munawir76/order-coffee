@@ -5,9 +5,6 @@ import { Carousel, Row, Col, ConfigProvider } from 'antd';
 import { CalendarTwoTone } from '@ant-design/icons';
 import Image from 'next/image';
 import bg from '../../public/images/bgdua.jpg'
-import Promo1 from '../../public/images/promo1.jpg'
-import Promo2 from '../../public/images/promo2.jpg'
-import Promo3 from '../../public/images/promo3.jpg'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
@@ -76,7 +73,7 @@ export default function Promo() {
                                         style={{ borderRadius: 10 }} />
                                     <Col span={24} offset={1}>
                                         <h2 className="text-gray-900 text-base font-medium mb-2">
-                                            Promo  {promoSatu?.name} {promoSatu?.discount.toFixed(2) * 100 + '%'}
+                                            Promo  {promoSatu?.name} {promoSatu?.discount?.toFixed(2) * 100 + '%'}
                                         </h2>
                                     </Col>
                                     <Row className=''>

@@ -2,11 +2,12 @@ import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
 import Link from 'next/link';
-import { Col, Button, Row } from 'antd';
+import { Col, Button, Row, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
+const { Search } = Input;
 
 export default function ListMenu() {
 
@@ -41,16 +42,50 @@ export default function ListMenu() {
         }
     }
 
+    const onSearch = (value) => {
+        console.log(value, 'ini value search');
+        axios.get(`https://ordercoffee-app.herokuapp.com/menu/search/${value}`).then(res => {
+            if (res.status == 200 || res.status == 201) {
+                setDataProduct([res.data])
+                console.log(res, 'ini hasil search')
+            } else if (res.status == 400 || res.status == 404) {
+                setDataProduct(null)
+                getDataProduct()
+            }
+
+        })
+
+    };
+
     useEffect(() => {
         getDataProduct()
         getDataPromo()
     }, [])
 
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
+
     return (
         <div >
-            <Row align='middle' justify='center' style={{ height: "30vh" }}>
-                <Col>
-                    <h3 className=" text-end font-medium text-black text-xl mt-24">Menu</h3>
+            <Row align='middle' justify='center' className='border-2 border-white mb-10' style={{ height: "10vh", marginTop: 90, width: 1000, marginLeft: 180, borderRadius: 12, backgroundColor: 'white', }} >
+                <Col span={7}>
+                    <h3 className=" font-medium  text-black text-lg">Cari menu yang kamu suka</h3>
+                </Col>
+                <Col span={7} className="ml-60">
+                    <Search
+                        placeholder="Search Product"
+                        allowClear
+                        enterButton
+
+                        size="large"
+                        type="text"
+                        onSearch={onSearch}
+
+                    />
                 </Col>
             </Row>
             <Row className="bg-[#fff] mb-16 align-middle justify-center flex gap-10 ">
@@ -84,7 +119,7 @@ export default function ListMenu() {
                                                     {menu?.name}
                                                 </h5>
                                                 <p className="text-gray-700 text-base mb-4">
-                                                    Rp. {menu?.price}
+                                                    {rupiah(menu?.price)}
                                                 </p>
                                             </Col>
                                             <Col span={10} offset={1}>

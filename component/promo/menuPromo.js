@@ -83,7 +83,7 @@ export default function MenuPromo() {
                                         </a>
                                         <Col span={24} offset={1}>
                                             <h2 className="text-gray-900 text-base font-medium mb-2">
-                                                Promo  {promo?.name} {promo?.discount}
+                                                Promo  {promo?.name} {promo?.discount?.toFixed(2) * 100 + '%'}
                                             </h2>
                                         </Col>
                                         <Row className=''>

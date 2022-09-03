@@ -49,14 +49,18 @@ export default function MenuTerbaikLandingPage() {
     }, [])
     console.log(productSatu, 'ini product satu yang terbaik');
 
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
+
     return (
         <div className='bg-white'>
 
             <h3 className="text-center font-medium text-black text-xl">Menu Terbaik Kami</h3>
             <div>
-                {/* {dataProduct.map((menu) => {
-                    console.log(menu, "jajajajajaj");
-                    return ( */}
                 <Carousel autoplaySpeed={0}>
                     <div>
                         <div style={styleCarousel}>
@@ -94,7 +98,7 @@ export default function MenuTerbaikLandingPage() {
                                             <Row justify='center'>
                                                 <Col span={12}>
                                                     <p className="text-black text-base mb-6">
-                                                        Rp. {productSatu?.price}
+                                                        {rupiah(productSatu?.price)}
                                                     </p>
 
                                                 </Col>
@@ -148,7 +152,7 @@ export default function MenuTerbaikLandingPage() {
                                             <Row justify='center'>
                                                 <Col span={12}>
                                                     <p className="text-black text-base mb-6">
-                                                        Rp. {productDua?.price}
+                                                        {rupiah(productDua?.price)}
                                                     </p>
 
                                                 </Col>
@@ -202,7 +206,7 @@ export default function MenuTerbaikLandingPage() {
                                             <Row justify='center'>
                                                 <Col span={12}>
                                                     <p className="text-black text-base mb-6">
-                                                        Rp. {productTiga?.price}
+                                                        {rupiah(productTiga?.price)}
                                                     </p>
 
                                                 </Col>
@@ -262,7 +266,7 @@ export default function MenuTerbaikLandingPage() {
                                             <Row justify='center'>
                                                 <Col span={12}>
                                                     <p className="text-black text-base mb-6">
-                                                        Rp.  {productEmpat?.price}
+                                                        {rupiah(productEmpat?.price)}
                                                     </p>
 
                                                 </Col>
@@ -316,7 +320,7 @@ export default function MenuTerbaikLandingPage() {
                                             <Row justify='center'>
                                                 <Col span={12}>
                                                     <p className="text-black text-base mb-6">
-                                                        {productLima?.price}
+                                                        {rupiah(productLima?.price)}
                                                     </p>
 
                                                 </Col>
@@ -370,7 +374,7 @@ export default function MenuTerbaikLandingPage() {
                                             <Row justify='center'>
                                                 <Col span={12}>
                                                     <p className="text-black text-base mb-6">
-                                                        {productEnam?.price}
+                                                        {rupiah(productEnam?.price)}
                                                     </p>
 
                                                 </Col>

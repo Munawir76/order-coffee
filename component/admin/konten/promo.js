@@ -23,6 +23,10 @@ function columns(deleteModal, imageModal) {
             title: 'Diskon',
             dataIndex: 'discount',
             key: 'discount',
+            render: (record) => {
+                const convert = record.toFixed(2) * 100 + '%'
+                return convert
+            }
         },
         {
             title: 'Status',
@@ -548,7 +552,10 @@ export default function KontenPromo() {
                 </Row>
                 <Row justify="center" align="start" className='h-96 mt-4 '>
                     <Col lg={{ span: 20 }} md={{ span: 22 }} sm={{ span: 22 }} xs={{ span: 24 }} >
-                        <Table columns={columns(deleteModal, imageModal)} dataSource={dataPromo} />
+                        <Table columns={columns(deleteModal, imageModal)} dataSource={dataPromo}
+                            scroll={{
+                                y: 240,
+                            }} />
                     </Col>
                 </Row>
             </Content>

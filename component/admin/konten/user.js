@@ -209,6 +209,9 @@ export default function KontenUsers() {
                         <Table columns={columns(deleteModal)} dataSource={dataUser}
                             pagination={pagination}
                             onChange={handleTableChange}
+                            scroll={{
+                                y: 240,
+                            }}
                             className="shadow-sm"
                         />
                     </Col>

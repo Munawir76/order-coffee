@@ -55,6 +55,12 @@ export default function MenuFavorit() {
     }, [])
     console.log(productSatu, 'ini product satu');
 
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
 
     return (
         <div>
@@ -92,7 +98,7 @@ export default function MenuFavorit() {
                                                         {productSatu?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        {productSatu?.price}
+                                                        {rupiah(productSatu?.price)}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -140,7 +146,7 @@ export default function MenuFavorit() {
                                                         {productDua?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        {productDua?.price}
+                                                        {rupiah(productDua?.price)}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -188,7 +194,7 @@ export default function MenuFavorit() {
                                                         {productTiga?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        {productTiga?.price}
+                                                        {rupiah(productTiga?.price)}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -242,7 +248,7 @@ export default function MenuFavorit() {
                                                         {productEmpat?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        {productEmpat?.price}
+                                                        {rupiah(productEmpat?.price)}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -290,7 +296,7 @@ export default function MenuFavorit() {
                                                         {productLima?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        {productLima?.price}
+                                                        {rupiah(productLima?.price)}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>
@@ -338,7 +344,7 @@ export default function MenuFavorit() {
                                                         {productEnam?.name}
                                                     </h5>
                                                     <p className="text-gray-700 text-base mb-4">
-                                                        {productEnam?.price}
+                                                        {rupiah(productEnam?.price)}
                                                     </p>
                                                 </Col>
                                                 <Col span={10} offset={1}>

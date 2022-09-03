@@ -26,15 +26,24 @@ const columns = (deleteModal, approveModal, imageModal) => {
             title: 'Total Harga',
             dataIndex: 'finalPrice',
             key: 'finalPrice',
+            render: (render) => {
+                const rupiah = (number) => {
+                    return new Intl.NumberFormat("id-ID", {
+                        style: "currency",
+                        currency: "IDR"
+                    }).format(number);
+                }
+                return (rupiah(render))
+            }
         },
         {
             title: 'Tanggal Transaksi',
             dataIndex: 'create_at',
             key: 'create_at',
-            // render: (dataIndex) => {
-            //     const slice = dataIndex;
-            //     slice.slice(0, 9)
-            // }
+            render: (record) => {
+                const potong = record.slice(0, 10)
+                return potong
+            }
         },
         {
             title: 'Cek Pembayaran',
@@ -61,11 +70,11 @@ const columns = (deleteModal, approveModal, imageModal) => {
                     )
                 } else if (tags.status === 'Menunggu Pengecekan') {
                     return (
-                        <Tag color="yellow" > {tags.status}</Tag>
+                        <Tag color="yellow" >Menunggu Pengecekan</Tag>
                     )
                 } else if (tags.status === "Sukses") {
                     return (
-                        <Tag color='green'>{tags.status}</Tag>
+                        <Tag color='green'>Pembayaran Berhasil</Tag>
                     )
                 }
             }
@@ -114,7 +123,7 @@ export default function KontenTransaksi() {
 
     const [pagination, setPagination] = useState({
         current: 1,
-        pageSize: 4,
+        pageSize: 10,
     });
 
     //approve
@@ -255,6 +264,10 @@ export default function KontenTransaksi() {
                         <Table columns={columns(deleteModal, approveModal, imageModal)} dataSource={dataTransaksi}
                             pagination={pagination}
                             onChange={handleTableChange}
+                            scroll={{
+                                y: 240,
+                            }}
+                            className="shadow-sm"
                         />
                     </Col>
                 </Row>

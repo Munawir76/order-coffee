@@ -3,7 +3,7 @@ import MainLayoutUser from '../../component/mainLayotUser'
 import { useRouter } from "next/router";
 import 'antd/dist/antd.variable.min.css'
 import 'antd/dist/antd.css'
-import { DownloadOutlined, CloseCircleOutlined, InfoCircleOutlined } from '@ant-design/icons'
+import { DownloadOutlined, CheckCircleOutlined, InfoCircleOutlined, CloseSquareOutlined, SnippetsOutlined, EyeOutlined, CreditCardOutlined, DeleteOutlined } from '@ant-design/icons'
 import { Space, Tooltip, Row, Col, Table, Button, Tag, Modal, message, ConfigProvider } from 'antd';
 import axios from "axios";
 import jwt_decode from "jwt-decode"
@@ -51,6 +51,10 @@ const columns = (deleteModal, suksesModal, waitModal) => {
             title: 'Tanggal Transaksi',
             dataIndex: 'create_at',
             key: 'create_at',
+            render: (record) => {
+                const potong = record.slice(0, 10)
+                return potong
+            }
         },
         {
             title: 'Status Pembayaran',
@@ -65,11 +69,11 @@ const columns = (deleteModal, suksesModal, waitModal) => {
                         )
                     } else if (tags.status === 'Menunggu Pengecekan') {
                         return (
-                            <Tag color="blue" > {tags.status}</Tag>
+                            <Tag color="blue" >Sedang diverifikasi</Tag>
                         )
                     } else if (tags.status === "Sukses") {
                         return (
-                            <Tag color='green'>{tags.status}</Tag>
+                            <Tag color='green'>Pembayaran Berhasil</Tag>
                         )
                     }
 
@@ -89,33 +93,56 @@ const columns = (deleteModal, suksesModal, waitModal) => {
 
                     if (tags.status === 'Menunggu Pembayaran') {
                         return (<>
-                            <Link href={`/cartDetail/${tags.id}`} >
-                                <Button className="mr-5" style={{ color: 'blue', borderColor: "blue" }}>Bayar</Button>
-                            </Link>
-                            <Button
-                                type="danger"
-                                danger={true}
-                                onClick={() => deleteModal(tags?.id)}
-                            >Cancel
-                            </Button>
+                            <Tooltip placement="right" title="bayar">
+                                <Link href={`/cartDetail/${tags.id}`} >
+                                    <Button className="mr-2" style={{ color: 'blue', borderColor: "blue" }}
+                                        icon={<CreditCardOutlined />}></Button>
+                                </Link>
+                            </Tooltip>
+                            <Tooltip placement="right" title="cancel">
+                                <Button
+                                    type="danger"
+                                    danger={true}
+                                    onClick={() => deleteModal(tags?.id)}
+                                    icon={<CloseSquareOutlined />}
+                                >
+                                </Button>
+                            </Tooltip>
                         </>
                         )
                     }
                     else if (tags.status === 'Menunggu Pengecekan') {
                         return (
-                            // <Link href={`/donePayment/`} >
-                            <Button className="mr-5" style={{ color: 'rgba(168, 109, 15, 0.8)', borderColor: 'rgba(168, 109, 15, 0.8)' }} onClick={() => waitModal(tags?.id)} >Detail</Button>
-                            // </Link>
+                            <Tooltip placement="right" title="detail">
+                                <Button className="mr-2" style={{ color: 'rgba(168, 109, 15, 0.8)', borderColor: 'rgba(168, 109, 15, 0.8)' }}
+                                    icon={<EyeOutlined />}
+                                    onClick={() => waitModal(tags?.id)}></Button>
+                            </Tooltip>
                         )
                     } else if (tags.status === "Sukses") {
                         return (
                             <>
-                                {/* <Link href={`/donePayment/`} > */}
-                                <Button className="mr-5" style={{ color: 'rgba(168, 109, 15, 0.8)', borderColor: 'rgba(168, 109, 15, 0.8)' }} onClick={() => suksesModal(tags?.id)}>Detail</Button>
-                                {/* </Link> */}
-                                <Link href={`/invoice/${tags?.id}`} >
-                                    <Button className="mr-5" style={{ color: 'green', borderColor: "green" }}>Invoice</Button>
-                                </Link>
+                                <Tooltip placement="right" title="detail">
+                                    <Button className="mr-2" style={{ color: 'rgba(168, 109, 15, 0.8)', borderColor: 'rgba(168, 109, 15, 0.8)' }}
+                                        icon={<EyeOutlined />}
+                                        onClick={() => suksesModal(tags?.id)}></Button>
+                                </Tooltip>
+                                <Tooltip placement="right" title="invoice">
+                                    <Link href={`/invoice/${tags?.id}`} >
+                                        <Button className="mr-2" style={{ color: 'green', borderColor: "green" }}
+                                            icon={<SnippetsOutlined />}></Button>
+                                    </Link>
+                                </Tooltip>
+                                <Tooltip placement="right" title="delete">
+                                    <Button
+                                        type="danger"
+                                        danger={true}
+                                        // style={{ backgroundColor: '' }}
+                                        onClick={() => deleteModal(tags?.id)}
+                                        icon={<DeleteOutlined />}>
+                                    </Button>
+                                </Tooltip>
+
                             </>
                         )
                     }
@@ -290,7 +317,7 @@ export default function Transaksi() {
                         <div >
                             <Row flex justify="center">
                                 <Col className="text-center space-y-4">
-                                    <div style={{ fontSize: '65pt', color: '#rgba(41, 176, 39, 0.8)', }}> <CloseCircleOutlined /></div>
+                                    <div style={{ fontSize: '65pt', color: 'green', }}> <CheckCircleOutlined /></div>
                                     <h2 className="font-bold text-lg">Pembayaran Anda Berhasil</h2>
                                     <h3 style={{ marginBottom: 50 }}>Terimakasih telah melakukan Pembayaran. Selamat Menikmati Coffee Kami.</h3>
                                 </Col>

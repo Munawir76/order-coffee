@@ -25,6 +25,15 @@ function columns(deleteModal, editModal) {
             title: 'Harga',
             dataIndex: 'price',
             key: 'price',
+            render: (render) => {
+                const rupiah = (number) => {
+                    return new Intl.NumberFormat("id-ID", {
+                        style: "currency",
+                        currency: "IDR"
+                    }).format(number);
+                }
+                return (rupiah(render))
+            }
         },
         {
             title: 'Status',
@@ -121,7 +130,7 @@ export default function KontenProduct() {
     //pagenation
     const [pagination, setPagination] = useState({
         current: 1,
-        pageSize: 4,
+        pageSize: 10,
     });
 
     console.log(pagination, 'ini page product')
@@ -195,7 +204,6 @@ export default function KontenProduct() {
         setFotoProduct(value)
     }
 
-
     const showModalAddProduct = () => {
         setVisibleAddProduct(true);
     };
@@ -226,8 +234,6 @@ export default function KontenProduct() {
             setVisibleDelete(false)
         }
     };
-
-
 
     async function getDataProduct(params = {}) {
         try {
@@ -353,7 +359,7 @@ export default function KontenProduct() {
         setEditFoto(value)
     }
     const editModal = (record) => {
-        // console.log(record, 'ini record')
+        console.log(record, 'ini record')
         if (record) {
             setDataSelected(record);
             setVisibleEditProduct(true);
@@ -627,6 +633,9 @@ export default function KontenProduct() {
                         <Table columns={columns(deleteModal, editModal)} dataSource={dataProduct}
                             pagination={pagination}
                             onChange={handleTableChange}
+                            scroll={{
+                                y: 240,
+                            }}
                             className="shadow-sm" />
 
 

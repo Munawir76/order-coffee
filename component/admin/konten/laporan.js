@@ -21,41 +21,55 @@ const columns = () => {
                 )
             }
         },
+        // {
+        //     title: 'Product',
+        //     dataIndex: 'finalPrice',
+        //     key: 'finalPrice',
+
+        // },
         {
-            title: 'Product',
-            dataIndex: 'finalPrice',
-            key: 'finalPrice',
-        },
-        {
-            title: 'Total Harga',
+            title: 'Total Pembayaran',
             dataIndex: 'totalPrice',
             key: 'totalPrice',
+            render: (render) => {
+                const rupiah = (number) => {
+                    return new Intl.NumberFormat("id-ID", {
+                        style: "currency",
+                        currency: "IDR"
+                    }).format(number);
+                }
+                return (rupiah(render))
+            }
         },
         {
             title: 'Tanggal Transaksi',
             dataIndex: 'create_at',
             key: 'create_at',
-        },
-        {
-            title: 'Status',
-            key: 'status',
-            dataIndex: 'status',
-            render: (_, tags) => {
-                if (tags.status === 'Menunggu Pembayaran') {
-                    return (
-                        <Tag color="blue">{tags.status}</Tag>
-                    )
-                } else if (tags.status === 'Menunggu Pengecekan') {
-                    return (
-                        <Tag color="yellow" > {tags.status}</Tag>
-                    )
-                } else if (tags.status === "Sukses") {
-                    return (
-                        <Tag color='green'>{tags.status}</Tag>
-                    )
-                }
+            render: (record) => {
+                const potong = record.slice(0, 10)
+                return potong
             }
         },
+        // {
+        //     title: 'Status',
+        //     key: 'status',
+        //     dataIndex: 'status',
+        //     render: (_, tags) => {
+        //         if (tags.status === 'Menunggu Pembayaran') {
+        //             return (
+        //                 <Tag color="blue">{tags.status}</Tag>
+        //             )
+        //         } else if (tags.status === 'Menunggu Pengecekan') {
+        //             return (
+        //                 <Tag color="yellow" > {tags.status}</Tag>
+        //             )
+        //         } else if (tags.status === "Sukses") {
+        //             return (
+        //                 <Tag color='green'>{tags.status}</Tag>
+        //             )
+        //         }
+        //     }
+        // },
     ];
 }
 
@@ -64,7 +78,7 @@ export default function KontenLaporan() {
     const [dataLaporan, setDataLaporan] = useState([])
     const [pagination, setPagination] = useState({
         current: 1,
-        pageSize: 4,
+        pageSize: 10,
     });
 
     async function getDataLaporan(params = {}) {
@@ -132,6 +146,9 @@ export default function KontenLaporan() {
                         <Table columns={columns()} dataSource={dataLaporan}
                             pagination={pagination}
                             onChange={handleTableChange}
+                            scroll={{
+                                y: 240,
+                            }}
                         />
                     </Col>
                 </Row>
