@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from "react"
+import { useRouter } from "next/router";
 import { useReactToPrint } from "react-to-print"
 import 'antd/dist/antd.css'
 import 'antd/dist/antd.variable.min.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
-import logo from '../public/images/logo.png'
+import logo from '../../public/images/logo.png'
+import ButtonBack from '../../component/reusable/buttonBack'
 import { Row, Col, Card, Table, Button, Space, ConfigProvider, Modal, message } from 'antd'
 import axios from "axios"
+
 
 ConfigProvider.config({
     theme: {
@@ -25,15 +28,19 @@ export default function Invoice() {
 
     const [getInvoice, setGetInvoice] = useState([])
     const [incoiceId, setInvoiceId] = useState()
+    const router = useRouter();
+    const { id } = router.query;
 
-    async function getCekTransaksi() {
+
+    async function getIdTransaksi() {
         try {
-            await axios.get(`https://ordercoffee-app.herokuapp.com/transaction/detail${incoiceId}`, {
+            await axios.get(`https://ordercoffee-app.herokuapp.com/transaction/detail`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             }).then(res => {
-                console.log(res, 'ini res get transaksi')
+                console.log(res, 'ini res get id transaksi')
+                // setInvoiceId(res.data.items)
                 setGetInvoice(res.data.items)
             })
         } catch (error) {
@@ -41,18 +48,23 @@ export default function Invoice() {
         }
     }
 
-    const router = useRouter();
-    const { id } = router.query;
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
+
     const dataSelected = getInvoice.find((data) => data.id == id);
     console.log(dataSelected, 'ini data selected')
 
+
     useEffect(() => {
-        getCekTransaksi()
+        getIdTransaksi()
     }, [])
 
     return (
         <>
-            <div className="mt-10"></div>
             <div ref={componentRef} >
                 <div className="justify-center flex py-20">
                     <Card
@@ -80,8 +92,8 @@ export default function Invoice() {
                         <Row className="justify-center  py-4">
                             <Col span={8} offset={1}>
                                 <h4>Invoice issued for :</h4>
-                                <h4 className="text-lg font-bold">disini nama</h4>
-                                <h4>disini email</h4>
+                                <h4 className="text-lg font-bold">{dataSelected?.user?.fullname}</h4>
+                                <h4>{dataSelected?.user?.email}</h4>
 
                             </Col>
                             <Col span={8} offset={1} className="text-end">
@@ -91,9 +103,9 @@ export default function Invoice() {
                             </Col>
                         </Row>
                         <Row justify="center">
-                            <Col span={21} offset={1}>
+                            <Col span={18} offset={1}>
                                 <table className="">
-                                    <thead className="border-b text-center border-t border-r border-l">
+                                    <thead className="text-center">
                                         <tr className=''>
                                             <th
                                                 scope="col"
@@ -109,7 +121,7 @@ export default function Invoice() {
                                             </th>
                                             <th
                                                 scope="col"
-                                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                                className="text-sm font-medium text-gray-900 px-16 py-4 text-left"
                                             >
                                                 Quantity
                                             </th>
@@ -119,52 +131,43 @@ export default function Invoice() {
                                             >
                                                 Total
                                             </th>
-
                                         </tr>
                                     </thead>
-                                    {/* {mapped.map((data) => {
+                                    {dataSelected?.user?.cart?.map((data) => {
+                                        return (
+                                            <tbody className="text-center">
+                                                <tr className="bg-white" >
+                                                    <td className="px-6 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                        <div className="flex justify-start">
+                                                            <h4>{dataSelected?.user?.fullname}</h4>
+                                                        </div>
+                                                    </td>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        <h4>{data?.menu?.name}</h4>
+                                                    </td>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        <h4>{data?.amount}</h4>
+                                                    </td>
+                                                    <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap ">
+                                                        <h4>{rupiah(data?.price)}</h4>
+                                                    </td>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        )
+                                    })}
 
-                            return ( */}
-
-                                    <tbody className="border-b text-center border-t border-r border-l">
-                                        <tr className="bg-white" >
-                                            <td className="px-6 whitespace-nowrap text-sm font-medium text-gray-900">
-
-                                                <div className="flex justify-start">
-
-                                                    <h4>Rizky Bramantio</h4>
-                                                </div>
-                                            </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                <h4>RedValvet, Latte Art, Vietnam drip</h4> {/* {data?.price} */}
-                                            </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                <h4>7</h4> {/* {data?.amount} */}
-                                            </td>
-                                            <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap ">
-                                                <h4>Rp. 80.000</h4> {/* {data?.price * data?.amount} */}
-                                            </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-
-
-
-                                    {/* )
-                        })} */}
                                 </table>
                             </Col>
                         </Row>
                         <Row>
                             <Col span={12}>
-
                             </Col>
-                            <Col span={8} offset={1} className="text-end">
-                                <h2>Total :<Space>disini total</Space></h2>
+                            <Col span={8} offset={1} className="text-end mt-5">
+                                {/* <h2>Total :<Space>{dataSelected?.user?.cart?.map((data) => { return (data?.price * data?.price) })}</Space></h2> */}
                                 <h2>Total Diskon :<Space>disini total</Space></h2>
-                                <h2>Sub Total :<Space className="font-bold">disini total</Space></h2>
+                                <h2>Sub Total : <Space className="font-bold">{rupiah(dataSelected?.finalPrice)}</Space></h2>
                             </Col>
                         </Row>
                         <Row>
@@ -173,14 +176,19 @@ export default function Invoice() {
 
                             </Col>
                         </Row>
-                        {/* <Row>
-                            <Col>
-                            <h4></h4></Col>
-                        </Row> */}
                     </Card>
                 </div>
             </div>
-            <Button onClick={handlePrint}>Print</Button>
+            <Row flex justify="center" className="gap-5 -mt-10 ">
+                <Col>
+                    <ButtonBack />
+                </Col>
+                <Col className="mb-20">
+                    <Button style={{ backgroundColor: 'rgba(168, 109, 15, 0.8)' }} type='primary' onClick={handlePrint}>Print</Button>
+                </Col>
+            </Row>
+
+
 
         </>
     )

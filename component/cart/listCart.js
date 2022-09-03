@@ -21,16 +21,15 @@ export default function ListCart() {
 
     // get cart
     const [dataCart, setDataCart] = useState([])
-    const [paymentId, setPaymentId] = useState('')
     const [userId, setUserId] = useState('')
     const [keranjang, setKeranjang] = useState([])
-    const [totalPrice, setTotalPrice] = useState()
     //delete
     const [deleteId, setDeleteId] = useState()
     const [visibleDelete, setVisibleDelete] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const router = useRouter()
     // const [isData, setIsData] = useState(true)
+    // const [subTotal, setSubTotal] = useState()
 
     async function getDataCart() {
         try {
@@ -62,7 +61,6 @@ export default function ListCart() {
                 }
             })
 
-
         } catch (error) {
             // console.log(error, 'ini error cart')
         }
@@ -75,15 +73,24 @@ export default function ListCart() {
         // getDataUser()
         getDataCart()
     }, [])
-    // console.log(dataCart, "ini data cart");
+
     const mapped = dataCart.map((data) => {
         const filterFind = keranjang.find((menu) => menu?.id == data?.id)
         return filterFind
     })
 
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
 
-    // console.log(subTotal, 'ini subtotal')
-    // console.log(mapped, "ini mapped");
+
+
+    // console.log(subTotal, 'ini subtotal');
+
+
     const dataMenuCart = () => {
         if (mapped[0]?.id) {
             return (
@@ -101,7 +108,7 @@ export default function ListCart() {
                                     scope="col"
                                     className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                                 >
-                                    Price
+                                    Harga
                                 </th>
                                 <th
                                     scope="col"
@@ -138,13 +145,13 @@ export default function ListCart() {
                                             </div>
                                         </td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {data?.price}
+                                            {rupiah(data?.price)}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {data?.amount}
                                         </td>
                                         <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap ">
-                                            {data?.price * data?.amount}
+                                            {rupiah(data?.price * data?.amount)}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             <Button onClick={() => deleteModal(data?.id)} icon={<DeleteOutlined />} type='danger' danger={true}></Button>
@@ -175,7 +182,7 @@ export default function ListCart() {
                                 scope="col"
                                 className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                             >
-                                Price
+                                Harga
                             </th>
                             <th
                                 scope="col"
@@ -207,12 +214,6 @@ export default function ListCart() {
         }
     }
 
-    // delete
-    const id = mapped.map((data) => {
-        const idData = [data?.id]
-        return idData
-    })
-    // console.log(id, "ini dari mapped delete");
 
     const handleOkModalDelete = () => {
         axios.delete(`https://ordercoffee-app.herokuapp.com/cart/${deleteId}`).then(res => {
@@ -222,6 +223,7 @@ export default function ListCart() {
         setTimeout(() => {
             setVisibleDelete(false);
             setConfirmLoading(false);
+            getDataCart()
             message.success("Delete successfull")
             message.success("Delete successfull")
         }, 2000);
@@ -252,10 +254,10 @@ export default function ListCart() {
             }).reduce((prev, current) => {
                 return prev + current
             })
+
             // console.log(hitung)
             const sentCart = {
                 totalPrice: hitung,
-                payment_id: paymentId,
                 user_id: userId
             }
 
@@ -266,11 +268,11 @@ export default function ListCart() {
                     "Content-Type": 'application/json   ',
                 }
             }).then(res => {
-                console.log(res, 'ini res post')
+                console.log(res.data.data, 'ini res post')
                 if (res.status == 200 || res.status == 201) {
+                    localStorage.setItem('idCart', res.data.data.id)
                     message.success("Selamat Transaksi Anda telah sukses")
                     message.success("Selamat Transaksi Anda telah sukses")
-
                     router.push(`/transaksi/${userId}`)
                 }
             })
@@ -282,6 +284,18 @@ export default function ListCart() {
 
         }
     }
+
+
+    // const total = mapped.map((data) => {
+    //     const nilai = data?.price * data?.amount
+    //     return nilai
+    // }).reduce((prev, current) => {
+    //     return prev + current
+    // })
+
+    // setSubTotal(total)
+
+    // console.log(subTotal, 'ini subtotaal');
 
     return (
         <div className='min-h-screen pt-14 ml-40 mt-5' style={{ position: "relative" }}>
@@ -305,9 +319,10 @@ export default function ListCart() {
                             </div>
                         </div>
 
-                        <Row className="flex justify-end mr-48 mt-4">
+                        <Row className="flex justify-end mr-52 mt-4">
                             <Col >
-                                {/* <h3>Sub-total<Space> Rp.{keranjang.map((data) => { return (data?.price * data?.amount) })} </Space></h3> */}
+                                {/* <h3 className='text-base'>Sub-total : <span className='text-base font-semibold'>{rupiah(subTotal)}
+                                </span></h3> */}
                             </Col>
                         </Row>
                         <Row className="flex justify-end">

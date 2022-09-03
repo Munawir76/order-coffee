@@ -4,12 +4,11 @@ import Link from 'next/link'
 import MainLayoutUser from '../../component/mainLayotUser'
 import { Row, Col, Card, Input, ConfigProvider, Upload, Button, message } from 'antd'
 import Image from 'next/image'
-import Product1 from '../../public/images/kopisusu.jpg'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import SkeletonImage from 'antd/lib/skeleton/Image'
 import { UploadOutlined } from '@ant-design/icons';
+import jwt_decode from 'jwt-decode'
 
 const { TextArea } = Input
 
@@ -31,13 +30,15 @@ export default function CartAuth() {
 
     async function getCartToPay() {
         try {
-            await axios.get(`https://ordercoffee-app.herokuapp.com/transaction/detail/${id}`, {
+            const getToken = localStorage.getItem("tokenCustomer")
+            const decode = jwt_decode(getToken)
+            await axios.get(`https://ordercoffee-app.herokuapp.com/users/${decode?.id}`, {
                 headers: {
                     "Content-Type": 'application/json   ',
                 }
             }).then(res => {
-                console.log(res.data.data, 'ini res cart to pay')
-                setCartToPay(res.data.data.user.cart)
+                console.log(res, 'ini res cart to pay')
+                // setCartToPay(res.data.data.transactionDetail)
             })
         } catch (error) {
 
@@ -65,9 +66,11 @@ export default function CartAuth() {
                 }
             }).then(res => {
                 console.log(res, 'ini res put')
-                message.success('Succesfull')
+                message.success('Pembayaran Terkirim')
+                message.success('Pembayaran Terkirim')
             })
         } catch (error) {
+            console.error(error, 'ini error')
 
         }
     }
@@ -80,8 +83,8 @@ export default function CartAuth() {
         <div>
             <MainLayoutUser>
                 <div className='min-h-screen pt-14 mt-5' style={{ position: "relative" }}>
-                    <Row justify='center' flex className="gap-56">
-                        <Col span={10}>
+                    <Row justify='center' flex className="gap-56 mr-20">
+                        <Col span={9}>
                             {/* <Row className="">
                                 <Col span={12}>
                                     <h2>Name</h2>
@@ -99,7 +102,7 @@ export default function CartAuth() {
                             </Row> */}
                             <Row flex justify='start' className=''>
                                 <Col className="text-start">
-                                    <Card style={{ width: 300, height: 500, borderColor: "rgba(192, 103, 17, 0.8)", marginLeft: 150, marginTop: 10, }}>
+                                    <Card style={{ width: 500, height: 520, borderColor: "rgba(192, 103, 17, 0.8)", marginLeft: 150, marginTop: 10, }}>
                                         <h2 className="text-center text-[#C78342] font-bold">Transfer ke no Rekening berikut</h2>
                                         <div className="space-y-5 mt-5">
                                             <Input placeholder="Rek BCA" disabled={true} />
@@ -107,34 +110,28 @@ export default function CartAuth() {
                                             <Input placeholder="Rek Mandiri" disabled={true} />
                                             <Input placeholder="12-8890-0092-989-00" disabled={true} />
                                         </div>
-                                        <button
-                                            type="button"
-                                            className=" bg-[#C78342] text-white font-medium rounded shadow-md hover:bg-[#805336] hover:shadow-l focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#C78342] active:shadow-lg transition duration-150 ease-in-out w-60 h-8 ml-1 mt-16"
-                                        >
-                                            Menunggu konfirmasi Admin
-                                        </button>
-                                        <div className="mt-10">
+                                        <div className="mt-6">
                                             <h3 className="text-center text-[#C78342] font-bold">Upload Bukti Pembayaran</h3>
-                                            <div style={{ marginTop: 6 }}>
+                                            <div style={{ marginTop: 10 }} className="justify-center flex">
                                                 <Upload onChange={onChangeBuktiTrf} listType='picture' multiple={false}>
                                                     <Button icon={<UploadOutlined />}>Click to Upload</Button>
                                                 </Upload>
                                             </div>
+                                            <button
+                                                type="button"
+                                                className=" bg-[#C78342] text-white font-medium rounded shadow-md hover:bg-[#805336] hover:shadow-l focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#C78342] active:shadow-lg transition duration-150 ease-in-out w-96 h-10 mt-5 ml-8 mb-3"
+                                                onClick={payment}
+                                            >
+                                                Bayar
+                                            </button>
+                                            <a href="/cart/" className="hover:text-[#805336] text-decoration: underline text-[#805336] text-base font-semibold mt-5 ml-44" > Back to Menu</a>
                                         </div>
                                     </Card>
                                 </Col>
-                                <Col>
-
-                                </Col>
                             </Row>
-                            <Row className="pt-4 justify-center">
-                                <Col>
-                                    <a href="/cart/" className="hover:text-[#805336] text-decoration: underline text-[#805336] text-base font-semibold" > Back to Cart</a>
 
-                                </Col>
-                            </Row>
                         </Col>
-                        <Col span={10}>
+                        <Col span={9} className='mt-2'>
                             <Card style={{ width: 500, height: 520, backgroundColor: 'rgba(238, 238, 238, 0.8)', }}>
                                 {cartToPay?.map((data) => {
                                     return (
@@ -176,15 +173,7 @@ export default function CartAuth() {
 
                             </Card>
                             <Row className='mt-4'>
-                                {/* <Link href='/payment/'> */}
-                                <button
-                                    type="button"
-                                    className=" bg-[#C78342] text-white font-medium rounded shadow-md hover:bg-[#805336] hover:shadow-l focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#C78342] active:shadow-lg transition duration-150 ease-in-out w-32 h-10 ml-36"
-                                    onClick={payment}
-                                >
-                                    PAY
-                                </button>
-                                {/* </Link> */}
+
                             </Row>
                         </Col>
                     </Row>
