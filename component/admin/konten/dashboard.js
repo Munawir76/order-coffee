@@ -10,7 +10,7 @@ export default function ContentDashBoard() {
 
     const [dataProduct, setDataProduct] = useState([])
     const [dataUser, setDataUser] = useState([])
-
+    const [dataLaporan, setDataLaporan] = useState([])
 
     async function getDataProduct() {
         try {
@@ -53,9 +53,24 @@ export default function ContentDashBoard() {
         }
     }
 
+    async function getDataLaporan() {
+        try {
+            await axios.get(`https://ordercoffee-app.herokuapp.com/transaction`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(res => {
+                console.log(res, 'ini res laporan');
+                setDataLaporan(res.data.data)
+            })
 
+        } catch (error) {
+
+        }
+    }
 
     useEffect(() => {
+        getDataLaporan()
         getDataProduct()
         getDataUser()
     }, [])
@@ -63,7 +78,7 @@ export default function ContentDashBoard() {
 
     const totalProduct = dataProduct.length;
     const totalUser = dataUser.length;
-
+    const totalTransaksi = dataLaporan.length
     // const totalPendapatan = data.reduce((i, obj) => {
     //     return i + obj.jumlah;
     // }, 0);
@@ -111,7 +126,7 @@ export default function ContentDashBoard() {
                                     <h5 className="text-gray-900 text-base leading-tight font-semibold ">
                                         Total Transaksi
                                     </h5>
-                                    <Col ></Col>
+                                    <Col >{totalTransaksi}</Col>
                                 </Col>
                                 <Col style={{ fontSize: '25pt' }} className="text-white"><ShoppingOutlined /></Col>
                             </Row>

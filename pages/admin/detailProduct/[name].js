@@ -41,6 +41,12 @@ export default function DetailProduct() {
 
     console.log(dataSelected)
 
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
     return (
         <div>
             <MainLayout>
@@ -70,7 +76,7 @@ export default function DetailProduct() {
 
                                         <div>
                                             <h3 className="text-xs">Harga</h3>
-                                            <Card style={{ width: 400, height: 25 }}><p className="-mt-5 -ml-3 text-gray-400 text-xs">Rp. {dataSelected?.price}</p></Card>
+                                            <Card style={{ width: 400, height: 25 }}><p className="-mt-5 -ml-3 text-gray-400 text-xs"> {rupiah(dataSelected?.price)}</p></Card>
                                         </div>
                                         <div>
                                             <h3 className="text-xs">Status</h3>
@@ -78,10 +84,10 @@ export default function DetailProduct() {
                                         </div>
                                     </Col>
                                 </Row>
-                                <Row className="mt-5">
+                                <Row className="mt-2">
                                     <Col>
                                         <h2>Deskripsi</h2>
-                                        <Card style={{ width: 350, }}>
+                                        <Card style={{ width: 350, borderColor: 'white' }}>
                                             <p>{dataSelected?.description}</p>
                                         </Card>
                                     </Col>

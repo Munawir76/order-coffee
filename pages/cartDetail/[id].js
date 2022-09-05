@@ -6,11 +6,13 @@ import { Row, Col, Card, Input, ConfigProvider, Upload, Button, message } from '
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { UploadOutlined } from '@ant-design/icons';
 import jwt_decode from 'jwt-decode'
+import menuSatu from '../../public/images/kopisusu.jpg'
+import menuDua from '../../public/images/vietnamdrip.jpg'
 
-const { TextArea } = Input
+
 
 ConfigProvider.config({
     theme: {
@@ -38,7 +40,7 @@ export default function CartAuth() {
                 }
             }).then(res => {
                 console.log(res, 'ini res cart to pay')
-                // setCartToPay(res.data.data.transactionDetail)
+                setCartToPay(res.data.data.transactionDetail)
             })
         } catch (error) {
 
@@ -49,6 +51,16 @@ export default function CartAuth() {
         // const value = e.target.files
         console.log(e, " ini files nya")
         setSentImage(e.file.originFileObj)
+        const dataImage = new FormData
+        dataImage.append('image', e.file.originFileObj)
+        axios.put(`https://ordercoffee-app.herokuapp.com/transaction/payment/${id}`, dataImage, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(res => {
+            console.log(res, 'ini res image');
+            message.success('Berhasil Upload')
+        })
     }
 
     async function payment() {
@@ -56,7 +68,7 @@ export default function CartAuth() {
             const sentPayment = {
 
                 status: 'Menunggu Pengecekan',
-                image: sentImage,
+                // image: sentImage,
 
             }
             // console.log(sentPayment, 'ini data sent paymen');
@@ -67,13 +79,18 @@ export default function CartAuth() {
             }).then(res => {
                 console.log(res, 'ini res put')
                 message.success('Pembayaran Terkirim')
-                message.success('Pembayaran Terkirim')
+                setTimeout(() => {
+                    message.info("Anda akan di arahkan ke halaman transaksi history")
+                    Router.back()
+                }, 2000);
             })
         } catch (error) {
             console.error(error, 'ini error')
 
         }
     }
+
+
 
     useEffect(() => {
         getCartToPay()
@@ -85,21 +102,6 @@ export default function CartAuth() {
                 <div className='min-h-screen pt-14 mt-5' style={{ position: "relative" }}>
                     <Row justify='center' flex className="gap-56 mr-20">
                         <Col span={9}>
-                            {/* <Row className="">
-                                <Col span={12}>
-                                    <h2>Name</h2>
-                                </Col>
-                            </Row>
-                            <Row >
-                                <Col >
-                                    <TextArea rows={1} cols={48} placeholder="Input your name" className='mt-2' />
-                                </Col>
-                            </Row>
-                            <Row className="mt-6">
-                                <Col >
-                                    <TextArea rows={4} cols={48} placeholder="Deskripsi" maxLength={6} />
-                                </Col>
-                            </Row> */}
                             <Row flex justify='start' className=''>
                                 <Col className="text-start">
                                     <Card style={{ width: 500, height: 520, borderColor: "rgba(192, 103, 17, 0.8)", marginLeft: 150, marginTop: 10, }}>
@@ -132,43 +134,56 @@ export default function CartAuth() {
 
                         </Col>
                         <Col span={9} className='mt-2'>
-                            <Card style={{ width: 500, height: 520, backgroundColor: 'rgba(238, 238, 238, 0.8)', }}>
-                                {cartToPay?.map((data) => {
+                            <Card style={{ width: 500, height: 520, backgroundColor: 'rgba(238, 238, 238, 0.8)', position: 'relative' }}>
+                                {/* {cartToPay?.map((data) => {
                                     return (
-                                        <>
-                                            <Row >
-                                                <Col span={12}>
-                                                    <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${data?.menu?.photo}`}
+                                        <> */}
+                                <Row >
+                                    <Col span={12}>
+                                        <Image src={menuSatu} width={100} height={100}></Image>
+                                        {/* <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${data?.menu?.photo}`}
                                                         unoptimized={true}
                                                         width={150}
                                                         height={150}
-                                                        style={{ borderRadius: 10 }} />
-                                                </Col>
-
-                                                <Col span={12}>
-                                                    <h2 className="text-xl font-semibold">{data?.menu?.name}</h2>
-                                                    <h2 className="text-xl font-bold mt-4">Rp. {data?.price}</h2>
-                                                </Col>
-                                            </Row>
-                                            <Row className='mt-28'>
-                                                <Col span={12}>
-                                                    <h1 >Subtotal</h1>
-                                                </Col>
-                                                <Col span={12}>
-                                                    <h2 className="text-base font-semibold">Rp. {data?.price}</h2>
-                                                </Col>
-                                            </Row>
-                                            <Row className="mt-16">
-                                                <Col span={12}>
-                                                    <h1 className="text-base font-semibold">Total</h1>
-                                                </Col>
-                                                <Col span={12}>
-                                                    <h2 className="text-base font-bold">Rp. {data?.totalPrice}</h2>
-                                                </Col>
-                                            </Row>
-                                        </>
+                                                        style={{ borderRadius: 10 }} /> */}
+                                    </Col>
+                                    <Col span={12}>
+                                        {/* <h2 className="text-xl font-semibold">{data?.menu?.name}</h2>
+                                                    <h2 className="text-xl font-bold mt-4">Rp. {data?.price}</h2> */}
+                                        <h2 className="text-lg font-semibold">Kopi Susu</h2>
+                                        <h2 className="text-lg font-normal mt-4">Rp. 30.000.00</h2>
+                                    </Col>
+                                </Row>
+                                <Row >
+                                    <Col span={12}>
+                                        <Image src={menuDua} width={100} height={100}></Image>
+                                    </Col>
+                                    <Col span={12}>
+                                        <h2 className="text-lg font-semibold">Vietnam Drip</h2>
+                                        <h2 className="text-lg font-normal mt-4">Rp. 40.000.00</h2>
+                                    </Col>
+                                </Row>
+                                <Row className='mt-28'>
+                                    <Col span={12}>
+                                        {/* <h1 >Subtotal</h1> */}
+                                    </Col>
+                                    <Col span={12}>
+                                        {/* <h2 className="text-base font-semibold">Rp. {data?.price}</h2> */}
+                                        {/* <h2 className="text-base font-semibold">Rp. 70.000.00</h2> */}
+                                    </Col>
+                                </Row>
+                                <Row className="mt-5">
+                                    <Col span={12}>
+                                        <h1 className="text-base font-semibold">Total</h1>
+                                    </Col>
+                                    <Col span={12}>
+                                        {/* <h2 className="text-base font-bold">Rp. {data?.totalPrice}</h2> */}
+                                        <h2 className="text-base font-bold">Rp. 70.000.00</h2>
+                                    </Col>
+                                </Row>
+                                {/* </>
                                     )
-                                })}
+                                })} */}
 
 
                             </Card>

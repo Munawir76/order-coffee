@@ -154,7 +154,6 @@ export default function DetailMenu() {
                         </Row>
                     </Col>
                 </Row>
-
                 <Row justify='start'>
                     <Col span='8'>
                         <h2 className="font-medium text-2xl mt-2">Deskripsi</h2>

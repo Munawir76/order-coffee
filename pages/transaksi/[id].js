@@ -93,12 +93,14 @@ const columns = (deleteModal, suksesModal, waitModal) => {
 
                     if (tags.status === 'Menunggu Pembayaran') {
                         return (<>
-                            <Tooltip placement="right" title="bayar">
-                                <Link href={`/cartDetail/${tags.id}`} >
+                            <Link href={`/cartDetail/${tags.id}`} >
+                                <Tooltip placement="top" title="bayar">
+
                                     <Button className="mr-2" style={{ color: 'blue', borderColor: "blue" }}
                                         icon={<CreditCardOutlined />}></Button>
-                                </Link>
-                            </Tooltip>
+
+                                </Tooltip>
+                            </Link>
                             <Tooltip placement="right" title="cancel">
                                 <Button
                                     type="danger"
@@ -127,12 +129,14 @@ const columns = (deleteModal, suksesModal, waitModal) => {
                                         icon={<EyeOutlined />}
                                         onClick={() => suksesModal(tags?.id)}></Button>
                                 </Tooltip>
-                                <Tooltip placement="right" title="invoice">
-                                    <Link href={`/invoice/${tags?.id}`} >
+                                <Link href={`/invoice/${tags?.id}`} >
+                                    <Tooltip placement="top" title="invoice">
+
                                         <Button className="mr-2" style={{ color: 'green', borderColor: "green" }}
                                             icon={<SnippetsOutlined />}></Button>
-                                    </Link>
-                                </Tooltip>
+
+                                    </Tooltip>
+                                </Link>
                                 <Tooltip placement="right" title="delete">
                                     <Button
                                         type="danger"

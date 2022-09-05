@@ -7,6 +7,20 @@ import { useEffect } from 'react'
 
 
 export default function MainLayoutUser({ children }) {
+
+    const router = useRouter()
+    useEffect(() => {
+        const getToken = localStorage.getItem('tokenCustomer')
+
+        if (!getToken) {
+            message.info('Anda harus login dahulu')
+            router.push('/')
+        }
+
+
+    }, [])
+
+
     return (
         <Layout >
             <Navigasi />

@@ -98,8 +98,8 @@ export default function ListMenu() {
                                 xs={{ span: 20 }}
                                 // offset={1}
 
-                                className="pt-5 transition ease-in-out hover:-translate-y-2">
-                                <div className="rounded-lg shadow-lg bg-white ">
+                                className=" transition ease-in-out hover:-translate-y-2 border-2 border-[#C78342] border: rounded-lg">
+                                <div className="rounded-lg shadow-lg bg-white  ">
                                     <a
                                         // href={`/detailMenu/${menu?.id}`}
                                         data-mdb-ripple="true"
@@ -110,7 +110,7 @@ export default function ListMenu() {
                                             unoptimized={true}
                                             width={350}
                                             height={350}
-                                            style={{ borderRadius: 10 }} />
+                                            style={{ borderRadius: 6 }} />
                                     </a>
                                     <div className="p-6">
                                         <Row justify='center'>

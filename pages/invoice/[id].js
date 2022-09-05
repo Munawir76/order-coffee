@@ -22,7 +22,7 @@ export default function Invoice() {
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
         documentTitle: 'Invoice',
-        onAfterPrint: () => message.success('Print Success')
+        // onAfterPrint: () => message.success('Print Success')
 
     })
 
@@ -131,30 +131,34 @@ export default function Invoice() {
                                             </th>
                                         </tr>
                                     </thead>
-                                    {dataSelected?.user?.cart?.map((data) => {
-                                        return (
-                                            <tbody className="text-center">
-                                                <tr className="bg-white" >
-                                                    <td className="px-6 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        <div className="flex justify-start">
-                                                            <h4>{dataSelected?.user?.fullname}</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                        <h4>{data?.menu?.name}</h4>
-                                                    </td>
-                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                        <h4>{data?.amount}</h4>
-                                                    </td>
-                                                    <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap ">
-                                                        <h4>{rupiah(data?.price)}</h4>
-                                                    </td>
-                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        )
-                                    })}
+                                    {/* {dataSelected?.user?.cart?.map((data) => {
+                                        return ( */}
+                                    <tbody className="text-center">
+                                        <tr className="bg-white" >
+                                            <td className="px-6 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                <div className="flex justify-start">
+                                                    {/* <h4>{dataSelected?.user?.fullname}</h4> */}
+                                                    <h4>Dwi Gunardi</h4>
+                                                </div>
+                                            </td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                {/* <h4>{data?.menu?.name}</h4> */}
+                                                <h4>Kopi susu, Viet..</h4>
+                                            </td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                {/* <h4>{data?.amount}</h4> */}
+                                                <h4>3</h4>
+                                            </td>
+                                            <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap ">
+                                                {/* <h4>{rupiah(data?.price)}</h4> */}
+                                                <h4>Rp. 70.000.00</h4>
+                                            </td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    {/* )
+                                    })} */}
 
                                 </table>
                             </Col>

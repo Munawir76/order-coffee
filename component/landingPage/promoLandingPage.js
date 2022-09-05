@@ -36,8 +36,8 @@ export default function Promo() {
             }).then(res => {
                 console.log(res.data.items, 'ini res api promo')
                 setPromoSatu(res.data.items[0])
-                setPromoDua(res.data.items[0])
-                setPromoTiga(res.data.items[0])
+                setPromoDua(res.data.items[1])
+                setPromoTiga(res.data.items[2])
             })
         } catch (error) {
             console.error(error);

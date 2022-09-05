@@ -119,7 +119,7 @@ export default function KontenTransaksi() {
     const [confirmLoading, setConfirmLoading] = useState(false);
     //image
     const [visibleImage, setVisibleImage] = useState(false);
-    const [pathImage, setPathImage] = useState()
+    const [pathImage, setPathImage] = useState('')
 
     const [pagination, setPagination] = useState({
         current: 1,
@@ -184,7 +184,10 @@ export default function KontenTransaksi() {
         if (record) {
             setPathImage(record);
             setVisibleImage(true);
-            getDataTransaksi()
+            // axios.get(`https://ordercoffee-app.herokuapp.com/transaction/detail/imagePayment/${record}`,).then(res => {
+            //     console.log(res, 'ini res image');
+
+            // })
 
         } else {
             setVisibleImage(false)
@@ -298,15 +301,19 @@ export default function KontenTransaksi() {
                     width={370}
                     visible={visibleImage}
                     onCancel={handleCancelImage}
-                    footer={null}
+                    footer={[
+                        <Button onClick={handleCancelImage}>Return</Button>
+                    ]}
                 >
-                    <Image loader={() => pathImage}
-                        src={`https://ordercoffee-app.herokuapp.com/transaction/detail/${pathImage}`}
-                        unoptimized={true}
-                        width={250}
-                        height={250}
-                        className="ml-8"
-                        style={{ borderRadius: 10, }} />
+                    <div className='ml-8'>
+                        <Image loader={() => pathImage}
+                            src={`https://ordercoffee-app.herokuapp.com/transaction/detail/imagePayment/${pathImage}`}
+                            unoptimized={true}
+                            width={250}
+                            height={250}
+
+                            style={{ borderRadius: 10, }} />
+                    </div>
                 </Modal>
 
             </Content>
