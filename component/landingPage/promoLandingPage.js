@@ -51,8 +51,8 @@ export default function Promo() {
     return (
         <div>
             {/* <h3 className="text-center font-medium text-black text-xl">Promo</h3> */}
-            <div style={{ position: "relative" }}>
-                <Image src={bg} layout="fill" priority={true} />
+            <div style={{ position: "relative", }} >
+                <Image src={bg} layout="fill" priority={true} className="filter: blur-xl" />
                 <Carousel autoplaySpeed={0}>
                     <div>
                         <div style={styleCarousel}>

@@ -71,7 +71,7 @@ export default function EditProduct() {
             }).then(res => {
                 console.log(res)
                 setVisibleAddProduct(false)
-                // setFinish(true)
+                setFinish(true)
                 message.success("Successfull Edit menu")
             })
         } catch (error) {

@@ -7,7 +7,9 @@ function Footer() {
     return (
         <div>
             <footer className="text-start lg:text-left bg-white text-black">
+                <div className='bg-[#805336] h-20 '></div>
                 <div className="mx-6 py-10 text-center md:text-left">
+
                     <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-3 gap-15">
                         <div className="mx-auto mb-4">
                             <div
@@ -140,7 +142,7 @@ function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="text-center p-6 bg-[#805336] border-y-2">
+                <div className="text-center p-2 border-y-2">
                     <p className="text-black">© 2022 Order Coffe. All right reserved</p>
                 </div>
             </footer>
