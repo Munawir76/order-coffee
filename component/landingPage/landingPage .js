@@ -1,6 +1,7 @@
 import React from "react";
 import 'tailwindcss/tailwind.css'
 import Image from "next/image";
+// import bg from '../../public/images/bgdua.jpg'
 import profil from '../../public/images/profilsatu.jpg'
 import { Row, Col, Card } from 'antd'
 import MenuFavorit from "./menuFavoritLandingPage";
@@ -19,7 +20,10 @@ export default function LandingPage() {
             <Row align="middle">
                 <Col >
                     <div>
-                        <MenuTerbaikLandingPage />
+                        <div >
+                            {/* <Image src={bg} layout="fill" priority={true} className="filter: blur-xl" /> */}
+                            <MenuTerbaikLandingPage />
+                        </div>
                         <div>
                             <MenuFavorit />
                         </div>

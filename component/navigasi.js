@@ -78,12 +78,6 @@ export default function Navigasi() {
         }
     }
 
-    // const transactionId = transaction.map((dataTr) => {
-    //     const filterFind = findIdUser.find((data) => data?.id == dataTr?.id)
-    //     return filterFind
-    // })
-
-    // console.log(transactionId, 'ini hasil find tr');
     const menu = (
         <Menu
             style={{ hoverBackground: 'white' }}
@@ -125,7 +119,7 @@ export default function Navigasi() {
 
                             <div className="sm:hidden">
                                 <button
-                                    className="p-2 text-white rounded-md outline-none focus:border-[#C78342]-500 focus:border"
+                                    className="p-2 text-white rounded-md outline-none focus:border-[#C78342]-500 focus:border "
                                     onClick={() => setNavbar(!navbar)}
                                 >
                                     {navbar ? (

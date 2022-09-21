@@ -7,7 +7,7 @@ function Footer() {
     return (
         <div>
             <footer className="text-start lg:text-left bg-white text-black">
-                <div className='bg-[#805336] h-20 '></div>
+                {/* <div className='bg-[#805336] border-b border-[#805336] '></div> */}
                 <div className="mx-6 py-10 text-center md:text-left">
 
                     <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-3 gap-15">

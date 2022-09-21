@@ -4,12 +4,13 @@ import 'antd/dist/antd.variable.min.css'
 import Link from 'next/link'
 import Image from 'next/image';
 import MainLayoutUser from '../../component/mainLayotUser'
-import { Row, Col, Space, Select, Form, ConfigProvider, message, InputNumber } from 'antd';
+import { Row, Col, Space, Select, Form, ConfigProvider, message, InputNumber, Typography, Collapse, Tooltip } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import { data } from 'autoprefixer';
 
 
 ConfigProvider.config({
@@ -18,12 +19,15 @@ ConfigProvider.config({
     },
 });
 
-const { Option } = Select
+const { Text } = Typography;
+const { Panel } = Collapse;
 
 export default function DetailMenu() {
 
-    const [dataDetailProduct, setDataDetailProduct] = useState([])
+    const [dataProduct, setDataProduct] = useState([])
+    const [dataDetailProduct, setDataDetailProduct] = useState()
     const [dataPromo, setDataPromo] = useState([])
+    const [statusProduct, setStatusProduct] = useState("")
 
     //Request Cart
     const [idMenu, setIdMenu] = useState('')
@@ -37,8 +41,6 @@ export default function DetailMenu() {
     const router = useRouter();
     const { detailMenu } = router.query;
 
-
-
     async function getDataDetailProduct() {
         try {
             const tokenToCart = localStorage.getItem('tokenCustomer')
@@ -50,17 +52,12 @@ export default function DetailMenu() {
             }).then(res => {
                 console.log(res.data, 'ini res api menu')
                 setDataDetailProduct(res.data.data)
+                setStatusProduct(res.data.data.status)
                 setIdMenu(res.data.data.id)
                 setIdUser(decode?.id)
                 setPrice(res.data.data.price)
                 setDataPromo(res.data.data.promo)
                 setIdPromo(res.data.data.promo[0].id)
-
-                // if (dataDetailProduct) {
-                //     setIsDiskon(true)
-                // } else {
-                //     setIsDiskon(false)
-                // }
 
             })
 
@@ -72,57 +69,111 @@ export default function DetailMenu() {
         }
     }
 
-    const onFinishAdd = async () => {
+    const onFinishAdd = async (props) => {
         try {
-            const totalPrice = amount * price
-            const sentCart = {
-                menu_id: idMenu,
-                amount: amount,
-                price: price,
-                promo_id: idPromo,
-                user_id: idUser,
-                totalPrice: totalPrice
+            console.log(props);
+            if (props == 'Tersedia') {
+                const totalPrice = amount * price
+                const sentCart = {
+                    menu_id: idMenu,
+                    amount: amount,
+                    price: price,
+                    promo_id: idPromo,
+                    user_id: idUser,
+                    totalPrice: totalPrice
+                }
+                console.log(sentCart, 'ini value sent cart');
+
+                await axios.post("https://ordercoffee-app.herokuapp.com/cart", sentCart, {
+                    headers: {
+                        "content-type": 'application/json',
+                    }
+
+                }).then(res => {
+                    if (res.status == 200 || res.status == 201) {
+                        console.log(res, 'ini res post')
+                        setTimeout(() => {
+                            message.info("Successfull add cart")
+                            message.info("Successfull add cart")
+                        }, 2000);
+                    }
+
+                })
             }
-            console.log(sentCart, 'ini value sent cart');
+            else if (props == 'Tidak tersedia') {
+                message.info('Stok menu kosong')
+                message.info('Stok menu kosong')
+            }
 
-            await axios.post("https://ordercoffee-app.herokuapp.com/cart", sentCart, {
-                headers: {
-                    "content-type": 'application/json',
-                }
-
-            }).then(res => {
-                if (res.status == 200 || res.status == 201) {
-                    console.log(res, 'ini res post')
-                    setTimeout(() => {
-                        message.info("Successfull add cart")
-                        message.info("Successfull add cart")
-                    }, 2000);
-                }
-
-            })
         } catch (error) {
             if (error) {
                 console.log(error, "ini error");
-                message.error("Failed add cart")
+                message.error("Masukan jumalah menu")
+                message.error("Masukan jumalah menu")
             }
+        }
+    }
 
+
+    async function getDataProduct() {
+        try {
+            await axios.get('https://ordercoffee-app.herokuapp.com/menu', {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res.data.items)
+                setDataProduct(res.data.items)
+            })
+        } catch (error) {
+            console.error(error);
         }
     }
 
     useEffect(() => {
+        getDataProduct()
         getDataDetailProduct()
     }, [])
 
-    // const OnChangeAmounMenu = (value) => {
-    //     setAmount(value)
-    //     console.log(value, 'ini value amount')
-    // }
+
     const OnChangeAmounMenu = (value) => {
         setAmount(value)
         console.log('changed', value);
     };
 
+    function cekStatus(props) {
+        if (props == "Tersedia") {
+            return (
+                <Text type="success" style={{ fontSize: 15 }}>Menu Tersedia</Text>
+            )
+        }
+        else if (props == "Tidak tersedia") {
+            return (
+                <Text delete style={{ fontSize: 15 }}>Menu kosong</Text>
+            )
+        }
+    }
 
+    function hargaPromo(props) {
+        if (!props?.promo || props?.promo.length == 0) {
+            return (
+                <h2 className="font-semibold text-xl mt-5 text-black">{rupiah(dataDetailProduct?.price)}</h2>
+
+            )
+        } else if (props?.promo) {
+            return (
+                <Text delete style={{ fontSize: 15, color: 'gray' }}>{rupiah(dataDetailProduct?.price)}</Text>
+            )
+
+        }
+    }
+
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
 
     return (
         <MainLayoutUser>
@@ -134,24 +185,56 @@ export default function DetailMenu() {
                             width={350}
                             height={350}
                             style={{ borderRadius: 10 }} />
-
                     </Col>
-                    <Col style={{ textAlign: 'start', marginLeft: 20 }} span='8'>
+                    <Col style={{ textAlign: 'start' }} span='6'>
                         <h2 className="font-bold text-2xl text-[#805336]">{dataDetailProduct?.name}</h2>
-                        <h2 className="font-semibold text-xl mt-5 text-gray-500">Rp. {dataDetailProduct?.price}</h2>
+                        <h3>{hargaPromo(dataDetailProduct)}</h3>
+                        <h3>{cekStatus(statusProduct)}</h3>
                         <Row className="font-medium text-2xl mt-2">
                             <Col>
                                 {dataPromo.map((data) => {
+                                    const hitungDiskon = data?.discount * price
+                                    const hasilHitung = price - hitungDiskon
                                     return (
                                         <>
-                                            <h3 className='text-black'>Diskon {data?.discount.toFixed(2) * 100 + '%'}</h3><Space className="font-extrabold text-[#805336] ml-2"></Space>
-                                            {/* <h3>{hitung}</h3> */}
+                                            <h3 className='text-black font-bold text-xl'>Diskon {data?.discount.toFixed(2) * 100 + '%'}</h3><Space className="font-extrabold text-[#805336] ml-2"></Space>
+                                            <h3 className='text-black font-bold text-xl'>{rupiah(hasilHitung)}</h3>
                                         </>
                                     )
                                 })
                                 }
                             </Col>
                         </Row>
+                    </Col>
+                    <Col style={{ textAlign: 'start' }} span='8' >
+                        <Collapse>
+                            <Panel header="This is panel header 1" >
+                                <div className='gap-3 align-middle justify-center flex'>
+                                    {dataProduct?.map((data => {
+                                        return (
+                                            <>
+                                                <Tooltip placement='top' title={data?.name}>
+
+                                                    <Image
+                                                        src={`https://ordercoffee-app.herokuapp.com/menu/image/${data?.photo}`}
+                                                        unoptimized={true}
+                                                        width={90}
+                                                        height={90}
+                                                        style={{ borderRadius: 6 }} />
+
+                                                </Tooltip>
+                                            </>
+                                        )
+                                    }))}
+                                </div>
+                            </Panel>
+                            <Panel header="This is panel header 2" key="2">
+                                <p>hallo jaloo</p>
+                            </Panel>
+                            <Panel header="This is panel header 3" key="3">
+                                <p>hallo jaloo</p>
+                            </Panel>
+                        </Collapse>
                     </Col>
                 </Row>
                 <Row justify='start'>
@@ -168,6 +251,13 @@ export default function DetailMenu() {
                                 </Form.Item>
                             </div>
                         </Form>
+                        <button
+                            onClick={() => onFinishAdd(statusProduct)}
+                            type="button"
+                            className=" space-x-2 justify-end inline-block px-6 ml-32 py-2 bg-[#C78342] text-white font-medium text-xs leading-tight shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                        >
+                            {<ShoppingCartOutlined className='mr-2 mb-2' />}<Space className="font-medium">+ Add to cart</Space>
+                        </button>
                     </Col>
                 </Row>
                 <Row>
@@ -175,21 +265,10 @@ export default function DetailMenu() {
                         <a href='/menu' className='text-[#805336] text-base font-semibold font text-decoration: underline hover:text-black'> Back to menu</a>
                     </Col>
                     <Col className="mt-4 ml-32 mb-10" span='8'>
-                        {/* <Link href=''> */}
-                        <button
-                            onClick={onFinishAdd}
-                            type="button"
-                            className=" space-x-2 justify-end inline-block px-6 py-2 bg-[#C78342] text-white font-medium text-xs leading-tight shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
-                        >
-                            {<ShoppingCartOutlined className='mr-2 mb-2' />}<Space className="font-medium">+ Add to cart</Space>
-                        </button>
-                        {/* </Link> */}
+
                     </Col>
                 </Row>
             </div>
-            {/* )
-            })} */}
-
         </MainLayoutUser>
     )
 }

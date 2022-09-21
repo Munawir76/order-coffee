@@ -75,8 +75,11 @@ const columns = (deleteModal, suksesModal, waitModal) => {
                         return (
                             <Tag color='green'>Pembayaran Berhasil</Tag>
                         )
+                    } else if (tags.status === "Ditolak") {
+                        return (
+                            <Tag color='red'>Dibatalkan</Tag>
+                        )
                     }
-
                 }
 
                 return (
@@ -129,14 +132,14 @@ const columns = (deleteModal, suksesModal, waitModal) => {
                                         icon={<EyeOutlined />}
                                         onClick={() => suksesModal(tags?.id)}></Button>
                                 </Tooltip>
-                                <Link href={`/invoice/${tags?.id}`} >
-                                    <Tooltip placement="top" title="invoice">
 
+                                <Tooltip placement="top" title="invoice">
+                                    <Link href={`/invoice/${tags?.id}`} >
                                         <Button className="mr-2" style={{ color: 'green', borderColor: "green" }}
                                             icon={<SnippetsOutlined />}></Button>
+                                    </Link>
+                                </Tooltip>
 
-                                    </Tooltip>
-                                </Link>
                                 <Tooltip placement="right" title="delete">
                                     <Button
                                         type="danger"
@@ -147,6 +150,18 @@ const columns = (deleteModal, suksesModal, waitModal) => {
                                     </Button>
                                 </Tooltip>
 
+                            </>
+                        )
+                    } else if (tags.status === 'Ditolak') {
+                        return (
+                            <>
+                                <Tooltip placement="right" title="detail">
+                                    <Button className="mr-2" style={{ color: 'rgba(168, 109, 15, 0.8)', borderColor: 'rgba(168, 109, 15, 0.8)' }}
+                                        // icon={<EyeOutlined />}
+                                        onClick={() => suksesModal(tags?.id)}>
+
+                                    </Button>
+                                </Tooltip>
                             </>
                         )
                     }
@@ -182,8 +197,6 @@ export default function Transaksi() {
     const { id } = router.query;
 
 
-
-
     async function getUser() {
         try {
             const getToken = localStorage.getItem("idCart")
@@ -201,33 +214,6 @@ export default function Transaksi() {
 
         }
     }
-
-    // async function getDataTransaksi() {
-    //     try {
-    //         const getToken = localStorage.getItem("tokenCustomer")
-    //         const decode = jwt_decode(getToken)
-    //         // console.log(decode.id, 'ini decode cari id');
-
-    //         await axios.get(`https://ordercoffee-app.herokuapp.com/transaction/detail`, {
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         }).then(res => {
-    //             console.log(res.data.items, 'ini res get transakasi')
-    //             setDataTransaksi(res.data.items)
-
-    //         })
-    //     } catch (error) {
-
-    //     }
-    // }
-
-    // const dataSelected = idUser.filter((data) => {
-    //     const datafilter = data?.id == id
-    //     return datafilter
-    // });
-
-    // console.log(dataSelected, 'ini data selected')
 
     const handleOkModalDelete = () => {
         axios.delete(`https://ordercoffee-app.herokuapp.com/transaction/detail/${deleteId}`).then(res => {
@@ -291,9 +277,7 @@ export default function Transaksi() {
             <MainLayoutUser >
                 <h2 className="mt-20 justify-center flex text-base">Status Transaksi</h2>
                 <Row flex justify="center" align="middle" className=" mb-36">
-
                     <Col span={18} >
-
                         <Table columns={columns(deleteModal, suksesModal, waitModal)} dataSource={dataTransaksi} style={{ marginTop: 50 }} />
                     </Col>
                 </Row>
@@ -312,8 +296,6 @@ export default function Transaksi() {
                     title="Status Pembayaran"
                     width={370}
                     visible={visibleSukses}
-                    // onOk={handleOkModalDelete}
-                    // confirmLoading={confirmLoading}
                     onCancel={handleCancel}
                     footer={false}
                 >
@@ -334,8 +316,6 @@ export default function Transaksi() {
                     title="Status Pembayaran"
                     width={370}
                     visible={visibleWait}
-                    // onOk={handleOkModalDelete}
-                    // confirmLoading={confirmLoading}
                     onCancel={handleCancel}
                     footer={false}
                 >
