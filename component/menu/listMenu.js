@@ -2,16 +2,20 @@ import 'antd/dist/antd.css'
 import 'tailwindcss/tailwind.css'
 import Image from 'next/image';
 import Link from 'next/link';
-import { Col, Button, Row, Input, message, AutoComplete } from 'antd';
+import { Col, Button, Row, Input, message, AutoComplete, Form, Modal } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import { Router, useRouter } from 'next/router';
 
 const { Search } = Input;
 
 export default function ListMenu() {
 
     const [dataProduct, setDataProduct] = useState([])
+    // const [idMenu, setIdMenu] = useState([])
+    const [visibleGuest, setVisibleGuest] = useState(false);
+    const [namaGuest, setNamaGuest] = useState('')
 
     async function getDataProduct() {
         try {
@@ -20,8 +24,9 @@ export default function ListMenu() {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                console.log(res.data.items)
+                console.log(res.data.items, 'ini id menu')
                 setDataProduct(res.data.items)
+                // setIdMenu(res.data.items.id)
             })
         } catch (error) {
             console.error(error);
@@ -55,13 +60,9 @@ export default function ListMenu() {
             })
 
         } catch (error) {
-
-
             message.error(error)
             message.error(error)
             message.error(error)
-
-
         }
 
     };
@@ -70,6 +71,66 @@ export default function ListMenu() {
         getDataProduct()
         getDataPromo()
     }, [])
+
+    const guestModal = () => {
+        setVisibleGuest(true);
+
+    };
+
+    const handleCancel = () => {
+        setVisibleGuest(false);
+    }
+
+    const onChangeNamaGuest = (e) => {
+        const value = e.target.value
+        setNamaGuest(value)
+        console.log(value)
+    }
+
+    const router = useRouter()
+
+    function validate(menu) {
+        if (localStorage.getItem('tokenCustomer') || localStorage.getItem('idGuest')) {
+            router.push(`/detailMenu/${menu.id}`)
+        }
+        else if (!localStorage.getItem('tokenCustomer')) {
+
+            guestModal()
+
+        }
+    }
+
+    // function handleOkModalGuest() {
+    //     localStorage.setItem("tokenGuest", namaGuest)
+    //     setVisibleGuest(false)
+    // }
+
+    const handleOkModalGuest = async (menu) => {
+        try {
+            const postGuest = {
+                fullname: namaGuest,
+                role_id: 3
+            }
+            console.log(postGuest)
+            const sentData = await axios.post("https://ordercoffee-app.herokuapp.com/users/guest", postGuest, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                console.log(res, 'ini res post guest')
+                setVisibleGuest(false)
+                localStorage.setItem("idGuest", res.data.data.id)
+                setTimeout(() => {
+                    message.success("Successfull regist")
+                    router.push(`/detailMenu/${menu.id}`)
+                }, 2000);
+
+            })
+        } catch (error) {
+            // console.log(error, "ini error");
+            message.error("failed regist")
+        }
+    }
 
     const rupiah = (number) => {
         return new Intl.NumberFormat("id-ID", {
@@ -129,19 +190,30 @@ export default function ListMenu() {
                                                 </p>
                                             </Col>
                                             <Col span={10} offset={1}>
-
-                                                <Link href={`/detailMenu/${menu?.id}`}>
-                                                    <button
-
-                                                        type="button"
-                                                        className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
-                                                    >
-                                                        Detail
-                                                    </button>
-                                                </Link>
+                                                <button
+                                                    type="button"
+                                                    className=" space-x-2 justify-end inline-block px-6 py-2.5 bg-[#C78342] text-white font-medium text-xs leading-tight rounded-full shadow-md focus:shadow-lg hover:text-white hover:bg-[#805336] active:bg-[#805336]"
+                                                    onClick={() => { validate(menu) }}
+                                                >
+                                                    Detail
+                                                </button>
                                             </Col>
                                         </Row>
                                         <div>
+                                            <Modal
+                                                title="Login sebagai Guest ?"
+                                                width={370}
+                                                visible={visibleGuest}
+                                                onOk={() => handleOkModalGuest(menu)}
+                                                // confirmLoading={confirmLoading}
+                                                onCancel={handleCancel}
+                                            >
+                                                <Form>
+                                                    <Form.Item>
+                                                        <Input value={namaGuest} onChange={onChangeNamaGuest} placeholder='Maukan nama' />
+                                                    </Form.Item>
+                                                </Form>
+                                            </Modal>
                                         </div>
                                     </div>
                                 </div>
@@ -150,6 +222,7 @@ export default function ListMenu() {
                     )
                 })}
             </Row>
+
         </div >
     )
 }

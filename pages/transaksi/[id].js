@@ -15,7 +15,7 @@ ConfigProvider.config({
         primaryColor: '#C78342',
     },
 });
-const columns = (deleteModal, suksesModal, waitModal) => {
+const columns = (deleteModal, suksesModal, waitModal, idUser) => {
 
 
     return [
@@ -23,27 +23,41 @@ const columns = (deleteModal, suksesModal, waitModal) => {
             title: 'Customer',
             dataIndex: 'fullname',
             key: 'fullname',
-            render: (_, render) => {
+            render: (_, record) => {
                 const getToken = localStorage.getItem("tokenCustomer")
-                const decode = jwt_decode(getToken)
-                return (
-                    <a>{decode?.fullname}</a>
-                )
+                let decode;
+                let guest;
+                function check() {
+                    if (getToken) {
+                        decode = jwt_decode(getToken)
+                        return decode.fullname
+                    } else {
+                        return "Guest"
+                    }
+                }
 
+                return (
+                    <p key={record.id}>{check()}</p>
+                )
             }
         },
         {
             title: 'Total Harga',
-            dataIndex: 'finalPrice',
-            key: 'finalPrice',
-            render: (render) => {
+            dataIndex: 'transactionDetail',
+            key: 'transactionDetail',
+            render: (_, render) => {
                 const rupiah = (number) => {
                     return new Intl.NumberFormat("id-ID", {
                         style: "currency",
                         currency: "IDR"
                     }).format(number);
                 }
-                return (rupiah(render))
+                return (
+
+                    <div key={render.id}>
+                        <p>{rupiah(render.finalPrice)}</p>
+                    </div>
+                )
             }
 
         },
@@ -58,33 +72,31 @@ const columns = (deleteModal, suksesModal, waitModal) => {
         },
         {
             title: 'Status Pembayaran',
-            key: 'status',
-            dataIndex: 'status',
+            key: 'transactionDetail',
+            dataIndex: 'transactionDetail',
             render: (_, tags) => {
-                function mapped() {
-
-                    if (tags.status === 'Menunggu Pembayaran') {
+                // return (
+                function Check() {
+                    if (tags?.status == 'Menunggu Pembayaran') {
                         return (
-                            <Tag color="red">{tags.status}</Tag>
+                            <Tag color="red">Menunggu Pembayaran</Tag>
                         )
-                    } else if (tags.status === 'Menunggu Pengecekan') {
+                    } else if (tags?.status === 'Menunggu Pengecekan') {
                         return (
                             <Tag color="blue" >Sedang diverifikasi</Tag>
                         )
-                    } else if (tags.status === "Sukses") {
+                    } else if (tags?.status === "Sukses") {
                         return (
                             <Tag color='green'>Pembayaran Berhasil</Tag>
                         )
-                    } else if (tags.status === "Ditolak") {
+                    } else if (tags?.status === "Ditolak") {
                         return (
                             <Tag color='red'>Dibatalkan</Tag>
                         )
                     }
                 }
-
                 return (
-                    mapped()
-
+                    Check()
                 )
             }
         },
@@ -92,11 +104,11 @@ const columns = (deleteModal, suksesModal, waitModal) => {
             title: 'Action',
             key: 'action',
             render: (_, tags) => {
+                console.log(idUser, 'ini tags record');
                 function mapped() {
-
-                    if (tags.status === 'Menunggu Pembayaran') {
-                        return (<>
-                            <Link href={`/cartDetail/${tags.id}`} >
+                    if (tags?.status === 'Menunggu Pembayaran') {
+                        return (<div key={tags.id}>
+                            <Link href={`/cartDetail/${idUser.id}`} >
                                 <Tooltip placement="top" title="bayar">
 
                                     <Button className="mr-2" style={{ color: 'blue', borderColor: "blue" }}
@@ -113,7 +125,7 @@ const columns = (deleteModal, suksesModal, waitModal) => {
                                 >
                                 </Button>
                             </Tooltip>
-                        </>
+                        </div>
                         )
                     }
                     else if (tags.status === 'Menunggu Pengecekan') {
@@ -126,7 +138,7 @@ const columns = (deleteModal, suksesModal, waitModal) => {
                         )
                     } else if (tags.status === "Sukses") {
                         return (
-                            <>
+                            <div key={tags.id}>
                                 <Tooltip placement="right" title="detail">
                                     <Button className="mr-2" style={{ color: 'rgba(168, 109, 15, 0.8)', borderColor: 'rgba(168, 109, 15, 0.8)' }}
                                         icon={<EyeOutlined />}
@@ -150,11 +162,11 @@ const columns = (deleteModal, suksesModal, waitModal) => {
                                     </Button>
                                 </Tooltip>
 
-                            </>
+                            </div>
                         )
                     } else if (tags.status === 'Ditolak') {
                         return (
-                            <>
+                            <div key={tags.id}>
                                 <Tooltip placement="right" title="detail">
                                     <Button className="mr-2" style={{ color: 'rgba(168, 109, 15, 0.8)', borderColor: 'rgba(168, 109, 15, 0.8)' }}
                                         // icon={<EyeOutlined />}
@@ -162,17 +174,15 @@ const columns = (deleteModal, suksesModal, waitModal) => {
 
                                     </Button>
                                 </Tooltip>
-                            </>
+                            </div>
                         )
                     }
                 }
 
                 return (
                     mapped()
-
                 )
             }
-
         },
     ];
 
@@ -182,7 +192,7 @@ const columns = (deleteModal, suksesModal, waitModal) => {
 export default function Transaksi() {
 
     const [dataTransaksi, setDataTransaksi] = useState([])
-    // const [idUser, setIdUser] = useState([])
+    const [idUser, setIdUser] = useState([])
 
     // delete
     const [deleteId, setDeleteId] = useState()
@@ -200,14 +210,13 @@ export default function Transaksi() {
     async function getUser() {
         try {
             const getToken = localStorage.getItem("idCart")
-
             await axios.get(`https://ordercoffee-app.herokuapp.com/users/${id}`, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
-                console.log(res.data.data.transactionDetail, 'ini res user')
-                // setIdUser(res.data.data)
+                console.log(res.data.data, 'ini res user')
+                setIdUser(res.data.data)
                 setDataTransaksi(res.data.data.transactionDetail)
             })
         } catch (error) {
@@ -223,10 +232,11 @@ export default function Transaksi() {
         setTimeout(() => {
             setVisibleDelete(false);
             setConfirmLoading(false);
-            getDataTransaksi()
+            // getDataTransaksi()
             message.success("Delete successfull")
         }, 2000);
     };
+
     const handleCancel = () => {
         console.log('Clicked cancel button');
         setVisibleDelete(false);
@@ -270,15 +280,13 @@ export default function Transaksi() {
         getUser()
     }, [])
 
-
-
     return (
         <div>
             <MainLayoutUser >
                 <h2 className="mt-20 justify-center flex text-base">Status Transaksi</h2>
                 <Row flex justify="center" align="middle" className=" mb-36">
                     <Col span={18} >
-                        <Table columns={columns(deleteModal, suksesModal, waitModal)} dataSource={dataTransaksi} style={{ marginTop: 50 }} />
+                        <Table columns={columns(deleteModal, suksesModal, waitModal, idUser)} dataSource={dataTransaksi} style={{ marginTop: 50 }} />
                     </Col>
                 </Row>
                 <Modal
@@ -310,7 +318,6 @@ export default function Transaksi() {
                             </Row>
                         </div>
                     </div>
-
                 </Modal>
                 <Modal
                     title="Status Pembayaran"

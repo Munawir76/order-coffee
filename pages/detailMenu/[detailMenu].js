@@ -4,8 +4,8 @@ import 'antd/dist/antd.variable.min.css'
 import Link from 'next/link'
 import Image from 'next/image';
 import MainLayoutUser from '../../component/mainLayotUser'
-import { Row, Col, Space, Select, Form, ConfigProvider, message, InputNumber, Typography, Collapse, Tooltip } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { Row, Col, Space, Select, Form, ConfigProvider, message, InputNumber, Typography, Collapse, Tooltip, Card } from 'antd';
+import { ShoppingCartOutlined, ExclamationCircleTwoTone, ExclamationCircleOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -41,34 +41,44 @@ export default function DetailMenu() {
     const router = useRouter();
     const { detailMenu } = router.query;
 
+
+    function getId() {
+        if (localStorage.getItem('tokenCustomer')) {
+            const getToken = localStorage.getItem('tokenCustomer')
+            const decode = jwt_decode(getToken)
+            setIdUser(decode?.id)
+        } else if (localStorage.getItem('idGuest')) {
+            setIdUser(localStorage.getItem('idGuest'))
+        }
+    }
+
     async function getDataDetailProduct() {
         try {
-            const tokenToCart = localStorage.getItem('tokenCustomer')
-            const decode = jwt_decode(tokenToCart)
+            // const tokenToCart = localStorage.getItem('tokenCustomer')
+            // const tokenGuest = localStorage.getItem('tokenGuest')
+            // const decode = jwt_decode(tokenToCart)
+            // localStorage.getItem('tokenGuest')
             const getDataDetail = await axios.get(`https://ordercoffee-app.herokuapp.com/menu/${detailMenu}`, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
-                console.log(res.data, 'ini res api menu')
+                console.log(res, 'ini res api menu')
                 setDataDetailProduct(res.data.data)
                 setStatusProduct(res.data.data.status)
                 setIdMenu(res.data.data.id)
-                setIdUser(decode?.id)
+                // setIdUser(decode?.id)
                 setPrice(res.data.data.price)
                 setDataPromo(res.data.data.promo)
                 setIdPromo(res.data.data.promo[0].id)
-
             })
 
         } catch (error) {
             if (error) {
                 console.log(error, 'ini errornya')
             }
-
         }
     }
-
     const onFinishAdd = async (props) => {
         try {
             console.log(props);
@@ -131,6 +141,7 @@ export default function DetailMenu() {
     }
 
     useEffect(() => {
+        getId()
         getDataProduct()
         getDataDetailProduct()
     }, [])
@@ -149,7 +160,7 @@ export default function DetailMenu() {
         }
         else if (props == "Tidak tersedia") {
             return (
-                <Text delete style={{ fontSize: 15 }}>Menu kosong</Text>
+                <Space ><Text delete type="danger" style={{ fontSize: 15 }}>Menu kosong </Text><ExclamationCircleOutlined style={{ color: 'rgba(255, 146, 0, 0.8)' }} />pilih menu lain</Space>
             )
         }
     }
@@ -206,9 +217,9 @@ export default function DetailMenu() {
                             </Col>
                         </Row>
                     </Col>
-                    <Col style={{ textAlign: 'start' }} span='8' >
+                    {/* <Col style={{ textAlign: 'start', }} span='8'>
                         <Collapse>
-                            <Panel header="This is panel header 1" >
+                            <Panel header="Lihat menu lainnya" >
                                 <div className='gap-3 align-middle justify-center flex'>
                                     {dataProduct?.map((data => {
                                         return (
@@ -228,14 +239,14 @@ export default function DetailMenu() {
                                     }))}
                                 </div>
                             </Panel>
-                            <Panel header="This is panel header 2" key="2">
+                            <Panel header="Lihat promo lainnya">
                                 <p>hallo jaloo</p>
                             </Panel>
                             <Panel header="This is panel header 3" key="3">
                                 <p>hallo jaloo</p>
                             </Panel>
                         </Collapse>
-                    </Col>
+                    </Col> */}
                 </Row>
                 <Row justify='start'>
                     <Col span='8'>

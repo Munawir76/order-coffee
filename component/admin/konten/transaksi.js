@@ -246,7 +246,7 @@ export default function KontenTransaksi() {
                 status: "Sukses",
             }
             console.log(update, 'ini update approve')
-            await axios.put(`https://ordercoffee-app.herokuapp.com/transaction/edit/${approveId?.id}`, update, {
+            await axios.put(`https://ordercoffee-app.herokuapp.com/transaction/approval/${approveId?.id}`, update, {
                 headers: {
                     "content-type": "application/json"
                 }

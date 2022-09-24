@@ -162,10 +162,6 @@ export default function KontenProduct() {
         }
     }
 
-    const onFormSubmit = (e) => {
-        e.preventDefault()
-    }
-
     const handleChangeImage = (filePath) => {
         const value = e.target.files[0]
         // console.log(filePath)
@@ -358,6 +354,7 @@ export default function KontenProduct() {
         // console.log(filePath)
         setEditFoto(value)
     }
+
     const editModal = (record) => {
         console.log(record, 'ini record')
         if (record) {

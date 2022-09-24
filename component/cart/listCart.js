@@ -10,7 +10,6 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { useRouter } from 'next/router';
 
-
 export default function ListCart() {
 
     ConfigProvider.config({
@@ -29,35 +28,36 @@ export default function ListCart() {
     const [confirmLoading, setConfirmLoading] = useState(false);
     const router = useRouter()
     // const [isData, setIsData] = useState(true)
-    // const [subTotal, setSubTotal] = useState()
+    const [subTotal, setSubTotal] = useState()
 
-    async function getDataCart() {
+
+    async function getDataCartCustomer() {
         try {
             const tokenToCart = localStorage.getItem('tokenCustomer')
             const decode = jwt_decode(tokenToCart)
             console.log(decode, 'ini decode')
             setUserId(decode?.id)
-            const getDataCart = await axios.get(`https://ordercoffee-app.herokuapp.com/users/${decode?.id}`, {
+            const getDataCartCustomer = await axios.get(`https://ordercoffee-app.herokuapp.com/users/${decode?.id}`, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
                 if (res.status == 200 || res.status == 201) {
-                    console.log(res.data, "ini dari res");
+                    console.log(res.data, "ini customer");
                     setDataCart(res.data.data.cart)
 
-                    axios.get(`https://ordercoffee-app.herokuapp.com/cart`, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                        }
-                    }).then(res => {
-                        // console.log(res.data.data, "ini res");
-                        if (res.status == 200 || res.status == 201) {
-                            setKeranjang(res.data.data[0])
+                    // axios.get(`https://ordercoffee-app.herokuapp.com/cart`, {
+                    //     headers: {
+                    //         'Content-Type': 'application/json',
+                    //     }
+                    // }).then(res => {
+                    //     // console.log(res.data.data, "ini res");
+                    //     if (res.status == 200 || res.status == 201) {
+                    //         setKeranjang(res.data.data[0])
 
-                        }
-                        // settotalPrice(res.data.data )
-                    })
+                    //     }
+                    //     // settotalPrice(res.data.data )
+                    // })
                 }
             })
 
@@ -66,18 +66,59 @@ export default function ListCart() {
         }
     }
 
+    async function getDataCartGuest() {
+        try {
+            const tokenToCart = await localStorage.getItem('idGuest')
+            setUserId(tokenToCart)
+            const getDataCartGuest = await axios.get(`https://ordercoffee-app.herokuapp.com/users/${localStorage.getItem('idGuest')}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then(res => {
+                if (res.status == 200 || res.status == 201) {
+                    console.log(res.data, "ini guest");
+                    setDataCart(res.data.data.cart)
+
+                    // axios.get(`https://ordercoffee-app.herokuapp.com/cart`, {
+                    //     headers: {
+                    //         'Content-Type': 'application/json',
+                    //     }
+                    // }).then(res => {
+                    //     // console.log(res.data.data, "ini res");
+                    //     // if (res.status == 200 || res.status == 201) {
+                    //     //     setKeranjang(res.data.data[0])
+
+                    //     // }
+                    //     // settotalPrice(res.data.data )
+                    // })
+                }
+            })
+
+        } catch (error) {
+            console.log(error, 'ini error cart')
+        }
+    }
+
+    function validasi() {
+        if (localStorage.getItem('tokenCustomer')) {
+            getDataCartCustomer()
+        } else if (localStorage.getItem('idGuest')) {
+            getDataCartGuest()
+        }
+    }
 
 
     // console.log(dataCart, 'ini data cart');
     useEffect(() => {
+        validasi()
         // getDataUser()
-        getDataCart()
+        // getDataCart()
     }, [])
 
-    const mapped = dataCart.map((data) => {
-        const filterFind = keranjang.find((menu) => menu?.id == data?.id)
-        return filterFind
-    })
+    // const mapped = dataCart.map((data) => {
+    //     const filterFind = keranjang.find((menu) => menu?.id == data?.id)
+    //     return filterFind
+    // })
 
     const rupiah = (number) => {
         return new Intl.NumberFormat("id-ID", {
@@ -86,13 +127,18 @@ export default function ListCart() {
         }).format(number);
     }
 
+    function autoHapus(props) {
+        axios.delete(`https://ordercoffee-app.herokuapp.com/cart/${props}`).then(res => {
+            console.log(res, 'ini res api delete')
+        })
+    }
 
 
     // console.log(subTotal, 'ini subtotal');
 
 
     const dataMenuCart = () => {
-        if (mapped[0]?.id) {
+        if (dataCart[0]?.id) {
             return (
                 <>
                     <table className="min-w-full">
@@ -130,38 +176,45 @@ export default function ListCart() {
                                 </th>
                             </tr>
                         </thead>
-                        {mapped.map((data) => {
+                        {dataCart.map((data) => {
+                            if (data?.status == 'On Going')
 
-                            return (
-                                // <>
+                                return (
+                                    // <>
 
-                                <tbody className="border-b">
-                                    <tr className="bg-white" key={data?.id}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    <tbody className="border-b">
+                                        <tr className="bg-white" key={data?.id}>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
 
-                                            <div className="flex justify-start">
+                                                <div className="flex justify-start">
 
-                                                <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${data?.menu?.photo}`} unoptimized={true} height={50} width={60} /><h3 className="ml-8 mt-4">{data?.menu?.name}</h3>
-                                            </div>
-                                        </td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {rupiah(data?.price)}
-                                        </td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {data?.amount}
-                                        </td>
-                                        <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap ">
-                                            {rupiah(data?.price * data?.amount)}
-                                        </td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            <Button onClick={() => deleteModal(data?.id)} icon={<DeleteOutlined />} type='danger' danger={true}></Button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                                    <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${data?.menu?.photo}`} unoptimized={true} height={50} width={60} /><h3 className="ml-8 mt-4">{data?.menu?.name}</h3>
+                                                </div>
+                                            </td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                {rupiah(data?.price)}
+                                            </td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                {data?.amount}
+                                            </td>
+                                            <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap ">
+                                                {rupiah(data?.price * data?.amount)}
+                                            </td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                <Button onClick={() => deleteModal(data?.id)} icon={<DeleteOutlined />} type='danger' danger={true}></Button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
 
-                                // </>
+                                    // </>
 
-                            )
+                                )
+                            else if (data?.status == 'Menunggu Pembayaran') {
+                                return (
+                                    // autoHapus(data?.id)
+                                    console.log('hapus')
+                                )
+                            }
                         })}
                     </table>
                 </>
@@ -228,6 +281,7 @@ export default function ListCart() {
             message.success("Delete successfull")
         }, 2000);
     };
+
     const handleCancel = () => {
         console.log('Clicked cancel button');
         setVisibleDelete(false);
@@ -242,19 +296,17 @@ export default function ListCart() {
             setVisibleDelete(false)
         }
     };
-
     // console.log(userId, 'ini data sent')
 
     const finishCheckout = async () => {
-        try {
 
-            const hitung = mapped.map((data) => {
+        try {
+            const hitung = dataCart.map((data) => {
                 const nilai = data?.price * data?.amount
                 return nilai
             }).reduce((prev, current) => {
                 return prev + current
             })
-
             // console.log(hitung)
             const sentCart = {
                 totalPrice: hitung,
@@ -285,18 +337,6 @@ export default function ListCart() {
         }
     }
 
-
-    // const total = mapped.map((data) => {
-    //     const nilai = data?.price * data?.amount
-    //     return nilai
-    // }).reduce((prev, current) => {
-    //     return prev + current
-    // })
-
-    // setSubTotal(total)
-
-    // console.log(subTotal, 'ini subtotaal');
-
     return (
         <div className='min-h-screen pt-14 ml-40 mt-5' style={{ position: "relative" }}>
             <Row>
@@ -320,10 +360,10 @@ export default function ListCart() {
                         </div>
 
                         <Row className="flex justify-end mr-52 mt-4">
-                            <Col >
-                                {/* <h3 className='text-base'>Sub-total : <span className='text-base font-semibold'>{rupiah(subTotal)}
-                                </span></h3> */}
-                            </Col>
+                            {/* <Col >
+                                <h3 className='text-base'>Sub-total : <span className='text-base font-semibold'>
+                                </span>{total}</h3>
+                            </Col> */}
                         </Row>
                         <Row className="flex justify-end">
                             <Col className="mr-30 mt-10 ">

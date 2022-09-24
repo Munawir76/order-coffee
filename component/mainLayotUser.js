@@ -10,12 +10,12 @@ export default function MainLayoutUser({ children }) {
 
     const router = useRouter()
     useEffect(() => {
-        const getToken = localStorage.getItem('tokenCustomer')
+        // const getToken = localStorage.getItem('tokenCustomer')
 
-        if (!getToken) {
-            message.info('Anda harus login dahulu')
-            router.push('/')
-        }
+        // if (!getToken) {
+        //     message.info('Anda harus login dahulu')
+        //     router.push('/')
+        // }
 
 
     }, [])

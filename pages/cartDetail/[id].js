@@ -2,17 +2,13 @@ import 'antd/dist/antd.variable.min.css'
 import 'tailwindcss/tailwind.css'
 import Link from 'next/link'
 import MainLayoutUser from '../../component/mainLayotUser'
-import { Row, Col, Card, Input, ConfigProvider, Upload, Button, message } from 'antd'
+import { Row, Col, Card, Input, ConfigProvider, Upload, Button, message, Space } from 'antd'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Router, { useRouter } from 'next/router'
 import { UploadOutlined } from '@ant-design/icons';
 import jwt_decode from 'jwt-decode'
-import menuSatu from '../../public/images/kopisusu.jpg'
-import menuDua from '../../public/images/vietnamdrip.jpg'
-
-
 
 ConfigProvider.config({
     theme: {
@@ -23,27 +19,52 @@ ConfigProvider.config({
 export default function CartAuth() {
 
     const [cartToPay, setCartToPay] = useState([])
-
+    const [idUser, setIdUser] = useState('')
     const [sentImage, setSentImage] = useState()
+    const [idTransaksi, setIdTransaksi] = useState('')
 
     const router = useRouter();
     const { id } = router.query;
     // console.log(id, 'ini id')
 
+    // async function getUser() {
+    //     try {
+    //         const getToken = localStorage.getItem("idCart")
+    //         await axios.get(`https://ordercoffee-app.herokuapp.com/users/${id}}`, {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             }
+    //         }).then(res => {
+    //             console.log(res.data.data, 'ini res user')
+    //             // setIdUser([res.data.data])
+    //             // setCartToPay(res.data.data.transactionDetail)
+    //         })
+    //     } catch (error) {
+
+    //     }
+    // }
+
     async function getCartToPay() {
         try {
-            const getToken = localStorage.getItem("tokenCustomer")
-            const decode = jwt_decode(getToken)
-            await axios.get(`https://ordercoffee-app.herokuapp.com/users/${decode?.id}`, {
+            // const getToken = localStorage.getItem("tokenCustomer")
+            // const getGuest = localStorage.getItem("idGuest")
+            // let decode;
+            // if(getToken){
+            //     decode = jwt_decode(getToken)
+            // }else if(getGuest){
+            //     decode =
+            // }
+            await axios.get(`https://ordercoffee-app.herokuapp.com/users/${id}`, {
                 headers: {
                     "Content-Type": 'application/json   ',
                 }
             }).then(res => {
-                console.log(res, 'ini res cart to pay')
-                setCartToPay(res.data.data.transactionDetail)
+                console.log(res.data, 'ini res cart to pay')
+                setIdUser(res.data.data.id)
+                setCartToPay(res.data.data.cart)
+                setIdTransaksi(res.data.data?.transactionDetail[0]?.id)
             })
         } catch (error) {
-
         }
     }
 
@@ -53,7 +74,7 @@ export default function CartAuth() {
         setSentImage(e.file.originFileObj)
         const dataImage = new FormData
         dataImage.append('image', e.file.originFileObj)
-        axios.put(`https://ordercoffee-app.herokuapp.com/transaction/payment/${id}`, dataImage, {
+        axios.put(`https://ordercoffee-app.herokuapp.com/transaction/payment/${idTransaksi}`, dataImage, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -66,13 +87,12 @@ export default function CartAuth() {
     async function payment() {
         try {
             const sentPayment = {
-
                 status: 'Menunggu Pengecekan',
                 // image: sentImage,
 
             }
             // console.log(sentPayment, 'ini data sent paymen');
-            await axios.put(`https://ordercoffee-app.herokuapp.com/transaction/edit/${id}`, sentPayment, {
+            await axios.put(`https://ordercoffee-app.herokuapp.com/transaction/edit/${idTransaksi}`, sentPayment, {
                 headers: {
                     "Content-Type": 'application/json   ',
                 }
@@ -86,16 +106,38 @@ export default function CartAuth() {
             })
         } catch (error) {
             console.error(error, 'ini error')
+        }
+    }
+
+    useEffect(() => {
+        // getUser()
+        getCartToPay()
+    }, [])
+
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
+
+    function hargaPromo(props) {
+        if (props?.promo === null) {
+            return (
+                console.log('tidak ada promo')
+            )
+        } else if (props) {
+            return (
+                <>
+                    <Space><h2>Promo : {props?.promo?.name}</h2><h2>{props?.promo?.discount.toFixed(2) * 100 + '%'}</h2></Space>
+                    <h3>{rupiah(props?.price)}</h3>
+                </>
+            )
 
         }
     }
 
-
-
-    useEffect(() => {
-        getCartToPay()
-    }, [])
-
+    console.log(cartToPay, 'ini cart');
     return (
         <div>
             <MainLayoutUser>
@@ -122,11 +164,13 @@ export default function CartAuth() {
                                             <button
                                                 type="button"
                                                 className=" bg-[#C78342] text-white font-medium rounded shadow-md hover:bg-[#805336] hover:shadow-l focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#C78342] active:shadow-lg transition duration-150 ease-in-out w-96 h-10 mt-5 ml-8 mb-3"
-                                                onClick={payment}
+                                                onClick={() => payment()}
                                             >
                                                 Bayar
                                             </button>
-                                            <a href="/cart/" className="hover:text-[#805336] text-decoration: underline text-[#805336] text-base font-semibold mt-5 ml-44" > Back to Menu</a>
+                                            <Link href={`/transaksi/${idUser}`}>
+                                                <a className="hover:text-[#805336] text-decoration: underline text-[#805336] text-base font-semibold mt-5 ml-44" > Back to Menu</a>
+                                            </Link>
                                         </div>
                                     </Card>
                                 </Col>
@@ -135,55 +179,36 @@ export default function CartAuth() {
                         </Col>
                         <Col span={9} className='mt-2'>
                             <Card style={{ width: 500, height: 520, backgroundColor: 'rgba(238, 238, 238, 0.8)', position: 'relative' }}>
-                                {/* {cartToPay?.map((data) => {
-                                    return (
-                                        <> */}
-                                <Row >
-                                    <Col span={12}>
-                                        <Image src={menuSatu} width={100} height={100}></Image>
-                                        {/* <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${data?.menu?.photo}`}
-                                                        unoptimized={true}
-                                                        width={150}
-                                                        height={150}
-                                                        style={{ borderRadius: 10 }} /> */}
-                                    </Col>
-                                    <Col span={12}>
-                                        {/* <h2 className="text-xl font-semibold">{data?.menu?.name}</h2>
-                                                    <h2 className="text-xl font-bold mt-4">Rp. {data?.price}</h2> */}
-                                        <h2 className="text-lg font-semibold">Kopi Susu</h2>
-                                        <h2 className="text-lg font-normal mt-4">Rp. 30.000.00</h2>
-                                    </Col>
-                                </Row>
-                                <Row >
-                                    <Col span={12}>
-                                        <Image src={menuDua} width={100} height={100}></Image>
-                                    </Col>
-                                    <Col span={12}>
-                                        <h2 className="text-lg font-semibold">Vietnam Drip</h2>
-                                        <h2 className="text-lg font-normal mt-4">Rp. 40.000.00</h2>
-                                    </Col>
-                                </Row>
-                                <Row className='mt-28'>
-                                    <Col span={12}>
-                                        {/* <h1 >Subtotal</h1> */}
-                                    </Col>
-                                    <Col span={12}>
-                                        {/* <h2 className="text-base font-semibold">Rp. {data?.price}</h2> */}
-                                        {/* <h2 className="text-base font-semibold">Rp. 70.000.00</h2> */}
-                                    </Col>
-                                </Row>
-                                <Row className="mt-5">
-                                    <Col span={12}>
-                                        <h1 className="text-base font-semibold">Total</h1>
-                                    </Col>
-                                    <Col span={12}>
-                                        {/* <h2 className="text-base font-bold">Rp. {data?.totalPrice}</h2> */}
-                                        <h2 className="text-base font-bold">Rp. 70.000.00</h2>
-                                    </Col>
-                                </Row>
-                                {/* </>
-                                    )
-                                })} */}
+                                {cartToPay?.map((data) => {
+                                    if (data?.status === "Menunggu Pembayaran")
+                                        return (
+                                            <>
+                                                <Row className='border-b justify-between'>
+                                                    <Col span={8} className="mt-4">
+                                                        <Image src={`https://ordercoffee-app.herokuapp.com/menu/image/${data?.menu?.photo}`}
+                                                            unoptimized={true}
+                                                            width={100}
+                                                            height={100}
+                                                            style={{ borderRadius: 10 }}
+
+                                                        />
+                                                    </Col>
+                                                    <Col span={8}>
+                                                        <h2 className="text-xl font-semibold">{data?.menu?.name}</h2>
+                                                        <h2>{data?.amount} Item</h2>
+                                                        <h2 >{rupiah(data?.menu?.price)}</h2>
+
+                                                        <h2 className="text-xl font-bold">{rupiah(data?.totalPrice)}</h2>
+                                                    </Col>
+                                                    <Col span={8}>
+                                                        <h3>{hargaPromo(data)}</h3>
+                                                        {/* <h3>{rupiah(data?.price)}</h3> */}
+                                                    </Col>
+                                                </Row>
+
+                                            </>
+                                        )
+                                })}
 
 
                             </Card>

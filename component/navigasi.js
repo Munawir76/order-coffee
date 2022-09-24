@@ -33,24 +33,30 @@ export default function Navigasi() {
 
     async function validate() {
         try {
-
             const getToken = localStorage.getItem("tokenCustomer")
-            const decode = jwt_decode(getToken)
+            let decode;
+            const getGuest = localStorage.getItem("idGuest")
+            if (getToken || getGuest) {
+                setLogged(true)
+                decode = jwt_decode(getToken)
+            } else {
+                setLogged(false)
+            }
             console.log(decode.id, 'ini decode cari id');
+            if (getToken) {
+                setFinIdUser(decode?.id)
+            } else {
+                setFinIdUser(getGuest)
+            }
             setFullName(decode?.fullname)
-            setFinIdUser(decode?.id)
+
             await axios.get('https://ordercoffee-app.herokuapp.com/users', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             }).then(res => {
-                console.log(res.data.items, 'ini ress navigasi');
+                // console.log(res.data.items, 'ini ress navigasi');
                 setTransaction(res.data.items)
-                if (getToken) {
-                    setLogged(true)
-                } else {
-                    setLogged(false)
-                }
             })
 
         } catch (error) {
@@ -83,7 +89,7 @@ export default function Navigasi() {
             style={{ hoverBackground: 'white' }}
             items={[
                 {
-                    label: fullName,
+                    label: fullName ? fullName : "Guest",
                     icon: <UserOutlined twoToneColor="rgba(145, 69, 25, 0.8)" />,
                 },
                 {

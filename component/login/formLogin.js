@@ -33,8 +33,9 @@ export default function FormLogin() {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
+                console.log(res, 'ini res login');
                 const decode = jwt_decode(res.data.token)
-                // console.log(decode)
+                // console.log(decode, 'ini decode')
                 // console.log(res.data.statusCode)
                 if (decode.role == "Admin") {
                     localStorage.setItem('tokenAdmin', res.data.token)
